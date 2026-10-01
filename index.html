@@ -1099,10 +1099,18 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 })(window);
 
 /* ============================================================
-   1. 出入场动画
+   1. 出入场动画 + 滚动位置重置
    ============================================================ */
+function resetSlideScroll(slide){
+  if (!slide) return;
+  var sels = ['.about-stage', '.about-panel.on', '.join-stage', '.news-content', '.side-nav-scroll'];
+  sels.forEach(function(sel){
+    slide.querySelectorAll(sel).forEach(function(el){ el.scrollTop = 0; });
+  });
+}
 function playIn(slide){
   if (!slide) return;
+  resetSlideScroll(slide);
   slide.querySelectorAll('[data-anim]').forEach(function(el){
     el.classList.remove('anim-out'); el.classList.remove('anim-in');
     void el.offsetWidth; el.classList.add('anim-in');
@@ -1651,7 +1659,9 @@ if (searchClear){
 bindSeg(document.querySelector('[data-seg="about"]'), function(btn){
   var idx = btn.getAttribute('data-tab');
   document.querySelectorAll('.about-panel').forEach(function(p){
-    p.classList.toggle('on', p.getAttribute('data-panel') === idx);
+    var on = p.getAttribute('data-panel') === idx;
+    p.classList.toggle('on', on);
+    if (on) p.scrollTop = 0;
   });
   syncAboutSideNav(idx);
   if (idx === '2') loadMembers();
@@ -1680,7 +1690,9 @@ document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(functio
     });
     layoutSeg(seg);
     document.querySelectorAll('.about-panel').forEach(function(p){
-      p.classList.toggle('on', p.getAttribute('data-panel') === idx);
+      var on = p.getAttribute('data-panel') === idx;
+      p.classList.toggle('on', on);
+      if (on) p.scrollTop = 0;
     });
     syncAboutSideNav(idx);
     if (idx === '2') loadMembers();
@@ -1688,15 +1700,76 @@ document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(functio
 });
 
 /* ============================================================
-   5b. 学社信息滚动冲突修复（仅桌面端 wheel）
+   5b. 滚动冲突修复
    ------------------------------------------------------------
-   桌面端：.about-panel 内部滚动时，鼠标滚轮不应触发 Swiper 翻页。
-   移动端：不干预任何 touch 事件，交给浏览器和 Swiper 原生处理。
+   移动端：给滚动容器加 touch/pointer 拦截。
+     - 容器可滚且未在边界 → 拦截，让容器自己滚。
+     - 已到边界且继续向外滑 → 放行给 Swiper 翻页。
+   桌面端：给 .about-panel 加 wheel 拦截，逻辑同上。
    ============================================================ */
-(function fixAboutScrollConflict(){
-  var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!isDesktop) return;
-  if (window.matchMedia('(max-width: 680px)').matches) return;
+(function fixScrollConflict(){
+  function bindScrollable(el){
+    if (!el) return;
+
+    var startX = 0, startY = 0;
+    var intent = null;
+
+    function getPoint(e){
+      if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      return { x: e.clientX, y: e.clientY };
+    }
+    function onStart(e){
+      if (e.pointerType && e.pointerType !== 'touch') return;
+      var p = getPoint(e);
+      startX = p.x; startY = p.y;
+      intent = null;
+    }
+    function onMove(e){
+      if (e.pointerType && e.pointerType !== 'touch') return;
+      var p = getPoint(e);
+      var dx = p.x - startX;
+      var dy = p.y - startY;
+
+      if (intent === null && (Math.abs(dx) > 5 || Math.abs(dy) > 5)){
+        if (Math.abs(dy) > Math.abs(dx)){
+          var canScroll = el.scrollHeight > el.clientHeight + 1;
+          if (!canScroll){
+            intent = 'swipe';
+          } else {
+            var atTop = el.scrollTop <= 0;
+            var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+            if (atTop && dy > 0) intent = 'swipe';
+            else if (atBottom && dy < 0) intent = 'swipe';
+            else intent = 'scroll';
+          }
+        } else {
+          intent = 'scroll';
+        }
+      }
+
+      if (intent === 'scroll'){
+        e.stopPropagation();
+      }
+    }
+    function onEnd(){ intent = null; }
+
+    el.addEventListener('touchstart', onStart, { passive: true });
+    el.addEventListener('touchmove', onMove, { passive: true });
+    el.addEventListener('touchend', onEnd, { passive: true });
+    el.addEventListener('touchcancel', onEnd, { passive: true });
+
+    el.addEventListener('pointerdown', onStart, { passive: true });
+    el.addEventListener('pointermove', onMove, { passive: true });
+    el.addEventListener('pointerup', onEnd, { passive: true });
+    el.addEventListener('pointercancel', onEnd, { passive: true });
+  }
+
+  if (window.matchMedia('(max-width: 680px)').matches){
+    ['.about-stage', '.join-stage', '.news-content'].forEach(function(sel){
+      var el = document.querySelector(sel);
+      if (el) bindScrollable(el);
+    });
+  }
 
   document.querySelectorAll('.about-panel').forEach(function(el){
     el.addEventListener('wheel', function(e){
@@ -2003,21 +2076,28 @@ function renderMemberGrid(members){
       '<div class="column-left">' + leftHtml.join('') + '</div>' +
       '<div class="column-right">' + rightHtml.join('') + '</div>';
 
+    /* 左栏背景图 */
     var colLeft = modalInner.querySelector('.column-left');
     if (colLeft){
+      colLeft.scrollTop = 0;
       var bgUrl = (member.background && member.background.trim().startsWith('http'))
         ? member.background.trim()
         : DEFAULT_BG;
       colLeft.style.backgroundImage = 'url(' + bgUrl + ')';
     }
+    /* 右栏背景图（半透明底板在 CSS 里） */
     var colRight = modalInner.querySelector('.column-right');
     if (colRight){
+      colRight.scrollTop = 0;
       var bgUrl2 = (member.background && member.background.trim().startsWith('http'))
         ? member.background.trim()
         : DEFAULT_BG;
       colRight.style.backgroundImage = 'url(' + bgUrl2 + ')';
     }
 
+    /* 卡片点击：
+       有链接 → 新窗口；
+       没链接 → 关闭弹窗，切到学社作品对应编号 */
     modalInner.querySelectorAll('.work-card').forEach(function(card){
       card.addEventListener('click', function(){
         var href = card.getAttribute('data-href');
@@ -2043,6 +2123,7 @@ function renderMemberGrid(members){
       });
     });
 
+    /* 视频封面自动无声播放 */
     modalInner.querySelectorAll('video.work-cover-media').forEach(function(v){
       v.muted = true;
       v.volume = 0;
@@ -2050,6 +2131,7 @@ function renderMemberGrid(members){
       if (p && p.catch) p.catch(function(){});
     });
 
+    /* 卡片横向滑动条：重置到最左，并同步箭头状态 */
     modalInner.querySelectorAll('.work-scroll-wrap').forEach(function(wrap){
       var scrollEl = wrap.querySelector('.work-scroll');
       var prevBtn = wrap.querySelector('.work-scroll-arrow.prev');
