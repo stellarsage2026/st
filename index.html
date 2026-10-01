@@ -645,7 +645,10 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .column-left::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);}
 .column-left::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.6);}
 .column-left > *{position:relative;z-index:1;}
-.column-right{overflow-y:auto;padding:28px 30px;background:var(--bg);scrollbar-width:thin;scrollbar-color:rgba(55,120,229,.25) transparent;}
+/* 右侧栏：无边框铺设背景图 + 半透明底板 */
+.column-right{position:relative;overflow-y:auto;padding:28px 30px;background-color:var(--bg-soft);background-size:cover;background-position:center;background-repeat:no-repeat;scrollbar-width:thin;scrollbar-color:rgba(55,120,229,.25) transparent;}
+.column-right::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.82);pointer-events:none;z-index:0;}
+.column-right > *{position:relative;z-index:1;}
 .column-right::-webkit-scrollbar{display:block;width:5px;}
 .column-right::-webkit-scrollbar-track{background:transparent;}
 .column-right::-webkit-scrollbar-thumb{background:rgba(55,120,229,.22);}
@@ -668,7 +671,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .profile-card .meta span:hover{background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.32);transform:translateY(-1px);}
 .attr-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;background:#fff;color:var(--blue);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,.15);}
 .attr-badge:hover{background:rgba(255,255,255,.9);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
-.card{padding:14px 16px;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.6);margin-bottom:10px;transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);}
+.card{padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.7);margin-bottom:10px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);}
 .card:last-child{margin-bottom:0;}
 .card:hover{background:#fff;border-color:rgba(255,255,255,.95);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.14), 0 2px 8px rgba(55,120,229,.12);}
 .card:active{transform:translateY(0) scale(.99);transition-duration:.1s;}
@@ -683,8 +686,9 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .card.days-card{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);}
 .card.days-card .num{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;transition:transform .35s var(--ease-bounce);}
 .card.days-card:hover .num{transform:scale(1.08);}
-.honor-section,.work-section{padding:16px 18px;background:var(--bg-soft);border:1px solid var(--border);margin-bottom:14px;transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);will-change:transform;}
-.honor-section:hover,.work-section:hover{background:#fff;border-color:var(--blue-line);transform:translateY(-3px);box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);}
+/* 荣誉 / 作品板块：半透明底板 */
+.honor-section,.work-section{padding:16px 18px;background:rgba(244,246,250,.85);border:1px solid rgba(0,0,0,.06);margin-bottom:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);will-change:transform;}
+.honor-section:hover,.work-section:hover{background:rgba(255,255,255,.94);border-color:var(--blue-line);transform:translateY(-3px);box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);}
 .honor-section:active,.work-section:active{transform:translateY(-1px);transition-duration:.1s;}
 .honor-section:last-child,.work-section:last-child{margin-bottom:0;}
 .honor-section .section-title,.work-section .section-title{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.14em;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:12px;font-family:var(--mono);text-transform:uppercase;}
@@ -710,9 +714,10 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .work-card{flex:0 0 152px;max-width:152px;background:#fff;border:1px solid var(--border);padding:8px;cursor:pointer;transition:border-color .35s var(--ease), transform .4s var(--ease-bounce), box-shadow .35s var(--ease);will-change:transform;}
 .work-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 26px rgba(55,120,229,.22);}
 .work-card:active{transform:translateY(-1px) scale(.97);transition-duration:.1s;box-shadow:0 4px 12px rgba(55,120,229,.16);}
-.work-card .work-cover{width:100%;aspect-ratio:16/9;background:var(--bg-soft);margin-bottom:8px;object-fit:cover;display:block;overflow:hidden;transition:transform .4s var(--ease);}
+/* 封面：统一用渐变色作底，图片/视频叠加 */
+.work-card .work-cover{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(55,120,229,.22),rgba(55,120,229,.06));margin-bottom:8px;overflow:hidden;display:block;transition:transform .4s var(--ease);}
 .work-card:hover .work-cover{transform:scale(1.04);}
-.work-card .work-cover.placeholder{background:linear-gradient(135deg,rgba(55,120,229,.16),rgba(55,120,229,.04));}
+.work-card .work-cover-media{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
 .work-card .work-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px;transition:color .3s var(--ease);}
 .work-card:hover .work-title{color:var(--blue);}
 .work-card .work-meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
@@ -883,8 +888,8 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <p>往前追溯，源头是初中时一个松散的小组「<strong>超雄伪人</strong>」——几个人凑在一起做图、剪片、搭网页，没有名字、没有规矩。毕业后各奔东西，只保持着零零散散的联系。</p>
                     <p>升入高一，六位新同学因为学校的新媒体社团聚到一起，想把这种折腾接着做下去，也继承了「超雄伪人」那股想超越全世界的劲儿，把小组正式更名为「<strong>星宸学社</strong>」。</p>
                     <p>我们做的事很朴素：拍视频、做图、写网页、搭工具，偶尔也做点自己觉得好玩的小东西。这里没有 KPI，也没有甲方，只有一群愿意把想法真正做出来的人。</p>
-                    <a class="about-link" href="https://stellarcn2020.github.io/JCGZ/" target="_blank" rel="noopener" data-slide>
-                      <span>建宸高中艺术网站 二创项目</span>
+                    <a class="about-link" href="https://stellarsage2026.github.io/jc/" target="_blank" rel="noopener" data-slide>
+                      <span>建宸全景网 二创项目</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
                   </div>
@@ -894,7 +899,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <div class="tl-item"><div class="tl-year">初中</div><div class="tl-title">前身「超雄伪人」小组</div><div class="tl-desc">几名同学凑在一起做图、剪片、搭网页，没有名字、没有规矩，一个松散的小组。</div></div>
                     <div class="tl-item"><div class="tl-year">毕业后</div><div class="tl-title">各奔东西，只保持联系</div><div class="tl-desc">大家去了不同的地方，联系变得零零散散，但想动手做东西的劲儿一直没断。</div></div>
                     <div class="tl-item"><div class="tl-year">2026.09.09</div><div class="tl-title">星宸学社正式成立</div><div class="tl-desc">六名高一同学因学校新媒体社团聚到一起，继承了「超雄伪人」那股想超越全世界的劲儿，把小组正式更名为星宸学社。</div></div>
-                    <div class="tl-item"><div class="tl-year">2026.09.12</div><div class="tl-title">建宸高中艺术网站上线</div><div class="tl-desc">自发为建宸高级中学搭建的艺术网站，属二创项目，由学社成员与线上伙伴共同开发，过程中借助 AI 辅助，代码托管在 GitHub 上。</div></div>
+                    <div class="tl-item"><div class="tl-year">2026.09.12</div><div class="tl-title">建宸全景网上线</div><div class="tl-desc">自发为建宸高级中学搭建的艺术网站，属二创项目，由学社成员与线上伙伴共同开发，过程中借助 AI 辅助，代码托管在 GitHub 上。</div></div>
                     <div class="tl-item"><div class="tl-year">2026.09.19</div><div class="tl-title">学社官网上线</div><div class="tl-desc">由学社成员与线上伙伴共同设计、共同搭建，过程中借助 AI 辅助，成为学社对外展示与记录作品的地方。</div></div>
                   </div>
                 </div>
@@ -1072,7 +1077,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 /* ============================================================
-   0. 本地数据加载器（不再请求任何 GitHub API）
+   0. 本地数据加载器
    ============================================================ */
 (function(global) {
   'use strict';
@@ -1160,6 +1165,7 @@ const mainSwiper = new Swiper('#mainSwiper', {
   direction: 'vertical', speed: 750,
   mousewheel: { forceToAxis: true, sensitivity: 1 },
   keyboard: { enabled: true }, resistanceRatio: 0.65,
+  touchStartPreventDefault: false,
   on: {
     slideChangeTransitionStart: function (sw) {
       const prev = sw.slides[sw.previousIndex];
@@ -1297,7 +1303,6 @@ function renderDownloadMenu(downloads){
   });
 }
 
-/* 复制到剪贴板（带降级） */
 function copyToClipboard(text) {
   return new Promise(function(resolve, reject) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -1370,6 +1375,7 @@ function renderWork(index){
   if (!d.badge) workEls.badge.style.display = 'none';
   else workEls.badge.style.display = '';
 
+  /* 视频作品 */
   if (d.isVideo && d.cover){
     workEls.pano.style.backgroundImage = d.grad;
     workEls.pano.style.backgroundSize = 'cover';
@@ -1385,16 +1391,17 @@ function renderWork(index){
   } else {
     workEls.video.style.display = 'none';
     try { workEls.video.pause(); } catch(e){}
-    if (d.isPano && d.pano){
+    /* 封面优先：有 cover 就用 cover；没有 cover 但有 isPano + pano 才用 pano；否则用 grad */
+    if (d.cover){
+      workEls.pano.style.backgroundImage = 'url(' + d.cover + ')';
+      workEls.pano.style.backgroundSize = 'cover';
+      workEls.pano.style.backgroundPosition = 'center';
+      workEls.panoBadge.style.display = (d.isPano && d.pano) ? 'inline-flex' : 'none';
+    } else if (d.isPano && d.pano){
       workEls.pano.style.backgroundImage = 'url(' + d.pano + ')';
       workEls.pano.style.backgroundSize = 'cover';
       workEls.pano.style.backgroundPosition = 'center';
       workEls.panoBadge.style.display = 'inline-flex';
-    } else if (d.cover){
-      workEls.pano.style.backgroundImage = 'url(' + d.cover + ')';
-      workEls.pano.style.backgroundSize = 'cover';
-      workEls.pano.style.backgroundPosition = 'center';
-      workEls.panoBadge.style.display = 'none';
     } else {
       workEls.pano.style.backgroundImage = d.grad;
       workEls.pano.style.backgroundSize = 'cover';
@@ -1420,7 +1427,6 @@ function renderWork(index){
   var btnText = workEls.btn.querySelector('span');
   if (btnText) btnText.textContent = d.linkText || '查看作品';
 
-  /* 支持 copyText：点击按钮复制文本 */
   if (d.copyText){
     workEls.btn.removeAttribute('data-toast');
     workEls.btn.onclick = function(){
@@ -1689,53 +1695,42 @@ document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(functio
 
 /* ============================================================
    5b. 学社信息滚动冲突修复
+   ------------------------------------------------------------
+   只处理桌面端 .about-panel（它是内部滚动容器）。
+   移动端交给浏览器默认的 scroll-chaining，不干预。
    ============================================================ */
 (function fixAboutScrollConflict(){
   function bindScrollable(el){
     if (!el) return;
     var startY = 0;
-    var isAtTop = true, isAtBottom = false;
 
     el.addEventListener('touchstart', function(e){
       startY = e.touches[0].clientY;
-      isAtTop = el.scrollTop <= 0;
-      isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
     }, { passive: true });
 
     el.addEventListener('touchmove', function(e){
       var dy = e.touches[0].clientY - startY;
       var atTop = el.scrollTop <= 0;
       var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-      // 当内容可滚动且未到边界，或向边界内滑动时，阻止事件冒泡给 Swiper
-      if (el.scrollHeight > el.clientHeight + 1) {
-        if ((atTop && dy > 0) || (atBottom && dy < 0)) {
-          // 已在边界且继续向边界外滑动 → 允许冒泡（让 Swiper 接管）
-          return;
-        }
-        e.stopPropagation();
-      }
+      var canScroll = el.scrollHeight > el.clientHeight + 1;
+      if (!canScroll) return;
+      if ((atTop && dy > 0) || (atBottom && dy < 0)) return;
+      e.stopPropagation();
     }, { passive: true });
 
     el.addEventListener('wheel', function(e){
       var atTop = el.scrollTop <= 0;
       var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-      if (el.scrollHeight > el.clientHeight + 1) {
-        if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
-          return;
-        }
-        e.stopPropagation();
-      }
+      var canScroll = el.scrollHeight > el.clientHeight + 1;
+      if (!canScroll) return;
+      if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) return;
+      e.stopPropagation();
     }, { passive: true });
   }
 
-  // 桌面端 .about-panel.on 是滚动容器
+  /* 只在桌面端使用（面板自身作为滚动容器） */
   document.querySelectorAll('.about-panel').forEach(bindScrollable);
-  // 移动端 .about-stage 是滚动容器
-  var aboutStage = document.querySelector('.about-stage');
-  if (aboutStage) bindScrollable(aboutStage);
-  // 加入我们移动端 .join-stage
-  var joinStage = document.querySelector('.join-stage');
-  if (joinStage) bindScrollable(joinStage);
+  /* 不再绑定 .about-stage 和 .join-stage，交给浏览器原生行为 */
 })();
 
 /* ============================================================
@@ -1963,21 +1958,34 @@ function renderMemberGrid(members){
     var memberMaps = allMaps.filter(function(m){ return m.author === member.name; });
     var memberNews = allNews.filter(function(n){ return n.author === member.name; });
 
+    /* 作品卡片：无封面时用 grad 打底；视频作品自动播放 */
     function renderWorkCard(item){
-      var coverHtml = (item.cover && item.cover.trim().startsWith('http'))
-        ? '<img class="work-cover" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">'
-        : '<div class="work-cover placeholder"></div>';
-      var link = item.link || ('https://stellarcn2020.github.io/st/map/?id=' + item.id);
+      var coverStyle = item.grad ? ' style="background:' + item.grad + '"' : '';
+      var mediaHtml = '';
+      if (item.isVideo && item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<video class="work-cover-media" src="' + item.cover.trim() + '" muted loop playsinline autoplay preload="metadata"></video>';
+      } else if (item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<img class="work-cover-media" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy">';
+      }
+      var attrs = 'data-id="' + item.id + '"';
+      if (item.link) attrs += ' data-href="' + item.link + '"';
       var meta = (item.cat ? item.cat + '  ' + item.date : item.date);
-      return '<div class="work-card" data-href="' + link + '">' +
-        coverHtml + '<div class="work-title">' + item.title + '</div>' +
+      return '<div class="work-card" ' + attrs + '>' +
+        '<div class="work-cover"' + coverStyle + '>' + mediaHtml + '</div>' +
+        '<div class="work-title">' + item.title + '</div>' +
         '<div class="work-meta">' + meta + '</div></div>';
     }
+    /* 动态卡片：都用渐变打底 + 分类/日期 */
     function renderNewsCard(item){
+      var coverStyle = item.grad ? ' style="background:' + item.grad + '"' : '';
+      var mediaHtml = '';
+      if (item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<img class="work-cover-media" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy">';
+      }
       var link = 'https://stellarsage2026.github.io/st/post.html?id=' + item.id;
       var meta = (item.category ? item.category + '  ' + item.date : item.date);
-      return '<div class="work-card" data-href="' + link + '">' +
-        '<div class="work-cover placeholder"></div>' +
+      return '<div class="work-card" data-id="' + item.id + '" data-href="' + link + '">' +
+        '<div class="work-cover"' + coverStyle + '>' + mediaHtml + '</div>' +
         '<div class="work-title">' + item.title + '</div>' +
         '<div class="work-meta">' + meta + '</div></div>';
     }
@@ -2020,6 +2028,7 @@ function renderMemberGrid(members){
       '<div class="column-left">' + leftHtml.join('') + '</div>' +
       '<div class="column-right">' + rightHtml.join('') + '</div>';
 
+    /* 左栏背景图 */
     var colLeft = modalInner.querySelector('.column-left');
     if (colLeft){
       var bgUrl = (member.background && member.background.trim().startsWith('http'))
@@ -2027,19 +2036,59 @@ function renderMemberGrid(members){
         : DEFAULT_BG;
       colLeft.style.backgroundImage = 'url(' + bgUrl + ')';
     }
+    /* 右栏背景图（无边框铺设），底板由 CSS 半透明承载 */
+    var colRight = modalInner.querySelector('.column-right');
+    if (colRight){
+      var bgUrl2 = (member.background && member.background.trim().startsWith('http'))
+        ? member.background.trim()
+        : DEFAULT_BG;
+      colRight.style.backgroundImage = 'url(' + bgUrl2 + ')';
+    }
 
-    modalInner.querySelectorAll('.work-card[data-href]').forEach(function(card){
+    /* 作品/动态点击：
+       - 有链接 → 打开新窗口
+       - 没链接 → 关闭弹窗，切到「学社作品」对应作品 */
+    modalInner.querySelectorAll('.work-card').forEach(function(card){
       card.addEventListener('click', function(){
         var href = card.getAttribute('data-href');
-        if (href) window.open(href, '_blank');
+        var id = card.getAttribute('data-id');
+        if (href && href.trim()){
+          window.open(href, '_blank');
+          return;
+        }
+        if (id){
+          closeModal();
+          var targetIndex = -1;
+          for (var i = 0; i < worksData.length; i++){
+            if (String(worksData[i].id) === String(id)){
+              targetIndex = i;
+              break;
+            }
+          }
+          if (targetIndex >= 0){
+            mainSwiper.slideTo(1);
+            setTimeout(function(){ switchWork(targetIndex); }, 650);
+          }
+        }
       });
     });
 
+    /* 视频封面自动播放（无声音） */
+    modalInner.querySelectorAll('video.work-cover-media').forEach(function(v){
+      v.muted = true;
+      v.volume = 0;
+      var p = v.play();
+      if (p && p.catch) p.catch(function(){});
+    });
+
+    /* 滑动条恢复默认位置 + 箭头状态 */
     modalInner.querySelectorAll('.work-scroll-wrap').forEach(function(wrap){
       var scrollEl = wrap.querySelector('.work-scroll');
       var prevBtn = wrap.querySelector('.work-scroll-arrow.prev');
       var nextBtn = wrap.querySelector('.work-scroll-arrow.next');
       if (!scrollEl || !prevBtn || !nextBtn) return;
+
+      scrollEl.scrollLeft = 0;
 
       var STEP = 340;
 
@@ -2213,7 +2262,6 @@ const NEWS_GRADS = [
   'linear-gradient(135deg,#d97706,#F59E0B 50%,#FCD34D)'
 ];
 
-/* ---- GitHub Issues 数据源（允许使用，因为文章内容无上限） ---- */
 var GITHUB_OWNER = 'stellarsage2026';
 var GITHUB_REPO = 'st';
 var GITHUB_NEWS_LABEL = 'news';
@@ -2233,10 +2281,8 @@ function fetchNewsFromIssues(){
       var labels = (issue.labels || []).map(function(l){ return l.name; });
       var nonNewsLabels = labels.filter(function(l){ return l !== GITHUB_NEWS_LABEL; });
       var body = issue.body || '';
-      /* 从 body 中提取第一张图片作为封面 */
       var imgMatch = body.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
       var cover = imgMatch ? imgMatch[1] : '';
-      /* 摘要：去掉 markdown 标题和图片语法，截取前 120 字 */
       var plainDesc = body
         .replace(/!\[.*?\]\(.*?\)/g, '')
         .replace(/#{1,6}\s/g, '')
@@ -2323,7 +2369,6 @@ function autoPlayNews(){
 }
 
 function initNews(){
-  /* 优先从 GitHub Issues 拉取动态 */
   fetchNewsFromIssues().then(function(list){
     if (list && list.length){
       newsItems = list;
@@ -2335,7 +2380,6 @@ function initNews(){
       newsAutoplayTimer = setInterval(autoPlayNews, 5000);
       return;
     }
-    /* Issues 返回空数组 → 降级到本地 JSON */
     return loadNewsFromLocal();
   }).catch(function(err){
     console.warn('Issues 动态加载失败，降级到本地 JSON：', err);
@@ -2363,7 +2407,6 @@ function loadNewsFromLocal(){
 }
 
 function renderNewsEmpty(){
-  /* 亲近化的显示文字 */
   newsFeatureTagText.textContent = 'NEWS';
   newsFeatureDate.textContent = '——';
   newsFeatureTitle.textContent = '动态加载中，稍后再来看看吧';
