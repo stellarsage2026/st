@@ -645,7 +645,9 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .column-left::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);}
 .column-left::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.6);}
 .column-left > *{position:relative;z-index:1;}
-.column-right{overflow-y:auto;padding:28px 30px;background:var(--bg-soft);scrollbar-width:thin;scrollbar-color:rgba(55,120,229,.25) transparent;}
+.column-right{position:relative;overflow-y:auto;padding:28px 30px;background-color:var(--bg-soft);background-size:cover;background-position:center;background-repeat:no-repeat;scrollbar-width:thin;scrollbar-color:rgba(55,120,229,.25) transparent;}
+.column-right::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.84);pointer-events:none;z-index:0;}
+.column-right > *{position:relative;z-index:1;}
 .column-right::-webkit-scrollbar{display:block;width:5px;}
 .column-right::-webkit-scrollbar-track{background:transparent;}
 .column-right::-webkit-scrollbar-thumb{background:rgba(55,120,229,.22);}
@@ -668,9 +670,9 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .profile-card .meta span:hover{background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.32);transform:translateY(-1px);}
 .attr-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;background:#fff;color:var(--blue);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,.15);}
 .attr-badge:hover{background:rgba(255,255,255,.9);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
-.card{padding:14px 16px;background:#fff;border:0;box-shadow:0 1px 3px rgba(10,10,10,.04);margin-bottom:10px;transition:background .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);}
+.card{padding:14px 16px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.7);margin-bottom:10px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);}
 .card:last-child{margin-bottom:0;}
-.card:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,10,10,.08), 0 2px 8px rgba(55,120,229,.08);}
+.card:hover{background:#fff;border-color:rgba(255,255,255,.95);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.14), 0 2px 8px rgba(55,120,229,.12);}
 .card:active{transform:translateY(0) scale(.99);transition-duration:.1s;}
 .card.id-card .id-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;transition:color .3s var(--ease);}
 .card.id-card:hover .id-label{color:var(--blue);}
@@ -683,8 +685,8 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .card.days-card{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);}
 .card.days-card .num{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;transition:transform .35s var(--ease-bounce);}
 .card.days-card:hover .num{transform:scale(1.08);}
-.honor-section,.work-section{padding:16px 18px;background:#fff;border:0;box-shadow:0 1px 3px rgba(10,10,10,.04);margin-bottom:14px;transition:transform .35s var(--ease), box-shadow .35s var(--ease);will-change:transform;}
-.honor-section:hover,.work-section:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);}
+.honor-section,.work-section{padding:16px 18px;background:rgba(244,246,250,.85);border:1px solid rgba(0,0,0,.06);margin-bottom:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);will-change:transform;}
+.honor-section:hover,.work-section:hover{background:rgba(255,255,255,.94);border-color:var(--blue-line);transform:translateY(-3px);box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);}
 .honor-section:active,.work-section:active{transform:translateY(-1px);transition-duration:.1s;}
 .honor-section:last-child,.work-section:last-child{margin-bottom:0;}
 .honor-section .section-title,.work-section .section-title{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.14em;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:12px;font-family:var(--mono);text-transform:uppercase;}
@@ -710,11 +712,9 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .work-card{flex:0 0 152px;max-width:152px;background:#fff;border:1px solid var(--border);padding:8px;cursor:pointer;transition:border-color .35s var(--ease), transform .4s var(--ease-bounce), box-shadow .35s var(--ease);will-change:transform;}
 .work-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 26px rgba(55,120,229,.22);}
 .work-card:active{transform:translateY(-1px) scale(.97);transition-duration:.1s;box-shadow:0 4px 12px rgba(55,120,229,.16);}
-.work-card .work-cover{width:100%;aspect-ratio:16/9;background:var(--bg-soft);margin-bottom:8px;object-fit:cover;display:block;overflow:hidden;transition:transform .4s var(--ease);}
-.work-card video.work-cover{object-fit:cover;display:block;}
+.work-card .work-cover{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(55,120,229,.22),rgba(55,120,229,.06));margin-bottom:8px;overflow:hidden;display:block;transition:transform .4s var(--ease);}
 .work-card:hover .work-cover{transform:scale(1.04);}
-.work-card .work-cover.placeholder{background:linear-gradient(135deg,rgba(55,120,229,.18),rgba(55,120,229,.04));position:relative;}
-.work-card .work-cover.placeholder::after{content:"STELLARSAGE";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.22em;color:var(--blue);opacity:.5;}
+.work-card .work-cover-media{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
 .work-card .work-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px;transition:color .3s var(--ease);}
 .work-card:hover .work-title{color:var(--blue);}
 .work-card .work-meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
@@ -730,14 +730,14 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .modal-body{overflow-y:auto;overflow-x:hidden;}
   .modal-columns{display:block;height:auto;overflow:visible;}
   .column-left{padding:28px 20px 22px;overflow:visible;border-bottom:1px solid var(--border);}
-  .column-right{padding:22px 18px 24px;overflow:visible;background:var(--bg-soft);}
+  .column-right{padding:22px 18px 24px;overflow:visible;}
   .profile-card .avatar{width:80px;height:80px;font-size:28px;border-width:2px;}
   .profile-card .name{font-size:19px;}
   .profile-card .groups .group-tag{font-size:10px;padding:3px 9px;}
   .card{padding:12px 14px;margin-bottom:9px;}
   .card.days-card .num{font-size:22px;}
   .honor-section,.work-section{padding:14px 14px;margin-bottom:12px;}
-  .honor-section:hover,.work-section:hover{transform:none;box-shadow:0 1px 3px rgba(10,10,10,.04);}
+  .honor-section:hover,.work-section:hover{transform:none;box-shadow:none;background:var(--bg-soft);}
   .work-card{flex:0 0 128px;max-width:128px;padding:6px;}
   .work-card:hover{transform:none;box-shadow:none;border-color:var(--border);}
   .work-card:active{transform:scale(.97);}
@@ -983,7 +983,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                   </div>
                   <div class="join-area">
                     <div class="join-area-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-                    <div class="join-area-info"><span class="join-area-en">Web</span><h4>网页</h4><span style="display:none;"></span><p>前端、视觉、动效</p></div>
+                    <div class="join-area-info"><span class="join-area-en">Web</span><h4>网页</h4><p>前端、视觉、动效</p></div>
                   </div>
                   <div class="join-area">
                     <div class="join-area-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
@@ -1074,7 +1074,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 /* ============================================================
-   0. 本地数据加载器（不再请求任何 GitHub API）
+   0. 本地数据加载器
    ============================================================ */
 (function(global) {
   'use strict';
@@ -1162,7 +1162,6 @@ const mainSwiper = new Swiper('#mainSwiper', {
   direction: 'vertical', speed: 750,
   mousewheel: { forceToAxis: true, sensitivity: 1 },
   keyboard: { enabled: true }, resistanceRatio: 0.65,
-  touchReleaseOnEdges: true,
   on: {
     slideChangeTransitionStart: function (sw) {
       const prev = sw.slides[sw.previousIndex];
@@ -1300,7 +1299,6 @@ function renderDownloadMenu(downloads){
   });
 }
 
-/* 复制到剪贴板 */
 function copyToClipboard(text) {
   return new Promise(function(resolve, reject) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -1373,7 +1371,6 @@ function renderWork(index){
   if (!d.badge) workEls.badge.style.display = 'none';
   else workEls.badge.style.display = '';
 
-  /* 媒体显示逻辑：视频 > 封面图 > 全景图 > 渐变 */
   if (d.isVideo && d.cover){
     workEls.pano.style.backgroundImage = d.grad;
     workEls.pano.style.backgroundSize = 'cover';
@@ -1390,12 +1387,12 @@ function renderWork(index){
     workEls.video.style.display = 'none';
     try { workEls.video.pause(); } catch(e){}
     if (d.cover){
-      workEls.pano.style.backgroundImage = 'url("' + d.cover + '")';
+      workEls.pano.style.backgroundImage = 'url(' + d.cover + ')';
       workEls.pano.style.backgroundSize = 'cover';
       workEls.pano.style.backgroundPosition = 'center';
-      workEls.panoBadge.style.display = d.isPano ? 'inline-flex' : 'none';
+      workEls.panoBadge.style.display = (d.isPano && d.pano) ? 'inline-flex' : 'none';
     } else if (d.isPano && d.pano){
-      workEls.pano.style.backgroundImage = 'url("' + d.pano + '")';
+      workEls.pano.style.backgroundImage = 'url(' + d.pano + ')';
       workEls.pano.style.backgroundSize = 'cover';
       workEls.pano.style.backgroundPosition = 'center';
       workEls.panoBadge.style.display = 'inline-flex';
@@ -1424,7 +1421,6 @@ function renderWork(index){
   var btnText = workEls.btn.querySelector('span');
   if (btnText) btnText.textContent = d.linkText || '查看作品';
 
-  /* 支持 copyText：点击按钮复制文本 */
   if (d.copyText){
     workEls.btn.removeAttribute('data-toast');
     workEls.btn.onclick = function(){
@@ -1692,42 +1688,26 @@ document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(functio
 });
 
 /* ============================================================
-   5b. 学社信息滚动冲突修复
-   思路：滚轮在内部滚动时暂不冒泡；触摸时落在可滚动区域则临时禁用 Swiper 触摸
-   保证：边界处能切页，内部滚动时不误切页
+   5b. 学社信息滚动冲突修复（仅桌面端 wheel）
+   ------------------------------------------------------------
+   桌面端：.about-panel 内部滚动时，鼠标滚轮不应触发 Swiper 翻页。
+   移动端：不干预任何 touch 事件，交给浏览器和 Swiper 原生处理。
    ============================================================ */
 (function fixAboutScrollConflict(){
-  function bindScrollable(el){
-    if (!el) return;
+  var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isDesktop) return;
+  if (window.matchMedia('(max-width: 680px)').matches) return;
 
-    /* 触摸：进入可滚动区域时禁止 Swiper 触摸，离开时恢复 */
-    el.addEventListener('touchstart', function(){
-      if (el.scrollHeight > el.clientHeight + 1){
-        mainSwiper.allowTouchMove = false;
-      }
-    }, { passive: true });
-    function resume(){ mainSwiper.allowTouchMove = true; }
-    el.addEventListener('touchend', resume, { passive: true });
-    el.addEventListener('touchcancel', resume, { passive: true });
-
-    /* 滚轮：内部还能继续滚时禁止冒泡到 Swiper；到边界则放行，让 Swiper 切页 */
+  document.querySelectorAll('.about-panel').forEach(function(el){
     el.addEventListener('wheel', function(e){
-      if (el.scrollHeight > el.clientHeight + 1){
-        var atTop = el.scrollTop <= 0;
-        var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-        if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)){
-          return; /* 到边界，放行给 Swiper */
-        }
-        e.stopPropagation();
-      }
+      var atTop = el.scrollTop <= 0;
+      var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+      var canScroll = el.scrollHeight > el.clientHeight + 1;
+      if (!canScroll) return;
+      if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) return;
+      e.stopPropagation();
     }, { passive: true });
-  }
-
-  document.querySelectorAll('.about-panel').forEach(bindScrollable);
-  var aboutStage = document.querySelector('.about-stage');
-  if (aboutStage) bindScrollable(aboutStage);
-  var joinStage = document.querySelector('.join-stage');
-  if (joinStage) bindScrollable(joinStage);
+  });
 })();
 
 /* ============================================================
@@ -1956,25 +1936,31 @@ function renderMemberGrid(members){
     var memberNews = allNews.filter(function(n){ return n.author === member.name; });
 
     function renderWorkCard(item){
-      var coverHtml;
-      var hasCover = item.cover && item.cover.trim().startsWith('http');
-      if (item.isVideo && hasCover){
-        coverHtml = '<video class="work-cover" src="' + item.cover.trim() + '" muted loop playsinline preload="metadata" autoplay></video>';
-      } else if (hasCover){
-        coverHtml = '<img class="work-cover" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">';
-      } else {
-        coverHtml = '<div class="work-cover placeholder"></div>';
+      var coverStyle = item.grad ? ' style="background:' + item.grad + '"' : '';
+      var mediaHtml = '';
+      if (item.isVideo && item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<video class="work-cover-media" src="' + item.cover.trim() + '" muted loop playsinline autoplay preload="metadata"></video>';
+      } else if (item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<img class="work-cover-media" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy">';
       }
+      var attrs = 'data-id="' + item.id + '"';
+      if (item.link) attrs += ' data-href="' + item.link + '"';
       var meta = (item.cat ? item.cat + '  ' + item.date : item.date);
-      return '<div class="work-card" data-work-id="' + item.id + '">' +
-        coverHtml + '<div class="work-title">' + item.title + '</div>' +
+      return '<div class="work-card" ' + attrs + '>' +
+        '<div class="work-cover"' + coverStyle + '>' + mediaHtml + '</div>' +
+        '<div class="work-title">' + item.title + '</div>' +
         '<div class="work-meta">' + meta + '</div></div>';
     }
     function renderNewsCard(item){
+      var coverStyle = item.grad ? ' style="background:' + item.grad + '"' : '';
+      var mediaHtml = '';
+      if (item.cover && item.cover.trim().startsWith('http')){
+        mediaHtml = '<img class="work-cover-media" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy">';
+      }
       var link = 'https://stellarsage2026.github.io/st/post.html?id=' + item.id;
       var meta = (item.category ? item.category + '  ' + item.date : item.date);
-      return '<div class="work-card" data-href="' + link + '">' +
-        '<div class="work-cover placeholder"></div>' +
+      return '<div class="work-card" data-id="' + item.id + '" data-href="' + link + '">' +
+        '<div class="work-cover"' + coverStyle + '>' + mediaHtml + '</div>' +
         '<div class="work-title">' + item.title + '</div>' +
         '<div class="work-meta">' + meta + '</div></div>';
     }
@@ -2022,57 +2008,46 @@ function renderMemberGrid(members){
       var bgUrl = (member.background && member.background.trim().startsWith('http'))
         ? member.background.trim()
         : DEFAULT_BG;
-      colLeft.style.backgroundImage = 'url("' + bgUrl + '")';
+      colLeft.style.backgroundImage = 'url(' + bgUrl + ')';
+    }
+    var colRight = modalInner.querySelector('.column-right');
+    if (colRight){
+      var bgUrl2 = (member.background && member.background.trim().startsWith('http'))
+        ? member.background.trim()
+        : DEFAULT_BG;
+      colRight.style.backgroundImage = 'url(' + bgUrl2 + ')';
     }
 
-    /* 打开弹窗时重置所有横向滑动栏到默认（最左）位置 */
-    modalInner.querySelectorAll('.work-scroll').forEach(function(scrollEl){
-      scrollEl.style.scrollBehavior = 'auto';
-      scrollEl.scrollLeft = 0;
-      /* 触发一次箭头状态刷新 */
-      setTimeout(function(){
-        scrollEl.style.scrollBehavior = '';
-        scrollEl.dispatchEvent(new Event('scroll'));
-      }, 30);
-    });
-
-    /* 作品卡片点击逻辑 */
-    modalInner.querySelectorAll('.work-card[data-work-id]').forEach(function(card){
-      card.addEventListener('click', function(){
-        var id = parseInt(card.getAttribute('data-work-id'), 10);
-        var item = (window._allMapsCache || []).find(function(m){ return m.id === id; });
-        if (!item) return;
-
-        /* 有 link → 新窗口打开 */
-        if (item.link){
-          window.open(item.link, '_blank');
-          return;
-        }
-        /* 有 copyText → 复制群号 */
-        if (item.copyText){
-          copyToClipboard(item.copyText).then(function(){
-            showToast('群号已复制：' + item.copyText);
-          }).catch(function(){
-            showToast('复制失败，请手动复制：' + item.copyText);
-          });
-          return;
-        }
-        /* 无 link 无 copyText → 关闭弹窗，跳到学社作品对应编号 */
-        if (window.closeMemberModal) window.closeMemberModal();
-        mainSwiper.slideTo(1);
-        setTimeout(function(){
-          var idx = worksData.findIndex(function(w){ return w.id === id; });
-          if (idx >= 0) switchWork(idx);
-        }, 900);
-      });
-    });
-
-    /* 动态卡片点击 */
-    modalInner.querySelectorAll('.work-card[data-href]').forEach(function(card){
+    modalInner.querySelectorAll('.work-card').forEach(function(card){
       card.addEventListener('click', function(){
         var href = card.getAttribute('data-href');
-        if (href) window.open(href, '_blank');
+        var id = card.getAttribute('data-id');
+        if (href && href.trim()){
+          window.open(href, '_blank');
+          return;
+        }
+        if (id){
+          closeModal();
+          var targetIndex = -1;
+          for (var i = 0; i < worksData.length; i++){
+            if (String(worksData[i].id) === String(id)){
+              targetIndex = i;
+              break;
+            }
+          }
+          if (targetIndex >= 0){
+            mainSwiper.slideTo(1);
+            setTimeout(function(){ switchWork(targetIndex); }, 650);
+          }
+        }
       });
+    });
+
+    modalInner.querySelectorAll('video.work-cover-media').forEach(function(v){
+      v.muted = true;
+      v.volume = 0;
+      var p = v.play();
+      if (p && p.catch) p.catch(function(){});
     });
 
     modalInner.querySelectorAll('.work-scroll-wrap').forEach(function(wrap){
@@ -2080,6 +2055,8 @@ function renderMemberGrid(members){
       var prevBtn = wrap.querySelector('.work-scroll-arrow.prev');
       var nextBtn = wrap.querySelector('.work-scroll-arrow.next');
       if (!scrollEl || !prevBtn || !nextBtn) return;
+
+      scrollEl.scrollLeft = 0;
 
       var STEP = 340;
 
@@ -2146,7 +2123,6 @@ function renderMemberGrid(members){
       document.body.style.overflow = '';
     }, 450);
   }
-  window.closeMemberModal = closeModal;
 
   document.addEventListener('DOMContentLoaded', function(){
     var modalClose = document.getElementById('modalClose');
@@ -2254,7 +2230,6 @@ const NEWS_GRADS = [
   'linear-gradient(135deg,#d97706,#F59E0B 50%,#FCD34D)'
 ];
 
-/* ---- GitHub Issues 数据源 ---- */
 var GITHUB_OWNER = 'stellarsage2026';
 var GITHUB_REPO = 'st';
 var GITHUB_NEWS_LABEL = 'news';
@@ -2309,7 +2284,7 @@ function renderNews(index){
   newsFeatureDesc.textContent = n.desc || '（暂无摘要）';
 
   if (n.cover){
-    newsFeatureImg.style.backgroundImage = 'url("' + n.cover + '")';
+    newsFeatureImg.style.backgroundImage = 'url(' + n.cover + ')';
     newsFeatureImg.style.background = '';
     newsFeatureImg.classList.add('has-photo');
   } else {
