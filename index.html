@@ -242,7 +242,6 @@ body.is-home .nav-burger span{background:#fff;}
 .value-item h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
 .value-item p{font-size:12.5px;color:var(--text-2);line-height:1.6;}
 
-/* 成员档案网格 */
 .member-panel{display:block;}
 .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:4px 0;}
 .member-card-item{position:relative;background:var(--bg);border:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;overflow:hidden;transition:border-color .4s var(--ease),box-shadow .4s var(--ease),transform .4s var(--ease);}
@@ -627,587 +626,130 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 }
 
 /* ============================================================
-   components.css — 成员档案弹窗（背景在左栏 · 圆头像 · 滑动箭头）
+   成员档案弹窗
    ============================================================ */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(10,10,10,.55);
-  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-  justify-content:center;align-items:center;
-  padding:24px;z-index:2000;
-  opacity:0;transition:opacity .35s var(--ease);
-}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,10,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:24px;z-index:2000;opacity:0;transition:opacity .35s var(--ease);}
 .modal-overlay.active{display:flex;opacity:1;}
 .modal-overlay.exiting{opacity:0;pointer-events:none;}
-
-.modal-content{
-  position:relative;
-  width:100%;max-width:1040px;height:86vh;max-height:720px;min-height:520px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  box-shadow:0 32px 80px rgba(10,10,10,.28), 0 8px 24px rgba(10,10,10,.12);
-  display:flex;flex-direction:column;
-  overflow:hidden;
-  transform:scale(.96) translateY(20px);
-  opacity:0;
-  transition:transform .5s var(--ease-silk),opacity .4s var(--ease);
-  will-change:transform,opacity;
-}
+.modal-content{position:relative;width:100%;max-width:1040px;height:86vh;max-height:720px;min-height:520px;background:var(--bg);border:1px solid var(--border);box-shadow:0 32px 80px rgba(10,10,10,.28), 0 8px 24px rgba(10,10,10,.12);display:flex;flex-direction:column;overflow:hidden;transform:scale(.96) translateY(20px);opacity:0;transition:transform .5s var(--ease-silk),opacity .4s var(--ease);will-change:transform,opacity;}
 .modal-overlay.active .modal-content{transform:scale(1) translateY(0);opacity:1;}
 .modal-overlay.exiting .modal-content{transform:scale(.94) translateY(16px);opacity:0;}
-
-.modal-close{
-  position:absolute;top:14px;right:14px;
-  width:38px;height:38px;
-  background:rgba(255,255,255,.95);
-  border:1px solid var(--border);
-  color:var(--text-2);
-  font-size:14px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  z-index:100;
-  box-shadow:0 2px 10px rgba(10,10,10,.08);
-  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .5s var(--ease-bounce),box-shadow .3s var(--ease);
-  -webkit-tap-highlight-color:transparent;
-}
-.modal-close:hover{
-  background:var(--blue);
-  color:#fff;
-  border-color:var(--blue);
-  transform:rotate(90deg);
-  box-shadow:0 6px 20px rgba(55,120,229,.4);
-}
-.modal-close:active{
-  transform:scale(.88) rotate(90deg);
-  box-shadow:0 2px 8px rgba(55,120,229,.3);
-}
-
-.modal-body{
-  flex:1;min-height:0;
-  overflow:hidden;
-}
-
-.modal-columns{
-  display:grid;
-  grid-template-columns:320px 1fr;
-  height:100%;
-  overflow:hidden;
-}
-
-/* 左侧栏：背景图 */
-.column-left{
-  position:relative;
-  overflow-y:auto;
-  padding:32px 24px 28px;
-  background-color:#3778e5;
-  background-image:linear-gradient(135deg,#2f6ad9,#3778e5 45%,#6FA8FF);
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(255,255,255,.45) transparent;
-}
+.modal-close{position:absolute;top:14px;right:14px;width:38px;height:38px;background:rgba(255,255,255,.95);border:1px solid var(--border);color:var(--text-2);font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 2px 10px rgba(10,10,10,.08);transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .5s var(--ease-bounce),box-shadow .3s var(--ease);-webkit-tap-highlight-color:transparent;}
+.modal-close:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:rotate(90deg);box-shadow:0 6px 20px rgba(55,120,229,.4);}
+.modal-close:active{transform:scale(.88) rotate(90deg);box-shadow:0 2px 8px rgba(55,120,229,.3);}
+.modal-body{flex:1;min-height:0;overflow:hidden;}
+.modal-columns{display:grid;grid-template-columns:320px 1fr;height:100%;overflow:hidden;}
+.column-left{position:relative;overflow-y:auto;padding:32px 24px 28px;background-color:#3778e5;background-image:linear-gradient(135deg,#2f6ad9,#3778e5 45%,#6FA8FF);background-size:cover;background-position:center;background-repeat:no-repeat;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;}
 .column-left::-webkit-scrollbar{display:block;width:5px;}
 .column-left::-webkit-scrollbar-track{background:transparent;}
 .column-left::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);}
 .column-left::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.6);}
 .column-left > *{position:relative;z-index:1;}
-
-/* 右侧栏：纯白底 */
-.column-right{
-  overflow-y:auto;
-  padding:28px 30px;
-  background:var(--bg);
-  scrollbar-width:thin;
-  scrollbar-color:rgba(55,120,229,.25) transparent;
-}
+.column-right{overflow-y:auto;padding:28px 30px;background:var(--bg);scrollbar-width:thin;scrollbar-color:rgba(55,120,229,.25) transparent;}
 .column-right::-webkit-scrollbar{display:block;width:5px;}
 .column-right::-webkit-scrollbar-track{background:transparent;}
 .column-right::-webkit-scrollbar-thumb{background:rgba(55,120,229,.22);}
 .column-right::-webkit-scrollbar-thumb:hover{background:rgba(55,120,229,.4);}
-
-/* 淡入动画 */
-.fade-up{
-  opacity:0;
-  transform:translateY(16px);
-  animation:fadeUp .55s var(--ease-silk) forwards;
-  will-change:transform,opacity;
-}
-@keyframes fadeUp{
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* ============ 个人信息块 ============ */
-.profile-card{
-  text-align:center;
-  padding-bottom:22px;
-  border-bottom:1px solid rgba(255,255,255,.28);
-  margin-bottom:20px;
-}
-.profile-card .avatar{
-  width:96px;height:96px;
-  border-radius:50%;
-  background:rgba(255,255,255,.2);
-  border:3px solid #fff;
-  box-shadow:0 0 0 1px rgba(255,255,255,.35), 0 8px 20px rgba(0,0,0,.18);
-  margin:0 auto 14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:34px;font-weight:800;
-  color:#fff;
-  font-family:var(--mono);
-  overflow:hidden;
-  transition:transform .5s var(--ease-bounce), box-shadow .4s var(--ease), border-color .3s var(--ease);
-  cursor:default;
-  will-change:transform;
-}
-.profile-card .avatar:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 0 1px rgba(255,255,255,.5), 0 14px 32px rgba(0,0,0,.28);
-  border-color:rgba(255,255,255,.9);
-}
-.profile-card .avatar:active{
-  transform:scale(.96);
-  transition-duration:.1s;
-}
-.profile-card .avatar img{
-  width:100%;height:100%;object-fit:cover;display:block;
-}
-.profile-card .name{
-  font-size:21px;font-weight:800;
-  color:#fff;
-  letter-spacing:-.015em;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:5px;
-  text-shadow:0 2px 12px rgba(0,0,0,.25);
-}
-.profile-card .role{
-  font-size:13px;color:rgba(255,255,255,.85);
-  margin-bottom:14px;
-  text-shadow:0 1px 8px rgba(0,0,0,.2);
-}
-.profile-card .groups{
-  display:flex;flex-wrap:wrap;gap:5px;
-  justify-content:center;
-  margin-bottom:14px;
-}
-.profile-card .groups .group-tag{
-  font-size:10.5px;font-weight:600;
-  padding:4px 10px;
-  background:rgba(255,255,255,.18);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.4);
-  font-family:var(--mono);
-  letter-spacing:.06em;
-  transition:background .3s var(--ease), color .3s var(--ease), transform .4s var(--ease-bounce), box-shadow .3s var(--ease);
-  cursor:default;
-  will-change:transform;
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-}
-.profile-card .groups .group-tag:hover{
-  background:#fff;
-  color:var(--blue);
-  transform:translateY(-2px);
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-}
-.profile-card .groups .group-tag:active{
-  transform:translateY(0) scale(.94);
-  transition-duration:.1s;
-}
-.profile-card .meta{
-  display:flex;flex-wrap:wrap;gap:6px;
-  justify-content:center;
-  font-family:var(--mono);
-  font-size:11px;
-}
-.profile-card .meta span{
-  padding:4px 10px;
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(255,255,255,.18);
-  color:#fff;
-  letter-spacing:.02em;
-  transition:background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
-  cursor:default;
-  word-break:break-all;
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-}
-.profile-card .meta span:hover{
-  background:rgba(0,0,0,.35);
-  border-color:rgba(255,255,255,.32);
-  transform:translateY(-1px);
-}
-.attr-badge{
-  display:inline-block;
-  font-size:10px;font-weight:700;
-  padding:3px 9px;
-  background:#fff;
-  color:var(--blue);
-  font-family:var(--mono);
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  transition:background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
-}
-.attr-badge:hover{
-  background:rgba(255,255,255,.9);
-  transform:translateY(-1px);
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-}
-
-/* ============ 通用卡片（左栏，半透明白底浮在背景上） ============ */
-.card{
-  padding:14px 16px;
-  background:rgba(255,255,255,.94);
-  border:1px solid rgba(255,255,255,.6);
-  margin-bottom:10px;
-  transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
-}
+.fade-up{opacity:0;transform:translateY(16px);animation:fadeUp .55s var(--ease-silk) forwards;will-change:transform,opacity;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.profile-card{text-align:center;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.28);margin-bottom:20px;}
+.profile-card .avatar{width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid #fff;box-shadow:0 0 0 1px rgba(255,255,255,.35), 0 8px 20px rgba(0,0,0,.18);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#fff;font-family:var(--mono);overflow:hidden;transition:transform .5s var(--ease-bounce), box-shadow .4s var(--ease), border-color .3s var(--ease);cursor:default;will-change:transform;}
+.profile-card .avatar:hover{transform:scale(1.08);box-shadow:0 0 0 1px rgba(255,255,255,.5), 0 14px 32px rgba(0,0,0,.28);border-color:rgba(255,255,255,.9);}
+.profile-card .avatar:active{transform:scale(.96);transition-duration:.1s;}
+.profile-card .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+.profile-card .name{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.015em;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:5px;text-shadow:0 2px 12px rgba(0,0,0,.25);}
+.profile-card .role{font-size:13px;color:rgba(255,255,255,.85);margin-bottom:14px;text-shadow:0 1px 8px rgba(0,0,0,.2);}
+.profile-card .groups{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:14px;}
+.profile-card .groups .group-tag{font-size:10.5px;font-weight:600;padding:4px 10px;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.4);font-family:var(--mono);letter-spacing:.06em;transition:background .3s var(--ease), color .3s var(--ease), transform .4s var(--ease-bounce), box-shadow .3s var(--ease);cursor:default;will-change:transform;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.profile-card .groups .group-tag:hover{background:#fff;color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.25);}
+.profile-card .groups .group-tag:active{transform:translateY(0) scale(.94);transition-duration:.1s;}
+.profile-card .meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-family:var(--mono);font-size:11px;}
+.profile-card .meta span{padding:4px 10px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18);color:#fff;letter-spacing:.02em;transition:background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);cursor:default;word-break:break-all;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.profile-card .meta span:hover{background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.32);transform:translateY(-1px);}
+.attr-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;background:#fff;color:var(--blue);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,.15);}
+.attr-badge:hover{background:rgba(255,255,255,.9);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.card{padding:14px 16px;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.6);margin-bottom:10px;transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);}
 .card:last-child{margin-bottom:0;}
-.card:hover{
-  background:#fff;
-  border-color:rgba(255,255,255,.95);
-  transform:translateY(-2px);
-  box-shadow:0 8px 22px rgba(0,0,0,.14), 0 2px 8px rgba(55,120,229,.12);
-}
-.card:active{
-  transform:translateY(0) scale(.99);
-  transition-duration:.1s;
-}
-
-.card.id-card .id-label{
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-bottom:12px;
-  transition:color .3s var(--ease);
-}
+.card:hover{background:#fff;border-color:rgba(255,255,255,.95);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.14), 0 2px 8px rgba(55,120,229,.12);}
+.card:active{transform:translateY(0) scale(.99);transition-duration:.1s;}
+.card.id-card .id-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;transition:color .3s var(--ease);}
 .card.id-card:hover .id-label{color:var(--blue);}
-.card.id-card .id-parts{
-  display:flex;flex-wrap:wrap;gap:8px 14px;
-  font-size:12.5px;color:var(--text-2);
-}
-.card.id-card .id-parts span{
-  display:flex;gap:6px;align-items:baseline;
-}
-.card.id-card .id-key{
-  font-family:var(--mono);
-  font-size:9.5px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-.card.id-card .id-raw{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:10px;
-  padding-top:10px;
-  border-top:1px dashed var(--border);
-  font-family:var(--mono);
-  letter-spacing:.06em;
-  word-break:break-all;
-}
-.card.bio-card{
-  font-size:13px;color:var(--text-2);
-  line-height:1.85;
-}
+.card.id-card .id-parts{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--text-2);}
+.card.id-card .id-parts span{display:flex;gap:6px;align-items:baseline;}
+.card.id-card .id-key{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.card.id-card .id-raw{font-size:11px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-family:var(--mono);letter-spacing:.06em;word-break:break-all;}
+.card.bio-card{font-size:13px;color:var(--text-2);line-height:1.85;}
 .card.bio-card .muted{color:var(--muted);font-style:italic;}
-.card.days-card{
-  display:flex;align-items:baseline;gap:8px;
-  font-size:13px;color:var(--text-2);
-}
-.card.days-card .num{
-  font-family:var(--mono);
-  font-size:26px;font-weight:800;
-  color:var(--blue);
-  letter-spacing:-.03em;
-  line-height:1;
-  transition:transform .35s var(--ease-bounce);
-}
-.card.days-card:hover .num{
-  transform:scale(1.08);
-}
-
-/* ============ 右栏区块 ============ */
-.honor-section,
-.work-section{
-  padding:16px 18px;
-  background:var(--bg-soft);
-  border:1px solid var(--border);
-  margin-bottom:14px;
-  transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
-  will-change:transform;
-}
-.honor-section:hover,
-.work-section:hover{
-  background:#fff;
-  border-color:var(--blue-line);
-  transform:translateY(-3px);
-  box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);
-}
-.honor-section:active,
-.work-section:active{
-  transform:translateY(-1px);
-  transition-duration:.1s;
-}
-.honor-section:last-child,
-.work-section:last-child{margin-bottom:0;}
-
-.honor-section .section-title,
-.work-section .section-title{
-  display:flex;align-items:center;gap:9px;
-  font-size:11.5px;font-weight:700;
-  color:var(--text);
-  letter-spacing:.14em;
-  padding-bottom:10px;
-  border-bottom:1px solid var(--border);
-  margin-bottom:12px;
-  font-family:var(--mono);
-  text-transform:uppercase;
-}
-.honor-section .section-title::before,
-.work-section .section-title::before{
-  content:"";width:3px;height:12px;
-  background:var(--blue);
-  flex:none;
-  transition:height .3s var(--ease), background .3s var(--ease);
-}
-.honor-section:hover .section-title::before,
-.work-section:hover .section-title::before{
-  height:16px;
-  background:var(--blue-light);
-}
-.honor-section .section-title .count,
-.work-section .section-title .count{
-  margin-left:auto;
-  font-size:10px;font-weight:400;
-  color:var(--muted);
-  letter-spacing:.1em;
-}
-
-/* 荣誉标签 */
-.honor-list{
-  display:flex;flex-wrap:wrap;gap:6px;
-}
-.honor-tag{
-  display:inline-block;
-  padding:5px 12px;
-  font-size:11.5px;font-weight:600;
-  color:#fff;
-  font-family:var(--mono);
-  letter-spacing:.02em;
-  cursor:default;
-  transition:transform .35s var(--ease-bounce), box-shadow .3s var(--ease), filter .3s var(--ease);
-  will-change:transform;
-}
-.honor-tag:hover{
-  transform:translateY(-2px) scale(1.05);
-  box-shadow:0 8px 18px rgba(0,0,0,.2);
-  filter:brightness(1.08);
-}
-.honor-tag:active{
-  transform:translateY(0) scale(.94);
-  transition-duration:.1s;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-}
-.honor-empty{
-  font-size:12px;color:var(--muted);
-  padding:6px 0;font-style:italic;
-}
-
-/* ============ 作品 / 动态滑动（带左右箭头） ============ */
-.work-scroll-wrap{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.work-scroll{
-  flex:1;
-  min-width:0;
-  overflow-x:auto;
-  overflow-y:hidden;
-  padding-bottom:6px;
-  scrollbar-width:thin;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
-}
+.card.days-card{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);}
+.card.days-card .num{font-family:var(--mono);font-size:26px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;transition:transform .35s var(--ease-bounce);}
+.card.days-card:hover .num{transform:scale(1.08);}
+.honor-section,.work-section{padding:16px 18px;background:var(--bg-soft);border:1px solid var(--border);margin-bottom:14px;transition:background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);will-change:transform;}
+.honor-section:hover,.work-section:hover{background:#fff;border-color:var(--blue-line);transform:translateY(-3px);box-shadow:0 10px 26px rgba(55,120,229,.14), 0 4px 12px rgba(10,10,10,.06);}
+.honor-section:active,.work-section:active{transform:translateY(-1px);transition-duration:.1s;}
+.honor-section:last-child,.work-section:last-child{margin-bottom:0;}
+.honor-section .section-title,.work-section .section-title{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;color:var(--text);letter-spacing:.14em;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:12px;font-family:var(--mono);text-transform:uppercase;}
+.honor-section .section-title::before,.work-section .section-title::before{content:"";width:3px;height:12px;background:var(--blue);flex:none;transition:height .3s var(--ease), background .3s var(--ease);}
+.honor-section:hover .section-title::before,.work-section:hover .section-title::before{height:16px;background:var(--blue-light);}
+.honor-section .section-title .count,.work-section .section-title .count{margin-left:auto;font-size:10px;font-weight:400;color:var(--muted);letter-spacing:.1em;}
+.honor-list{display:flex;flex-wrap:wrap;gap:6px;}
+.honor-tag{display:inline-block;padding:5px 12px;font-size:11.5px;font-weight:600;color:#fff;font-family:var(--mono);letter-spacing:.02em;cursor:default;transition:transform .35s var(--ease-bounce), box-shadow .3s var(--ease), filter .3s var(--ease);will-change:transform;}
+.honor-tag:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.2);filter:brightness(1.08);}
+.honor-tag:active{transform:translateY(0) scale(.94);transition-duration:.1s;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.honor-empty{font-size:12px;color:var(--muted);padding:6px 0;font-style:italic;}
+.work-scroll-wrap{position:relative;display:flex;align-items:center;gap:6px;}
+.work-scroll{flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;padding-bottom:6px;scrollbar-width:thin;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;}
 .work-scroll::-webkit-scrollbar{height:3px;display:block;}
 .work-scroll::-webkit-scrollbar-track{background:transparent;}
 .work-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);}
-.work-grid{
-  display:flex;flex-wrap:nowrap;gap:10px;
-  padding:0 2px;width:max-content;
-}
-
-.work-scroll-arrow{
-  flex:none;
-  width:26px;height:26px;
-  background:#fff;
-  border:1px solid var(--border);
-  color:var(--text-2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .35s var(--ease-bounce), box-shadow .3s var(--ease), opacity .3s var(--ease);
-  -webkit-tap-highlight-color:transparent;
-  will-change:transform;
-}
-.work-scroll-arrow svg{
-  width:11px;height:11px;display:block;
-}
-.work-scroll-arrow:hover:not(:disabled){
-  background:var(--blue);
-  color:#fff;
-  border-color:var(--blue);
-  transform:scale(1.12);
-  box-shadow:0 4px 12px rgba(55,120,229,.32);
-}
-.work-scroll-arrow:active:not(:disabled){
-  transform:scale(.9);
-  transition-duration:.08s;
-}
-.work-scroll-arrow:disabled{
-  opacity:.25;
-  cursor:not-allowed;
-}
-
-.work-card{
-  flex:0 0 152px;max-width:152px;
-  background:#fff;
-  border:1px solid var(--border);
-  padding:8px;
-  cursor:pointer;
-  transition:border-color .35s var(--ease), transform .4s var(--ease-bounce), box-shadow .35s var(--ease);
-  will-change:transform;
-}
-.work-card:hover{
-  border-color:var(--blue);
-  transform:translateY(-4px);
-  box-shadow:0 12px 26px rgba(55,120,229,.22);
-}
-.work-card:active{
-  transform:translateY(-1px) scale(.97);
-  transition-duration:.1s;
-  box-shadow:0 4px 12px rgba(55,120,229,.16);
-}
-.work-card .work-cover{
-  width:100%;
-  aspect-ratio:16/9;
-  background:var(--bg-soft);
-  margin-bottom:8px;
-  object-fit:cover;
-  display:block;
-  overflow:hidden;
-  transition:transform .4s var(--ease);
-}
-.work-card:hover .work-cover{
-  transform:scale(1.04);
-}
-.work-card .work-cover.placeholder{
-  background:linear-gradient(135deg,rgba(55,120,229,.16),rgba(55,120,229,.04));
-}
-.work-card .work-title{
-  font-size:12px;font-weight:700;
-  color:var(--text);
-  line-height:1.4;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-  overflow:hidden;
-  margin-bottom:6px;
-  transition:color .3s var(--ease);
-}
+.work-grid{display:flex;flex-wrap:nowrap;gap:10px;padding:0 2px;width:max-content;}
+.work-scroll-arrow{flex:none;width:26px;height:26px;background:#fff;border:1px solid var(--border);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .35s var(--ease-bounce), box-shadow .3s var(--ease), opacity .3s var(--ease);-webkit-tap-highlight-color:transparent;will-change:transform;}
+.work-scroll-arrow svg{width:11px;height:11px;display:block;}
+.work-scroll-arrow:hover:not(:disabled){background:var(--blue);color:#fff;border-color:var(--blue);transform:scale(1.12);box-shadow:0 4px 12px rgba(55,120,229,.32);}
+.work-scroll-arrow:active:not(:disabled){transform:scale(.9);transition-duration:.08s;}
+.work-scroll-arrow:disabled{opacity:.25;cursor:not-allowed;}
+.work-card{flex:0 0 152px;max-width:152px;background:#fff;border:1px solid var(--border);padding:8px;cursor:pointer;transition:border-color .35s var(--ease), transform .4s var(--ease-bounce), box-shadow .35s var(--ease);will-change:transform;}
+.work-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 26px rgba(55,120,229,.22);}
+.work-card:active{transform:translateY(-1px) scale(.97);transition-duration:.1s;box-shadow:0 4px 12px rgba(55,120,229,.16);}
+.work-card .work-cover{width:100%;aspect-ratio:16/9;background:var(--bg-soft);margin-bottom:8px;object-fit:cover;display:block;overflow:hidden;transition:transform .4s var(--ease);}
+.work-card:hover .work-cover{transform:scale(1.04);}
+.work-card .work-cover.placeholder{background:linear-gradient(135deg,rgba(55,120,229,.16),rgba(55,120,229,.04));}
+.work-card .work-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px;transition:color .3s var(--ease);}
 .work-card:hover .work-title{color:var(--blue);}
-.work-card .work-meta{
-  font-family:var(--mono);
-  font-size:9.5px;
-  letter-spacing:.06em;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-.work-empty{
-  font-size:12px;color:var(--muted);
-  padding:16px;
-  text-align:center;
-  border:1px dashed var(--border);
-  font-style:italic;
-  background:var(--bg-soft);
-}
-
-/* ============ 弹窗移动端 ============ */
+.work-card .work-meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+.work-empty{font-size:12px;color:var(--muted);padding:16px;text-align:center;border:1px dashed var(--border);font-style:italic;background:var(--bg-soft);}
 @media (max-width:680px){
   .modal-overlay{padding:0;align-items:stretch;}
-  .modal-content{
-    max-width:none;
-    max-height:none;
-    height:100dvh;
-    min-height:0;
-    border:0;
-    transform:none;
-    box-shadow:none;
-  }
+  .modal-content{max-width:none;max-height:none;height:100dvh;min-height:0;border:0;transform:none;box-shadow:none;}
   .modal-overlay.active .modal-content{transform:none;}
   .modal-overlay.exiting .modal-content{transform:none;opacity:0;}
-  .modal-close{
-    top:12px;right:12px;
-    width:36px;height:36px;
-    box-shadow:0 2px 10px rgba(10,10,10,.2);
-    background:rgba(255,255,255,.95);
-  }
+  .modal-close{top:12px;right:12px;width:36px;height:36px;box-shadow:0 2px 10px rgba(10,10,10,.2);background:rgba(255,255,255,.95);}
   .modal-close:hover{transform:none;background:var(--blue);color:#fff;border-color:var(--blue);}
   .modal-close:active{transform:scale(.9);}
   .modal-body{overflow-y:auto;overflow-x:hidden;}
-  .modal-columns{
-    display:block;
-    height:auto;
-    overflow:visible;
-  }
-  .column-left{
-    padding:28px 20px 22px;
-    overflow:visible;
-    border-bottom:1px solid var(--border);
-  }
-  .column-right{
-    padding:22px 18px 24px;
-    overflow:visible;
-  }
+  .modal-columns{display:block;height:auto;overflow:visible;}
+  .column-left{padding:28px 20px 22px;overflow:visible;border-bottom:1px solid var(--border);}
+  .column-right{padding:22px 18px 24px;overflow:visible;}
   .profile-card .avatar{width:80px;height:80px;font-size:28px;border-width:2px;}
   .profile-card .name{font-size:19px;}
   .profile-card .groups .group-tag{font-size:10px;padding:3px 9px;}
   .card{padding:12px 14px;margin-bottom:9px;}
   .card.days-card .num{font-size:22px;}
-  .honor-section,
-  .work-section{padding:14px 14px;margin-bottom:12px;}
-  .honor-section:hover,
-  .work-section:hover{transform:none;box-shadow:none;background:var(--bg-soft);}
+  .honor-section,.work-section{padding:14px 14px;margin-bottom:12px;}
+  .honor-section:hover,.work-section:hover{transform:none;box-shadow:none;background:var(--bg-soft);}
   .work-card{flex:0 0 128px;max-width:128px;padding:6px;}
   .work-card:hover{transform:none;box-shadow:none;border-color:var(--border);}
   .work-card:active{transform:scale(.97);}
   .honor-tag:hover{transform:translateY(-1px) scale(1.02);}
-  .work-scroll-arrow{
-    width:24px;height:24px;
-  }
-  .work-scroll-arrow:hover:not(:disabled){
-    transform:none;
-    background:#fff;
-    color:var(--text-2);
-    border-color:var(--border);
-    box-shadow:none;
-  }
-  .work-scroll-arrow:active:not(:disabled){
-    transform:scale(.9);
-    background:var(--blue);
-    color:#fff;
-    border-color:var(--blue);
-  }
+  .work-scroll-arrow{width:24px;height:24px;}
+  .work-scroll-arrow:hover:not(:disabled){transform:none;background:#fff;color:var(--text-2);border-color:var(--border);box-shadow:none;}
+  .work-scroll-arrow:active:not(:disabled){transform:scale(.9);background:var(--blue);color:#fff;border-color:var(--blue);}
 }
 </style>
 </head>
 <body class="is-home">
 
 <header class="nav">
-  <a class="nav-logo" href="#">
+  <a class="nav-logo" href="./">
     <span class="nav-logo-line"></span>
     <img src="https://user-assets.sxlcdn.com/images/1138507/Fl8euAZgWWS1PH92jqEcts2zgcns.png?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/png" alt="星宸学社">
   </a>
@@ -1290,7 +832,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
               <div class="works-info-body">
                 <h3 id="workTitle">正在加载作品…</h3>
                 <div class="works-author" id="workAuthor"></div>
-                <p id="workDesc">从 GitHub Issues 加载数据中。</p>
+                <p id="workDesc">从本地数据加载中。</p>
                 <div class="works-meta" id="workMeta"></div>
               </div>
               <div class="works-dl-wrap" id="workDlWrap">
@@ -1341,7 +883,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <p>往前追溯，源头是初中时一个松散的小组「<strong>超雄伪人</strong>」——几个人凑在一起做图、剪片、搭网页，没有名字、没有规矩。毕业后各奔东西，只保持着零零散散的联系。</p>
                     <p>升入高一，六位新同学因为学校的新媒体社团聚到一起，想把这种折腾接着做下去，也继承了「超雄伪人」那股想超越全世界的劲儿，把小组正式更名为「<strong>星宸学社</strong>」。</p>
                     <p>我们做的事很朴素：拍视频、做图、写网页、搭工具，偶尔也做点自己觉得好玩的小东西。这里没有 KPI，也没有甲方，只有一群愿意把想法真正做出来的人。</p>
-                    <a class="about-link" href="https://stellarsage2023.github.io/JCGZ/" target="_blank" rel="noopener" data-slide>
+                    <a class="about-link" href="https://stellarcn2020.github.io/JCGZ/" target="_blank" rel="noopener" data-slide>
                       <span>建宸高中艺术网站 二创项目</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -1418,11 +960,11 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <p>同校的同学可以线下一起拍片、做图、搭网页；线上加入的伙伴可以远程参与项目、分享作品、互相给反馈。我们不着急招很多人，也不打算做得很商业，只想找几个愿意一起把东西做出来的人。</p>
                   </div>
                   <div class="join-cta-actions">
-                    <a class="btn-slide-x" href="https://stellarsage2023.github.io/st/join1">
+                    <a class="btn-slide-x" href="https://stellarcn2020.github.io/st/join1">
                       <span>同校加入</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
-                    <a class="btn-slide-x" href="https://stellarsage2023.github.io/st/join2">
+                    <a class="btn-slide-x" href="https://stellarcn2020.github.io/st/join2">
                       <span>线上加入</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
@@ -1459,7 +1001,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
         <div class="news-main">
           <header class="news-header" data-anim="up">
             <div><div class="news-eyebrow">04 / NEWSROOM</div><h2>学社动态</h2></div>
-            <a href="https://stellarsage2023.github.io/st/news/" class="news-more" target="_blank">全部动态<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <a href="https://stellarcn2020.github.io/st/news/" class="news-more" target="_blank">全部动态<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
           </header>
           <div class="news-content">
             <article class="news-feature" data-anim="left" data-anim-delay="1" id="newsFeature">
@@ -1470,7 +1012,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
               <div class="news-feature-body">
                 <div class="date" id="newsFeatureDate">--</div>
                 <h3 id="newsFeatureTitle">正在加载动态…</h3>
-                <p id="newsFeatureDesc">从 GitHub Issues 加载中。</p>
+                <p id="newsFeatureDesc">从本地数据加载中。</p>
                 <a class="news-readmore" href="#" id="newsFeatureLink">阅读全文<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
               </div>
             </article>
@@ -1530,191 +1072,33 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 /* ============================================================
-   issues.js — GitHub Issues 数据加载器（内联）
+   0. 本地数据加载器（不再请求任何 GitHub API）
    ============================================================ */
 (function(global) {
   'use strict';
 
-  var GITHUB_REPO = 'stellarsage2023/st';
-  var API_BASE = 'https://api.github.com/repos/' + GITHUB_REPO + '/issues';
-  var CACHE_TTL = 5 * 60 * 1000;
-
-  function fetchIssues(label) {
-    var cacheKey = 'ss_issues_' + label;
-    try {
-      var cached = sessionStorage.getItem(cacheKey);
-      if (cached) {
-        var d = JSON.parse(cached);
-        if (Date.now() - d.ts < CACHE_TTL) return Promise.resolve(d.items);
-      }
-    } catch(e) {}
-
-    var url = API_BASE + '?labels=' + encodeURIComponent(label) + '&state=all&per_page=100';
-    return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+  function loadLocalData(fileName) {
+    var url = './data/' + fileName;
+    return fetch(url, { cache: 'no-store' })
       .then(function(res) {
-        if (!res.ok) throw new Error('GitHub API ' + res.status);
+        if (!res.ok) throw new Error('加载本地数据失败: ' + fileName);
         return res.json();
       })
-      .then(function(items) {
-        items = items.filter(function(i) { return !i.pull_request; });
-        try { sessionStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), items: items })); } catch(e) {}
-        return items;
+      .catch(function(err) {
+        console.warn('数据加载失败:', err);
+        return [];
       });
   }
 
-  function parseBody(body) {
-    var fields = {};
-    var bodyLines = [];
-    if (!body) return { fields: fields, body: '' };
-    var lines = body.split(/\r?\n/);
-    var inFields = true;
-    var currentKey = null;
-
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i];
-      if (!inFields) { bodyLines.push(line); continue; }
-      if (!line.trim()) continue;
-
-      var dlMatch = line.match(/^\s*[-*]\s*(.+?)\s*[|｜]\s*(.+?)(?:\s*[|｜]\s*(.+))?$/);
-      if (dlMatch && currentKey === '下载') {
-        if (!fields._downloads) fields._downloads = [];
-        fields._downloads.push({
-          name: dlMatch[1].trim(),
-          url: dlMatch[2].trim(),
-          save: (dlMatch[3] || dlMatch[1]).trim()
-        });
-        continue;
-      }
-
-      var m = line.match(/^\s*([^：:]+?)\s*[：:]\s*(.*)$/);
-      if (m) {
-        currentKey = m[1].trim();
-        fields[currentKey] = m[2].trim();
-        continue;
-      }
-
-      inFields = false;
-      bodyLines.push(line);
-    }
-
-    return { fields: fields, body: bodyLines.join('\n').trim() };
-  }
-
-  function extractFirstImage(text) {
-    if (!text) return '';
-    var md = text.match(/!\[[^\]]*\]\(([^)]+)\)/);
-    if (md) return md[1].trim();
-    var html = text.match(/<img[^>]+src\s*=\s*["']([^"']+)["']/i);
-    if (html) return html[1].trim();
-    return '';
-  }
-
-  function extractSummary(text, maxLen) {
-    if (!text) return '';
-    var s = text
-      .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/^#+\s*/gm, '')
-      .replace(/[*_`>~-]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (maxLen && s.length > maxLen) s = s.slice(0, maxLen) + '…';
-    return s;
-  }
-
-  function parseMemberTitle(title) {
-    if (!title) return { name: '未知', role: '' };
-    var idx = title.indexOf('-');
-    if (idx === -1) idx = title.indexOf('－');
-    if (idx === -1) return { name: title.trim(), role: '' };
-    return {
-      name: title.substring(0, idx).trim(),
-      role: title.substring(idx + 1).trim()
-    };
-  }
-
-  function parseMember(issue) {
-    var r = parseBody(issue.body);
-    var f = r.fields;
-    var t = parseMemberTitle(issue.title);
-    return {
-      issueNumber: issue.number,
-      name: f['姓名'] || f['昵称'] || t.name,
-      role: f['职位'] || t.role,
-      type: f['类型'] || '',
-      id: f['编号'] || '',
-      avatar: f['头像'] || '',
-      contact: f['QQ/微信'] || f['联系方式'] || f['QQ'] || f['微信'] || '',
-      bio: f['个性签名'] || f['简介'] || '',
-      honors: f['个人荣誉'] || '',
-      societyHonors: f['学社荣誉'] || f['学校荣誉'] || '',
-      background: f['背景'] || '',
-      createdAt: issue.created_at
-    };
-  }
-
-  function parseNews(issue) {
-    var r = parseBody(issue.body);
-    var f = r.fields;
-    var cover = f['封面'] || extractFirstImage(r.body) || '';
-    var summary = f['摘要'] || f['描述'] || f['简介'] || extractSummary(r.body, 120);
-    return {
-      id: issue.number,
-      title: issue.title || '',
-      desc: summary,
-      body: r.body,
-      author: f['作者'] || f['成员'] || '',
-      category: f['分类'] || f['类型'] || '',
-      tag: f['标记'] || f['标签'] || 'NEW',
-      date: (issue.created_at || '').slice(0, 10),
-      cover: cover,
-      labels: (issue.labels || []).map(function(l) { return l.name; })
-    };
-  }
-
-  function parseMap(issue) {
-    var r = parseBody(issue.body);
-    var f = r.fields;
-    return {
-      id: issue.number,
-      title: issue.title || '',
-      desc: f['描述'] || f['简介'] || '',
-      author: f['作者'] || f['成员'] || '',
-      cat: f['分类'] || 'WEB',
-      year: f['年份'] || (issue.created_at || '').slice(0, 4),
-      tags: (f['标签'] || '').split(/[,，]\s*/).filter(Boolean),
-      cover: f['封面'] || '',
-      pano: f['全景'] || '',
-      link: f['链接'] || '',
-      group: f['群聊'] || '',
-      badge: f['标记'] || '',
-      badgeStyle: f['标记样式'] || 'blue',
-      grad: f['渐变'] || 'linear-gradient(135deg,#2f6ad9,#3778e5 45%,#6FA8FF)',
-      isPano: !!f['全景'],
-      isVideo: /\.(mp4|webm|mov)(\?|$)/i.test(f['封面'] || ''),
-      linkText: f['按钮文字'] || '查看作品',
-      downloads: f._downloads || [],
-      date: (issue.created_at || '').slice(0, 10),
-      labels: (issue.labels || []).map(function(l) { return l.name; })
-    };
-  }
-
   global.SS = global.SS || {};
-  global.SS.loadMembers = function() {
-    return fetchIssues('DA').then(function(items) { return items.map(parseMember); });
-  };
-  global.SS.loadNews = function() {
-    return fetchIssues('news').then(function(items) { return items.map(parseNews); });
-  };
-  global.SS.loadMaps = function() {
-    return fetchIssues('map').then(function(items) { return items.map(parseMap); });
-  };
+  global.SS.loadMembers = function() { return loadLocalData('members.json'); };
+  global.SS.loadNews = function() { return loadLocalData('news.json'); };
+  global.SS.loadMaps = function() { return loadLocalData('maps.json'); };
 })(window);
 
 /* ============================================================
-   主站逻辑
+   1. 出入场动画
    ============================================================ */
-
 function playIn(slide){
   if (!slide) return;
   slide.querySelectorAll('[data-anim]').forEach(function(el){
@@ -1729,6 +1113,9 @@ function playOut(slide){
   });
 }
 
+/* ============================================================
+   2. 分段控件
+   ============================================================ */
 function layoutSeg(seg, instant){
   if (!seg) return;
   var slider = seg.querySelector('.seg-slider');
@@ -1766,6 +1153,9 @@ function bindSeg(seg, onChange){
   });
 }
 
+/* ============================================================
+   3. 主 Swiper
+   ============================================================ */
 const mainSwiper = new Swiper('#mainSwiper', {
   direction: 'vertical', speed: 750,
   mousewheel: { forceToAxis: true, sensitivity: 1 },
@@ -1791,6 +1181,9 @@ const mainSwiper = new Swiper('#mainSwiper', {
   }
 });
 
+/* ============================================================
+   4. 初始化
+   ============================================================ */
 function syncAboutSideNav(idx){
   document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(function(item){
     item.classList.toggle('on', item.getAttribute('data-about') === idx);
@@ -1856,7 +1249,9 @@ else bootstrap();
 window.addEventListener('resize', function(){ layoutAllSegs(true); });
 window.addEventListener('orientationchange', function(){ setTimeout(function(){ layoutAllSegs(true); }, 200); });
 
-/* 6. 作品 */
+/* ============================================================
+   5. 作品
+   ============================================================ */
 let worksData = [];
 let currentWorkIndex = 0;
 let currentDownloads = [];
@@ -2124,7 +1519,7 @@ function initWorks(){
       startWorkAutoplay();
     } else {
       workEls.title.textContent = '暂无作品';
-      workEls.desc.textContent = '在 GitHub Issues 中打上 map 标签即可收录。';
+      workEls.desc.textContent = '请检查 data/maps.json 是否已正确部署。';
       workEls.cat.textContent = '—';
       workEls.year.textContent = '—';
       workEls.meta.innerHTML = '';
@@ -2133,10 +1528,6 @@ function initWorks(){
       workEls.btn.style.display = 'none';
       if (workEls.author) workEls.author.style.display = 'none';
     }
-  }).catch(function(err){
-    console.warn('作品加载失败', err);
-    workEls.title.textContent = '作品加载失败';
-    workEls.desc.textContent = '请稍后重试，或检查 GitHub API 是否可达。';
   });
 }
 
@@ -2210,7 +1601,7 @@ if (searchClear){
   });
 }
 
-/* 7. 分段控件绑定 */
+/* 分段控件绑定 */
 bindSeg(document.querySelector('[data-seg="about"]'), function(btn){
   var idx = btn.getAttribute('data-tab');
   document.querySelectorAll('.about-panel').forEach(function(p){
@@ -2250,14 +1641,16 @@ document.querySelectorAll('.slide-about .side-nav [data-about]').forEach(functio
   });
 });
 
-/* 8. 成员档案 */
+/* ============================================================
+   6. 成员档案
+   ============================================================ */
 var membersPromise = null;
 var memberDataCache = [];
 
 function loadMembers(){
   if (membersPromise) return membersPromise;
   if (!window.SS || !window.SS.loadMembers){
-    membersPromise = Promise.reject(new Error('issues 加载器未就绪'));
+    membersPromise = Promise.reject(new Error('loader 未就绪'));
     return membersPromise;
   }
   membersPromise = window.SS.loadMembers().then(function(list){
@@ -2269,7 +1662,7 @@ function loadMembers(){
   }).catch(function(err){
     console.warn('成员档案加载失败', err);
     var grid = document.getElementById('memberGrid');
-    if (grid) grid.innerHTML = '<div class="member-empty">成员档案加载失败，请稍后重试。</div>';
+    if (grid) grid.innerHTML = '<div class="member-empty">成员档案加载失败，请检查 data/members.json。</div>';
     membersPromise = null;
     throw err;
   });
@@ -2280,7 +1673,7 @@ function renderMemberGrid(members){
   var grid = document.getElementById('memberGrid');
   if (!grid) return;
   if (!members || !members.length){
-    grid.innerHTML = '<div class="member-empty">暂无成员档案，在 GitHub Issues 中打上 <strong>DA</strong> 标签即可收录。</div>';
+    grid.innerHTML = '<div class="member-empty">暂无成员档案，请编辑 <strong>data/members.json</strong> 添加。</div>';
     return;
   }
   grid.innerHTML = members.map(function(m, i){
@@ -2311,7 +1704,7 @@ function renderMemberGrid(members){
 }
 
 /* ============================================================
-   9. 成员档案弹窗（背景在左栏 · 圆头像 · 滑动箭头）
+   7. 成员档案弹窗
    ============================================================ */
 (function(){
   'use strict';
@@ -2477,14 +1870,14 @@ function renderMemberGrid(members){
       var coverHtml = (item.cover && item.cover.trim().startsWith('http'))
         ? '<img class="work-cover" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'">'
         : '<div class="work-cover placeholder"></div>';
-      var link = item.link || ('https://stellarsage2023.github.io/st/map/?id=' + item.id);
+      var link = item.link || ('https://stellarcn2020.github.io/st/map/?id=' + item.id);
       var meta = (item.cat ? item.cat + '  ' + item.date : item.date);
       return '<div class="work-card" data-href="' + link + '">' +
         coverHtml + '<div class="work-title">' + item.title + '</div>' +
         '<div class="work-meta">' + meta + '</div></div>';
     }
     function renderNewsCard(item){
-      var link = 'https://stellarsage2023.github.io/st/post.html?id=' + item.id;
+      var link = 'https://stellarcn2020.github.io/st/post.html?id=' + item.id;
       var meta = (item.category ? item.category + '  ' + item.date : item.date);
       return '<div class="work-card" data-href="' + link + '">' +
         '<div class="work-cover placeholder"></div>' +
@@ -2492,9 +1885,7 @@ function renderMemberGrid(members){
         '<div class="work-meta">' + meta + '</div></div>';
     }
 
-    /* 左箭头 SVG */
     var arrowL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
-    /* 右箭头 SVG */
     var arrowR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
 
     rightHtml.push('<div class="work-section fade-up" style="animation-delay:' + rDelay + 's">');
@@ -2532,7 +1923,6 @@ function renderMemberGrid(members){
       '<div class="column-left">' + leftHtml.join('') + '</div>' +
       '<div class="column-right">' + rightHtml.join('') + '</div>';
 
-    /* 背景图注入到左栏 */
     var colLeft = modalInner.querySelector('.column-left');
     if (colLeft){
       var bgUrl = (member.background && member.background.trim().startsWith('http'))
@@ -2541,7 +1931,6 @@ function renderMemberGrid(members){
       colLeft.style.backgroundImage = 'url(' + bgUrl + ')';
     }
 
-    /* 作品/动态卡片点击 */
     modalInner.querySelectorAll('.work-card[data-href]').forEach(function(card){
       card.addEventListener('click', function(){
         var href = card.getAttribute('data-href');
@@ -2549,7 +1938,6 @@ function renderMemberGrid(members){
       });
     });
 
-    /* 滑动箭头绑定 */
     modalInner.querySelectorAll('.work-scroll-wrap').forEach(function(wrap){
       var scrollEl = wrap.querySelector('.work-scroll');
       var prevBtn = wrap.querySelector('.work-scroll-arrow.prev');
@@ -2575,12 +1963,10 @@ function renderMemberGrid(members){
       });
       scrollEl.addEventListener('scroll', updateArrows, { passive: true });
 
-      /* 尺寸变化时也刷新 */
       if (window.ResizeObserver){
         try { new ResizeObserver(updateArrows).observe(scrollEl); } catch(e){}
       }
 
-      /* 初次 + 稍后延时再刷新（DOM 渲染后尺寸可能尚未稳定） */
       updateArrows();
       setTimeout(updateArrows, 60);
       setTimeout(updateArrows, 300);
@@ -2635,7 +2021,9 @@ function renderMemberGrid(members){
   });
 })();
 
-/* 10. Toast */
+/* ============================================================
+   8. Toast
+   ============================================================ */
 const toastEl = document.getElementById('toast');
 const toastText = document.getElementById('toastText');
 let toastTimer = null;
@@ -2656,7 +2044,9 @@ document.addEventListener('click', function (e){
   showToast();
 }, true);
 
-/* 11. 按钮滑动 / 导航下划线 / 汉堡 */
+/* ============================================================
+   9. 按钮滑动 / 导航下划线 / 汉堡
+   ============================================================ */
 function setupSlideButton(btn){
   let t = null;
   function on(){ if(t){clearTimeout(t);t=null;} btn.classList.remove('slide-out'); void btn.offsetWidth; btn.classList.add('slide-in'); }
@@ -2704,7 +2094,9 @@ document.querySelectorAll('.news-footer-nav a[data-index]').forEach(a => {
   });
 });
 
-/* 12. 学社动态 */
+/* ============================================================
+   10. 学社动态
+   ============================================================ */
 var newsItems = [];
 var newsIndex = 0;
 var newsAutoplayTimer = null;
@@ -2743,7 +2135,7 @@ function renderNews(index){
   }
 
   if (newsFeatureLink){
-    newsFeatureLink.href = 'https://stellarsage2023.github.io/st/post.html?id=' + n.id;
+    newsFeatureLink.href = 'https://stellarcn2020.github.io/st/post.html?id=' + n.id;
     newsFeatureLink.target = '_blank';
   }
   newsFeatureEl.setAttribute('data-id', n.id);
@@ -2762,7 +2154,7 @@ function renderNewsList(list){
     return '<div class="news-item" data-id="' + n.id + '">' +
       '<div class="meta"><span class="idx">' + idx + '</span><span>' + d + '</span></div>' +
       '<h4>' + n.title + '</h4>' +
-      '<a class="news-readmore" href="https://stellarsage2023.github.io/st/post.html?id=' + n.id + '" target="_blank">阅读全文' +
+      '<a class="news-readmore" href="https://stellarcn2020.github.io/st/post.html?id=' + n.id + '" target="_blank">阅读全文' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
       '</a></div>';
   }).join('');
@@ -2771,7 +2163,7 @@ function renderNewsList(list){
     item.addEventListener('click', function(e){
       if (e.target.closest('.news-readmore')) return;
       var id = parseInt(item.getAttribute('data-id'), 10);
-      if (id) window.open('https://stellarsage2023.github.io/st/post.html?id=' + id, '_blank');
+      if (id) window.open('https://stellarcn2020.github.io/st/post.html?id=' + id, '_blank');
     });
   });
 }
@@ -2798,14 +2190,9 @@ function initNews(){
       newsAutoplayTimer = setInterval(autoPlayNews, 5000);
     } else {
       newsFeatureTitle.textContent = '暂无动态';
-      newsFeatureDesc.textContent = '在 GitHub Issues 中打上 news 标签即可收录。';
+      newsFeatureDesc.textContent = '请编辑 data/news.json 添加内容。';
       newsListEl.innerHTML = '<div class="news-item"><h4 style="opacity:.5;font-weight:400;">暂无更多动态</h4></div>';
     }
-  }).catch(function(err){
-    console.warn('动态加载失败', err);
-    newsFeatureTitle.textContent = '动态加载失败';
-    newsFeatureDesc.textContent = '请稍后重试，或检查 GitHub API 是否可达。';
-    newsListEl.innerHTML = '<div class="news-item"><h4 style="opacity:.5;font-weight:400;">加载失败</h4></div>';
   });
 }
 
@@ -2813,7 +2200,7 @@ if (newsFeatureEl){
   newsFeatureEl.addEventListener('click', function(e){
     if (e.target.closest('.news-readmore')) return;
     var id = newsFeatureEl.getAttribute('data-id');
-    if (id) window.open('https://stellarsage2023.github.io/st/post.html?id=' + id, '_blank');
+    if (id) window.open('https://stellarcn2020.github.io/st/post.html?id=' + id, '_blank');
   });
 }
 </script>
