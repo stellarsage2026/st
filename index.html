@@ -343,9 +343,6 @@ body.is-home .nav-burger span{background:#fff;}
 .social-link:hover{color:#fff;background:var(--blue);border-color:var(--blue);transform:translateY(-2px);}
 .social-link svg{width:14px;height:14px;flex:none;}
 .news-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,40px);flex-wrap:wrap;min-width:0;}
-.news-footer-nav{display:flex;gap:clamp(16px,2vw,28px);flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;}
-.news-footer-nav a{transition:color .3s var(--ease),transform .3s var(--ease);}
-.news-footer-nav a:hover{color:var(--blue);transform:translateY(-2px);}
 .news-footer-copy{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;text-align:right;white-space:nowrap;}
 
 /* ============ 页码 / Toast ============ */
@@ -468,12 +465,11 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .join-mtab::after{display:none;}
   .join-top{display:block;min-width:0;}
   .join-left,.join-right{display:block;min-width:0;}
-  .join-left > [data-jtab],.join-right > [data-jtab]{display:none !important;opacity:1 !important;transform:none !important;filter:none !important;animation:none !important;transition:none !important;}
-  .join-left > .join-card[data-jtab].jtab-on{display:flex !important;animation:jtabIn .5s var(--ease-silk) both !important;}
-  .join-right > .join-cta[data-jtab].jtab-on{display:flex !important;animation:jtabIn .5s var(--ease-silk) both !important;}
-  .join-right > .join-areas[data-jtab].jtab-on{display:grid !important;animation:jtabIn .5s var(--ease-silk) both !important;}
+  .join-left > [data-jtab],.join-right > [data-jtab]{display:none !important;}
+  .join-left > .join-card[data-jtab].jtab-on{display:flex !important;}
+  .join-right > .join-cta[data-jtab].jtab-on{display:flex !important;}
+  .join-right > .join-areas[data-jtab].jtab-on{display:grid !important;}
   .join-right > [data-jtab] + [data-jtab].jtab-on{margin-top:12px;}
-  @keyframes jtabIn{0%{opacity:0;transform:translateY(16px) scale(.97);}100%{opacity:1;transform:translateY(0) scale(1);}}
   .join-card{padding:18px;gap:10px;height:auto;}
   .join-card-icon{width:44px;}
   .join-card h3{font-size:15.5px;}
@@ -518,7 +514,6 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .news-footer-social{gap:8px;justify-content:center;}
   .social-link{padding:8px 14px;font-size:10px;letter-spacing:.1em;gap:6px;}
   .social-link svg{width:12px;height:12px;}
-  .news-footer-nav{gap:12px;font-size:9.5px;justify-content:center;}
   .news-footer-copy{text-align:center;font-size:9px;letter-spacing:.16em;white-space:normal;}
   .page-indicator{right:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));gap:6px;font-size:9.5px;}
   .page-indicator .current{font-size:11.5px;}
@@ -612,7 +607,6 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .news-item h4{font-size:12px;}
   .news-item .news-readmore{font-size:9px;}
   .social-link{padding:7px 12px;font-size:9.5px;}
-  .news-footer-nav{font-size:9px;gap:10px;}
   .news-footer-copy{font-size:8.5px;}
   .page-indicator{right:10px;bottom:calc(10px + env(safe-area-inset-bottom, 0px));font-size:9px;}
   .page-indicator .current{font-size:11px;}
@@ -727,7 +721,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .modal-close{top:12px;right:12px;width:36px;height:36px;box-shadow:0 2px 10px rgba(10,10,10,.2);background:rgba(255,255,255,.95);}
   .modal-close:hover{transform:none;background:var(--blue);color:#fff;border-color:var(--blue);}
   .modal-close:active{transform:scale(.9);}
-  .modal-body{overflow-y:auto;overflow-x:hidden;}
+  .modal-body{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
   .modal-columns{display:block;height:auto;overflow:visible;}
   .column-left{padding:28px 20px 22px;overflow:visible;border-bottom:1px solid var(--border);}
   .column-right{padding:22px 18px 24px;overflow:visible;}
@@ -1035,16 +1029,14 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.97a8.18 8.18 0 0 0 4.76 1.52V7a4.83 4.83 0 0 1-1-.31z"/></svg>
                 DOUYIN
               </a>
+              <a class="social-link" href="mailto:stellarsage2023@hotmail.com" title="学社邮箱">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg>
+                EMAIL
+              </a>
             </div>
           </div>
           <div class="news-footer-bottom">
-            <nav class="news-footer-nav">
-              <a href="#" data-index="0">主站</a>
-              <a href="#" data-index="1">学社作品</a>
-              <a href="#" data-index="2">学社信息</a>
-              <a href="#" data-index="3">加入我们</a>
-            </nav>
-            <span class="news-footer-copy">© 2026 StellarSage</span>
+            <span class="news-footer-copy">© 2026 StellarSage · stellarsage2023@hotmail.com</span>
           </div>
         </footer>
       </div>
@@ -1057,7 +1049,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content" id="modalContent">
     <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
-    <div class="modal-body">
+    <div class="modal-body" id="modalBody">
       <div class="modal-columns" id="modalInner"></div>
     </div>
   </div>
@@ -2095,9 +2087,7 @@ function renderMemberGrid(members){
       colRight.style.backgroundImage = 'url(' + bgUrl2 + ')';
     }
 
-    /* 卡片点击：
-       有链接 → 新窗口；
-       没链接 → 关闭弹窗，切到学社作品对应编号 */
+    /* 卡片点击：有链接 → 新窗口；无链接 → 切到学社作品对应编号 */
     modalInner.querySelectorAll('.work-card').forEach(function(card){
       card.addEventListener('click', function(){
         var href = card.getAttribute('data-href');
@@ -2190,6 +2180,14 @@ function renderMemberGrid(members){
         document.getElementById('modalInner').innerHTML =
           '<div style="padding:80px 40px;text-align:center;color:var(--muted);grid-column:1/-1;">未找到该成员档案</div>';
       }
+      /* 重置所有可能的滚动容器：移动端 .modal-body 是主滚动容器 */
+      var modalBody = document.getElementById('modalBody');
+      if (modalBody) modalBody.scrollTop = 0;
+      var colL = document.querySelector('#modalInner .column-left');
+      if (colL) colL.scrollTop = 0;
+      var colR = document.querySelector('#modalInner .column-right');
+      if (colR) colR.scrollTop = 0;
+
       modalOverlay.classList.remove('exiting');
       modalOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
