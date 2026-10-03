@@ -135,7 +135,7 @@ body.is-home .nav-burger span{background:#fff;}
 .stage-head .head-bar{width:clamp(7px,.7vw,10px);background:var(--blue);flex:none;}
 .stage-head .head-titles h2{font-size:clamp(22px,2.5vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--text);}
 .stage-head .head-titles p{margin-top:5px;font-family:var(--mono);font-size:clamp(9px,.9vw,11px);letter-spacing:.3em;color:var(--muted);text-transform:uppercase;}
-.works-search{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;background:var(--bg);border:1px solid var(--border);transition:border-color .3s var(--ease);min-width:200px;max-width:320px;flex:0 1 auto;}
+.works-search{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;background:var(--bg);border:1px solid var(--border);transition:border-color .3s var(--ease);width:100%;}
 .works-search:focus-within{border-color:var(--blue);}
 .works-search svg{width:14px;height:14px;color:var(--muted);flex:none;}
 .works-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-family:inherit;font-size:13px;color:var(--text);padding:0;}
@@ -143,6 +143,56 @@ body.is-home .nav-burger span{background:#fff;}
 .works-search-clear{display:none;width:20px;height:20px;align-items:center;justify-content:center;color:var(--muted);font-size:12px;cursor:pointer;transition:color .2s var(--ease),background .2s var(--ease);flex:none;}
 .works-search-clear:hover{color:var(--text);background:var(--border-soft);}
 .works-search.has-value .works-search-clear{display:flex;}
+
+/* ============ 搜索历史 ============ */
+.search-wrap{position:relative;display:flex;min-width:200px;max-width:320px;flex:0 1 auto;min-width:0;}
+.search-history{
+  position:absolute;
+  top:calc(100% + 4px);
+  left:0;right:0;
+  z-index:300;
+  background:var(--bg);
+  border:1px solid var(--border);
+  box-shadow:0 14px 40px rgba(10,10,10,.16);
+  max-height:min(260px,42vh);
+  overflow-y:auto;
+  display:none;
+  -webkit-overflow-scrolling:touch;
+}
+.search-history.show{display:block;animation:searchHistoryIn .26s var(--ease-silk);}
+@keyframes searchHistoryIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.search-history-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;
+  border-bottom:1px solid var(--border-soft);
+  font-family:var(--mono);
+  font-size:10px;letter-spacing:.16em;
+  color:var(--muted);
+  text-transform:uppercase;
+  position:sticky;top:0;background:var(--bg);z-index:1;
+}
+.search-history-clear{
+  font-family:inherit;font-size:10px;letter-spacing:.12em;
+  color:var(--blue);cursor:pointer;padding:3px 7px;
+  transition:color .2s var(--ease),background .2s var(--ease);
+  background:none;border:0;
+}
+.search-history-clear:hover{color:var(--blue-deep);background:var(--blue-soft);}
+.search-history-item{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;
+  font-size:13px;
+  color:var(--text-2);
+  cursor:pointer;
+  border-bottom:1px solid var(--border-soft);
+  transition:background .25s var(--ease),color .25s var(--ease);
+  overflow-wrap:break-word;
+  word-break:break-all;
+}
+.search-history-item:last-child{border-bottom:0;}
+.search-history-item:hover{background:var(--blue-soft);color:var(--blue);}
+.search-history-item svg{width:11px;height:11px;color:var(--muted);flex:none;}
+
 .works-showcase{position:relative;display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);height:clamp(300px,50vh,460px);background:var(--bg);border:1px solid var(--border);overflow:visible;box-shadow:0 16px 44px rgba(10,10,10,.06);transition:border-color .5s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease);}
 @media (hover:hover) and (pointer:fine){.works-showcase:hover{border-color:var(--blue-line);box-shadow:0 22px 60px rgba(55,120,229,.16);transform:translateY(-4px);}}
 .works-wipe-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:20;}
@@ -245,7 +295,7 @@ body.is-home .nav-burger span{background:#fff;}
 .value-item p{font-size:12.5px;color:var(--text-2);line-height:1.6;}
 
 .member-panel{display:block;}
-.member-search{margin-bottom:12px;max-width:320px;width:100%;}
+.member-search-wrap{display:block;margin-bottom:12px;max-width:320px;width:100%;}
 .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:4px 0;}
 .member-card-item{position:relative;background:var(--bg);border:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;overflow:hidden;transition:border-color .4s var(--ease),box-shadow .4s var(--ease),transform .4s var(--ease);}
 .member-card-item::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
@@ -411,6 +461,57 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   max-height:none;
 }
 
+/* ============================================================
+   搜索彩蛋弹窗（鸣人名言 / 2602）
+   ============================================================ */
+.easter-popup{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.84);
+  z-index:9600;
+  padding:28px 44px;
+  background:rgba(15,20,32,.96);
+  border:1px solid rgba(91,158,255,.4);
+  box-shadow:0 24px 70px rgba(0,0,0,.5), 0 0 40px rgba(55,120,229,.3);
+  color:#fff;
+  font-size:clamp(18px,3.4vw,32px);
+  font-weight:800;
+  letter-spacing:.04em;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease-silk), transform .55s var(--ease-bounce);
+  max-width:88vw;
+  line-height:1.4;
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+}
+.easter-popup.show{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+.easter-popup.out{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.9);
+  transition:opacity .32s var(--ease), transform .32s var(--ease);
+}
+.easter-popup .easter-tag{
+  display:block;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.3em;
+  color:var(--blue-light);
+  margin-bottom:12px;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.easter-popup .easter-text{
+  display:block;
+  background:linear-gradient(180deg,#fff 0%,#8FBEFF 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  overflow-wrap:break-word;
+}
+
 /* ============ 大屏 / 平板 ============ */
 @media (min-width:1440px){
   .slide-works{padding-left:max(80px,calc((100vw - 1680px) / 2));padding-right:max(80px,calc((100vw - 1680px) / 2));}
@@ -440,7 +541,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .about-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,3vw,40px);}
   .join-top{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:18px;}
   .join-areas{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .works-search{min-width:160px;max-width:240px;}
+  .search-wrap{min-width:160px;max-width:240px;}
   .news-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;}
 }
 
@@ -474,7 +575,8 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .stage-head .head-bar{width:4px;height:20px;}
   .stage-head .head-titles h2{font-size:17px;}
   .stage-head .head-titles p{font-size:8.5px;letter-spacing:.22em;}
-  .works-search{width:100%;max-width:none;height:38px;padding:0 10px;}
+  .works-topbar .search-wrap{width:100%;max-width:none;min-width:0;}
+  .search-wrap .works-search{height:38px;padding:0 10px;}
   .works-search input{font-size:12.5px;}
   .works-showcase{display:flex;flex-direction:column;flex:1;min-height:0;height:auto;margin-top:0;}
   .works-media{flex:none;height:clamp(180px,52vw,240px);min-height:0;aspect-ratio:auto;}
@@ -532,7 +634,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .tl-year{font-size:10.5px;}
   .tl-title{font-size:13.5px;}
   .tl-desc{font-size:12px;line-height:1.65;}
-  .member-search{max-width:none;margin-bottom:10px;}
+  .member-search-wrap{max-width:none;margin-bottom:10px;}
   .member-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
   .member-card-item{padding:14px 10px;gap:8px;}
   .member-card-avatar{width:48px;height:48px;}
@@ -612,6 +714,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   [data-anim="left"]{transform:translateX(-60px) scale(.94);}
   [data-anim="right"]{transform:translateX(60px) scale(.94);}
   [data-anim].anim-out{transform:translateY(-46px) scale(.94);filter:blur(8px);}
+  .easter-popup{padding:22px 28px;font-size:clamp(16px,4.8vw,22px);}
 }
 @media (max-width:360px){
   :root{--nav-h:50px;}
@@ -881,10 +984,12 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
         </nav>
         <div class="works-stage">
           <div class="works-topbar">
-            <div class="works-search" id="worksSearch">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" id="worksSearchInput" placeholder="搜索作品、作者、标签…" autocomplete="off">
-              <button type="button" class="works-search-clear" id="worksSearchClear" aria-label="清空">✕</button>
+            <div class="search-wrap" id="worksSearchWrap">
+              <div class="works-search" id="worksSearch">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="worksSearchInput" placeholder="搜索作品、作者、标签…" autocomplete="off">
+                <button type="button" class="works-search-clear" id="worksSearchClear" aria-label="清空">✕</button>
+              </div>
             </div>
             <header class="stage-head" data-anim="right">
               <span class="head-bar"></span>
@@ -975,10 +1080,12 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                 </div>
                 <div class="about-panel" data-panel="2">
                   <div class="member-panel">
-                    <div class="works-search member-search" id="memberSearch">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                      <input type="text" id="memberSearchInput" placeholder="搜索成员姓名或编号…" autocomplete="off">
-                      <button type="button" class="works-search-clear" id="memberSearchClear" aria-label="清空">✕</button>
+                    <div class="search-wrap member-search-wrap" id="memberSearchWrap">
+                      <div class="works-search" id="memberSearch">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="memberSearchInput" placeholder="搜索成员姓名或编号…" autocomplete="off">
+                        <button type="button" class="works-search-clear" id="memberSearchClear" aria-label="清空">✕</button>
+                      </div>
                     </div>
                     <div class="member-grid" id="memberGrid">
                       <div class="member-empty">正在加载成员档案…</div>
@@ -1735,25 +1842,6 @@ function applyWorksSearch(q){
   }
 }
 
-if (searchInput){
-  var searchTimer = null;
-  searchInput.addEventListener('input', function(){
-    var v = searchInput.value;
-    checkMjTrigger(v);
-    if (searchTimer) clearTimeout(searchTimer);
-    searchTimer = setTimeout(function(){ applyWorksSearch(v); }, 180);
-  });
-}
-if (searchClear){
-  searchClear.addEventListener('click', function(){
-    if (searchInput){
-      searchInput.value = '';
-      searchInput.focus();
-    }
-    applyWorksSearch('');
-  });
-}
-
 /* 分段控件绑定 */
 bindSeg(document.querySelector('[data-seg="about"]'), function(btn){
   var idx = btn.getAttribute('data-tab');
@@ -1949,40 +2037,239 @@ function applyMemberSearch(q){
   }
 }
 
-function initMemberSearch(){
-  if (memberSearchInput){
-    var memberSearchTimer = null;
-    memberSearchInput.addEventListener('input', function(){
-      var v = memberSearchInput.value;
-      checkMjTrigger(v);
-      if (memberSearchTimer) clearTimeout(memberSearchTimer);
-      memberSearchTimer = setTimeout(function(){ applyMemberSearch(v); }, 180);
+/* ============================================================
+   6a. 搜索工具：html 转义 / 历史记录
+   ============================================================ */
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function createSearchHistory(storageKey, inputEl, wrapEl, onPick){
+  if (!wrapEl) return null;
+
+  var historyEl = document.createElement('div');
+  historyEl.className = 'search-history';
+  wrapEl.appendChild(historyEl);
+
+  var history = [];
+  try {
+    var raw = localStorage.getItem(storageKey);
+    if (raw) history = JSON.parse(raw);
+    if (!Array.isArray(history)) history = [];
+  } catch(e){ history = []; }
+
+  function save(){
+    try { localStorage.setItem(storageKey, JSON.stringify(history.slice(0, 10))); } catch(e){}
+  }
+
+  function render(){
+    if (!history.length){
+      historyEl.classList.remove('show');
+      historyEl.innerHTML = '';
+      return;
+    }
+    var html = '<div class="search-history-head"><span>搜索历史</span><button class="search-history-clear" type="button">清空</button></div>';
+    html += history.map(function(kw){
+      return '<div class="search-history-item" data-kw="' + escapeHtml(kw) + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+        '<span>' + escapeHtml(kw) + '</span>' +
+        '</div>';
+    }).join('');
+    historyEl.innerHTML = html;
+
+    var clearBtn = historyEl.querySelector('.search-history-clear');
+    if (clearBtn){
+      clearBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        history = [];
+        save();
+        render();
+      });
+    }
+    historyEl.querySelectorAll('.search-history-item').forEach(function(item){
+      item.addEventListener('mousedown', function(e){
+        e.preventDefault();
+        var kw = item.getAttribute('data-kw');
+        if (inputEl) inputEl.value = kw;
+        if (onPick) onPick(kw);
+        historyEl.classList.remove('show');
+        if (inputEl) inputEl.blur();
+      });
     });
   }
-  if (memberSearchClear){
-    memberSearchClear.addEventListener('click', function(){
-      if (memberSearchInput){
-        memberSearchInput.value = '';
-        memberSearchInput.focus();
+
+  function add(keyword){
+    var kw = (keyword || '').trim();
+    if (!kw) return;
+    var idx = history.indexOf(kw);
+    if (idx !== -1) history.splice(idx, 1);
+    history.unshift(kw);
+    if (history.length > 10) history = history.slice(0, 10);
+    save();
+    render();
+  }
+
+  function show(){
+    render();
+    if (history.length) historyEl.classList.add('show');
+  }
+  function hide(){ historyEl.classList.remove('show'); }
+
+  if (inputEl){
+    inputEl.addEventListener('focus', show);
+    inputEl.addEventListener('blur', function(){ setTimeout(hide, 180); });
+    inputEl.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){
+        e.preventDefault();
+        var v = inputEl.value;
+        if (v.trim()) add(v);
+        if (onPick) onPick(v);
+        hide();
       }
-      applyMemberSearch('');
     });
   }
+
+  document.addEventListener('click', function(e){
+    if (wrapEl.contains(e.target)) return;
+    hide();
+  });
+
+  return { add: add, show: show, hide: hide, clear: function(){ history = []; save(); render(); } };
 }
 
 /* ============================================================
-   6b. mj 彩蛋
+   6b. 搜索彩蛋（mj / 鸣人名言 / 2602）
    ============================================================ */
 var MJ_IMG_URL = 'https://user-assets.sxlcdn.com/images/1138507/Fo80XP3mV1qLn8AiD-rmi0sh7aan.gif?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/gif';
-var MJ_AUDIO_URL = 'https://raw.githubusercontent.com/stellarsage2026/st/main/mj.MP3';
-var mjAudio = null;
+
+/* mj 音频候选源（按优先级依次尝试） */
+var MJ_AUDIO_CANDIDATES = [
+  'https://cdn.jsdelivr.net/gh/stellarsage2026/st@main/mj.MP3',
+  'https://raw.githubusercontent.com/stellarsage2026/st/main/mj.MP3',
+  'https://stellarsage2026.github.io/st/mj.MP3'
+];
+
+var mjAudioEl = null;
+var mjAudioUnlocked = false;
 var mjPlaying = false;
 
-function checkMjTrigger(value){
-  if (!value) return;
-  if (value.trim().toLowerCase() !== 'mj') return;
-  triggerMj();
+/* 预加载：页面打开即开始下载音频（本地可缓存，命中缓存后触发即刻播放） */
+function initMjAudio(){
+  if (mjAudioEl) return mjAudioEl;
+  try {
+    mjAudioEl = new Audio();
+    mjAudioEl.preload = 'auto';
+    mjAudioEl.volume = 1;
+    mjAudioEl.src = MJ_AUDIO_CANDIDATES[0];
+    mjAudioEl.addEventListener('error', function(){
+      console.warn('[mj audio] primary load error:', mjAudioEl && mjAudioEl.error);
+    });
+    try { mjAudioEl.load(); } catch(e){}
+  } catch(e){
+    console.warn('[mj audio] init error:', e);
+    mjAudioEl = null;
+  }
+  return mjAudioEl;
 }
+initMjAudio();
+
+/* 首次用户交互时，静音播放一次解锁 autoplay 策略 */
+(function unlockMjAudio(){
+  function unlock(){
+    if (mjAudioUnlocked) return;
+    mjAudioUnlocked = true;
+    var a = initMjAudio();
+    if (!a) return;
+    try {
+      a.muted = true;
+      var p = a.play();
+      if (p && p.then){
+        p.then(function(){
+          try { a.pause(); a.currentTime = 0; a.muted = false; } catch(e){}
+        }).catch(function(){
+          try { a.muted = false; } catch(e){}
+        });
+      } else {
+        try { a.pause(); a.currentTime = 0; a.muted = false; } catch(e){}
+      }
+    } catch(e){
+      try { a.muted = false; } catch(e){}
+    }
+    document.removeEventListener('pointerdown', unlock);
+    document.removeEventListener('touchstart', unlock);
+    document.removeEventListener('keydown', unlock);
+  }
+  document.addEventListener('pointerdown', unlock);
+  document.addEventListener('touchstart', unlock, { passive: true });
+  document.addEventListener('keydown', unlock);
+})();
+
+/* 尝试用某个 URL 播放；失败则调用 onFail */
+function tryPlayMjUrl(url, onFail){
+  try {
+    var a = new Audio();
+    a.preload = 'auto';
+    a.volume = 1;
+    a.src = url;
+    var p = a.play();
+    if (p && p.catch){
+      p.catch(function(err){
+        console.warn('[mj audio] play failed:', url, err);
+        if (onFail) onFail();
+      });
+    }
+  } catch(e){
+    console.warn('[mj audio] exception:', url, e);
+    if (onFail) onFail();
+  }
+}
+
+/* 播放 mj 音频，主实例失败则逐候选兜底 */
+function playMjAudio(){
+  var a = initMjAudio();
+  if (a){
+    try { a.pause(); } catch(e){}
+    try { a.currentTime = 0; } catch(e){}
+    try { a.muted = false; } catch(e){}
+    try { a.volume = 1; } catch(e){}
+    var p = a.play();
+    if (p && p.catch){
+      p.catch(function(err){
+        console.warn('[mj audio] primary play failed:', err);
+        var i = 0;
+        function next(){
+          if (i >= MJ_AUDIO_CANDIDATES.length) return;
+          var url = MJ_AUDIO_CANDIDATES[i++];
+          tryPlayMjUrl(url, next);
+        }
+        next();
+      });
+    }
+    return;
+  }
+  var i = 0;
+  function next(){
+    if (i >= MJ_AUDIO_CANDIDATES.length) return;
+    var url = MJ_AUDIO_CANDIDATES[i++];
+    tryPlayMjUrl(url, next);
+  }
+  next();
+}
+
+var NARUTO_QUOTES = [
+  '我是一个孤僻的人。',
+  '我们之间只能是同学关系。',
+  '老师今天作业是什么。',
+  '我会跳拉丁舞。',
+  '哟西！',
+  '扣你吉娃！',
+  '我再也不会笑了。',
+  '给你们打个预防针（一个针刺过）',
+  '我测你啊了个伊。',
+  '清清爽爽舒舒服服'
+];
 
 function triggerMj(){
   if (mjPlaying) return;
@@ -2002,15 +2289,7 @@ function triggerMj(){
     });
   });
 
-  try {
-    if (!mjAudio){
-      mjAudio = new Audio(MJ_AUDIO_URL);
-      mjAudio.preload = 'auto';
-    }
-    mjAudio.currentTime = 0;
-    var p = mjAudio.play();
-    if (p && p.catch) p.catch(function(){});
-  } catch(e){}
+  playMjAudio();
 
   setTimeout(function(){
     layer.classList.remove('in');
@@ -2021,6 +2300,112 @@ function triggerMj(){
     }, 900);
   }, 2000);
 }
+
+/* 文本类彩蛋弹窗 */
+function showEasterPopup(tag, text, duration){
+  duration = duration || 2800;
+  var pop = document.createElement('div');
+  pop.className = 'easter-popup';
+  pop.innerHTML = '<span class="easter-tag">' + escapeHtml(tag) + '</span>' +
+                  '<span class="easter-text">' + escapeHtml(text) + '</span>';
+  document.body.appendChild(pop);
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ pop.classList.add('show'); });
+  });
+  setTimeout(function(){
+    pop.classList.remove('show');
+    pop.classList.add('out');
+    setTimeout(function(){
+      if (pop.parentNode) pop.parentNode.removeChild(pop);
+    }, 380);
+  }, duration);
+}
+
+/* 统一入口：检查所有搜索彩蛋 */
+function checkSearchEasters(value){
+  if (!value) return false;
+  var v = value.trim();
+  if (!v) return false;
+
+  if (v.toLowerCase() === 'mj'){
+    triggerMj();
+    return true;
+  }
+
+  if (v === '鸣人名言'){
+    var q = NARUTO_QUOTES[Math.floor(Math.random() * NARUTO_QUOTES.length)];
+    showEasterPopup('NARUTO QUOTE', q, 3000);
+    return true;
+  }
+
+  if (v === '2602'){
+    showEasterPopup('CLASS 2602', '建宸2602班牛逼克拉斯', 3000);
+    return true;
+  }
+
+  return false;
+}
+
+/* ============================================================
+   6c. 搜索事件绑定
+   ============================================================ */
+/* 作品搜索 */
+var worksHistory = null;
+if (searchInput){
+  var searchTimer = null;
+  searchInput.addEventListener('input', function(){
+    var v = searchInput.value;
+    checkSearchEasters(v);
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(function(){
+      applyWorksSearch(v);
+    }, 180);
+  });
+}
+if (searchClear){
+  searchClear.addEventListener('click', function(){
+    if (searchInput){
+      searchInput.value = '';
+      searchInput.focus();
+    }
+    applyWorksSearch('');
+  });
+}
+worksHistory = createSearchHistory(
+  'ss_works_search_history',
+  searchInput,
+  document.getElementById('worksSearchWrap'),
+  function(kw){ applyWorksSearch(kw); }
+);
+
+/* 成员搜索 */
+var memberHistory = null;
+if (memberSearchInput){
+  var memberSearchTimer = null;
+  memberSearchInput.addEventListener('input', function(){
+    var v = memberSearchInput.value;
+    checkSearchEasters(v);
+    if (memberSearchTimer) clearTimeout(memberSearchTimer);
+    memberSearchTimer = setTimeout(function(){
+      applyMemberSearch(v);
+    }, 180);
+  });
+}
+if (memberSearchClear){
+  memberSearchClear.addEventListener('click', function(){
+    if (memberSearchInput){
+      memberSearchInput.value = '';
+      memberSearchInput.focus();
+    }
+    applyMemberSearch('');
+  });
+}
+memberHistory = createSearchHistory(
+  'ss_member_search_history',
+  memberSearchInput,
+  document.getElementById('memberSearchWrap'),
+  function(kw){ applyMemberSearch(kw); }
+);
 
 /* ============================================================
    7. 成员档案弹窗
@@ -2670,7 +3055,6 @@ function initBirthdayScreen(){
 
     try { window.SSBirthday.ensureAudio(); } catch(e){}
 
-    /* 首次交互时恢复音频上下文 */
     function resumeAudio(){
       try { window.SSBirthday.ensureAudio(); } catch(e){}
       document.removeEventListener('pointerdown', resumeAudio);
@@ -2693,9 +3077,14 @@ function initBirthdayScreen(){
         if (mainSwiper && mainSwiper.enable) mainSwiper.enable();
       }
     });
-  }).catch(function(){
-    /* 静默失败，不影响主站 */
-  });
+  }).catch(function(){});
+}
+
+/* ============================================================
+   12. 成员搜索初始化
+   ============================================================ */
+function initMemberSearch(){
+  /* 事件已在 6c 中绑定，此处仅确保占位不报错 */
 }
 </script>
 </body>
