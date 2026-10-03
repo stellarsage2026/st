@@ -2,14 +2,15 @@
   {
     "name": "星小蓝",
     "role": "站长",
-    "type": "设计类,图片类,网页类",
+    "type": "学社号,设计类,图片类,网页类",
     "id": "XC-260912-1001",
     "avatar": "3849876019",
     "contact": "",
     "bio": "以星为引，以创为宸。愿每一次点击都有回响，每一次动手都有回音。",
     "honors": "[1]优质内容作者",
     "societyHonors": "[4]星宸学社",
-    "background": ""
+    "background": "",
+    "birthday": ""
   },
   {
     "name": "九宵云",
@@ -21,7 +22,8 @@
     "bio": "",
     "honors": "",
     "societyHonors": "",
-    "background": ""
+    "background": "",
+    "birthday": ""
   },
   {
     "name": "陈梓骁",
@@ -33,19 +35,21 @@
     "bio": "我是人",
     "honors": "",
     "societyHonors": "",
-    "background": ""
+    "background": "",
+    "birthday": "2011-04-26"
   },
   {
     "name": "建宸高级中学",
     "role": "校园号",
-    "type": "",
+    "type": "校园号",
     "id": "XC-260912-1002",
     "avatar": "https://user-assets.sxlcdn.com/images/1138507/FhCXs-LZKrWamSitya0Xk0lUtnCg.png?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/png",
     "contact": "",
     "bio": "",
     "honors": "",
     "societyHonors": "",
-    "background": ""
+    "background": "",
+    "birthday": ""
   },
   {
     "name": "王紫馨",
@@ -57,6 +61,46 @@
     "bio": "願得一人心，白首不分離",
     "honors": "",
     "societyHonors": "",
-    "background": "https://user-assets.sxlcdn.com/images/1138507/FkYbqCp78a_hEQG0uuMiP-tNyrFl.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg"
+    "background": "https://user-assets.sxlcdn.com/images/1138507/FkYbqCp78a_hEQG0uuMiP-tNyrFl.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg",
+    "birthday": "2011-10-03"
+  },
+  {
+    "name": "陈泽恩",
+    "role": "见习成员",
+    "type": "见习",
+    "id": "XC-261004-1001",
+    "avatar": "https://user-assets.sxlcdn.com/images/1138507/FgL_-7UjYar4SUXXktlNvBa3t9_9.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg",
+    "contact": "[微信] CMLenin1870422",
+    "bio": "",
+    "honors": "",
+    "societyHonors": "",
+    "background": "",
+    "birthday": "[农历]2011-08-16"
+  },
+  {
+    "name": "张可欣",
+    "role": "学社组长",
+    "type": "正式成员",
+    "id": "XC-260913-1003",
+    "avatar": "https://user-assets.sxlcdn.com/images/1138507/Fq6F-Tsh5AEf2SOklqJVhwWyvt9k.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg",
+    "contact": "[微信] gzkxzmy",
+    "bio": "阿乐牛逼不解释",
+    "honors": "学习进步奖",
+    "societyHonors": "",
+    "background": "https://user-assets.sxlcdn.com/images/1138507/FoTU1pVlfw7n45alloHC1TLrP-tH.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/interlace/1/format/jpeg",
+    "birthday": "2011-10-21"
+  },
+  {
+    "name": "张学富",
+    "role": "见习成员",
+    "type": "见习",
+    "id": "XC-261004-1002",
+    "avatar": "https://user-assets.sxlcdn.com/images/1138507/FoNiMV1WKhJNvip74sYkfELdfNUd.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg",
+    "contact": "",
+    "bio": "",
+    "honors": "咸鱼",
+    "societyHonors": "",
+    "background": "https://user-assets.sxlcdn.com/images/1138507/FqHm0JBkCYhdwtkN1mSR8O6295Eq.jpg?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/interlace/1/format/jpeg",
+    "birthday": "2011-03-27"
   }
 ]
