@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>文章详情 · 星宸学社 STELLARSAGE</title>
+<meta name="description" content="星宸学社文章详情页">
+<link rel="shortcut icon" href="https://user-assets.sxlcdn.com/images/1138507/Fl8euAZgWWS1PH92jqEcts2zgcns.png?imageMogr2/strip/auto-orient/thumbnail/64x64%3E/quality/90!/format/png" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+/* ============================================================
+   全局
+   ============================================================ */
+:root{
+  --bg:#FFFFFF;
+  --bg-soft:#F4F6FA;
+  --bg-page:#F6F7F8;
+  --text:#0A0A0A;
+  --text-2:#4A5568;
+  --muted:#9AA4B2;
+  --blue:#3778e5;
+  --blue-light:#5B9EFF;
+  --blue-deep:#2a5fc4;
+  --blue-soft:rgba(55,120,229,.08);
+  --blue-line:rgba(55,120,229,.25);
+  --border:rgba(0,0,0,.08);
+  --border-soft:rgba(0,0,0,.04);
+  --dark:#0F1420;
+  --nav-h:76px;
+  --toc-width:240px;
+  --radius:6px;
+  --ease:cubic-bezier(.22,.8,.22,1);
+  --ease-silk:cubic-bezier(.16,1,.3,1);
+  --ease-bounce:cubic-bezier(.34,1.56,.64,1);
+  --sans:"HarmonyOS Sans SC","PingFang SC","Source Han Sans SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono","SF Mono",ui-monospace,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;scroll-behavior:smooth;}
+body{min-height:100%;background:var(--bg-page);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;overflow-x:hidden;padding-top:var(--nav-h);}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer;}
+ul{list-style:none;}
+::selection{background:var(--blue);color:#fff;}
+::-webkit-scrollbar{width:0;height:0;}
+
+/* ============================================================
+   星空 / 网格背景
+   ============================================================ */
+#starfield{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+.grid-bg{position:fixed;inset:0;z-index:-3;background:var(--bg-page);}
+.grid-overlay{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(55,120,229,.035) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(55,120,229,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 72% at 50% 45%,#000 25%,transparent 100%);
+  mask-image:radial-gradient(ellipse 90% 72% at 50% 45%,#000 25%,transparent 100%);
+}
+.tech-line{position:fixed;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);z-index:99;pointer-events:none;}
+
+/* ============================================================
+   导航栏（同步星宸学社）
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:calc(var(--nav-h) + env(safe-area-inset-top, 0px));padding:env(safe-area-inset-top, 0px) 48px 0;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-soft);transition:background .5s var(--ease),border-color .5s var(--ease);}
+.nav-logo{position:relative;display:inline-flex;align-items:center;gap:22px;height:var(--nav-h);padding:0 26px 0 48px;margin-left:-48px;background:rgba(255,255,255,.96);}
+.nav-logo-line{width:2px;height:26px;background:rgba(0,0,0,.28);flex:none;}
+.nav-logo img{height:48px;width:auto;transition:height .3s var(--ease),transform .4s var(--ease);}
+.nav-logo:hover img{transform:scale(1.04);}
+.nav-links{display:flex;gap:38px;}
+.nav-links a{position:relative;padding:8px 0;color:var(--text-2);font-size:14px;letter-spacing:.1em;transition:color .3s var(--ease);-webkit-tap-highlight-color:transparent;}
+.nav-links a.active{color:var(--text);}
+.nav-links a:hover{color:var(--text);}
+.nav-links a .nav-line{position:absolute;left:0;bottom:0;width:100%;height:2px;overflow:hidden;pointer-events:none;}
+.nav-links a .nav-line::before{content:"";position:absolute;inset:0;background:var(--blue);transform:translateX(-100%);transition:transform .45s var(--ease);}
+.nav-links a.active .nav-line::before,
+.nav-links a:hover .nav-line::before{transform:translateX(0);}
+.nav-burger{display:none;width:44px;height:44px;border:1px solid var(--border);flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color .3s var(--ease);-webkit-tap-highlight-color:transparent;}
+.nav-burger span{display:block;width:18px;height:1.5px;background:var(--text);transition:transform .35s var(--ease),opacity .35s var(--ease);}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:0 40px;transform:translateY(-100%);visibility:hidden;transition:transform .6s var(--ease),visibility .6s var(--ease);}
+.mobile-menu.open{transform:translateY(0);visibility:visible;}
+.mobile-menu a{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--border-soft);font-size:clamp(24px,5vw,36px);font-weight:800;color:var(--muted);transition:color .35s var(--ease);}
+.mobile-menu a:active{color:var(--blue);}
+.mobile-menu a span{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--muted);font-weight:400;}
+
+/* ============================================================
+   文章容器
+   ============================================================ */
+.container{max-width:1340px;margin:0 auto;padding:0 clamp(20px,3vw,48px);}
+.post-detail{padding:calc(28px + env(safe-area-inset-top, 0px)) 0 40px;}
+.post-wrapper{display:flex;gap:40px;align-items:flex-start;position:relative;}
+.post-main{flex:1;min-width:0;}
+
+.post-header{margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.post-title{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;color:var(--text);line-height:1.25;margin-bottom:.6rem;letter-spacing:-.015em;overflow-wrap:break-word;}
+.post-meta{display:flex;flex-wrap:wrap;gap:.8rem 1.5rem;font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.06em;align-items:center;}
+.post-meta .author{display:flex;align-items:center;gap:6px;}
+.post-meta .author img{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);}
+
+.post-categories{display:flex;flex-wrap:wrap;gap:4px 8px;margin:8px 0 0;}
+.post-categories .cat{font-size:.7rem;font-weight:600;padding:2px 10px;color:var(--blue);background:transparent;border:1px solid var(--blue);letter-spacing:.06em;display:inline-block;white-space:nowrap;}
+
+/* ============================================================
+   正文排版
+   ============================================================ */
+.post-body{font-size:1.02rem;line-height:1.9;color:var(--text);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.post-body h1{font-size:1.9rem;font-weight:800;margin:2rem 0 .8rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);scroll-margin-top:100px;}
+.post-body h2{font-size:1.5rem;font-weight:800;margin:1.8rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border-soft);scroll-margin-top:100px;letter-spacing:-.01em;}
+.post-body h3{font-size:1.2rem;font-weight:700;margin:1.5rem 0 .4rem;scroll-margin-top:100px;}
+.post-body h4{font-size:1.05rem;font-weight:700;margin:1.2rem 0 .4rem;}
+.post-body p{margin:.9rem 0;}
+.post-body ul,.post-body ol{margin:.9rem 0 .9rem 1.8rem;}
+.post-body li{margin:.3rem 0;}
+.post-body blockquote{border-left:4px solid var(--blue);padding:.4rem 1.2rem;margin:1.2rem 0;color:var(--text-2);background:var(--blue-soft);}
+.post-body code{background:var(--bg-soft);padding:.1rem .45rem;font-family:var(--mono);font-size:.88em;border:1px solid var(--border-soft);color:var(--blue-deep);}
+.post-body pre{background:#0F1420;color:#E8EDF5;padding:1.1rem 1.2rem;overflow-x:auto;border:1px solid var(--border);margin:1.2rem 0;font-family:var(--mono);font-size:.88rem;line-height:1.7;}
+.post-body pre code{background:transparent;border:0;padding:0;color:inherit;}
+.post-body img{max-width:100%;height:auto;margin:1rem 0;box-shadow:0 8px 30px rgba(10,10,10,.08);}
+.post-body a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue-line);transition:border-color .25s var(--ease);}
+.post-body a:hover{border-bottom-color:var(--blue);}
+.post-body hr{margin:2rem 0;border:none;border-top:1px solid var(--border);}
+.post-body iframe{max-width:100%;border:1px solid var(--border);margin:.8rem 0;}
+
+.post-body table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.92rem;min-width:480px;}
+.post-body table th,
+.post-body table td{border:1px solid var(--border);padding:.55rem .85rem;text-align:left;vertical-align:top;}
+.post-body table th{background:var(--blue-soft);font-weight:700;color:var(--text);}
+.post-body table tr:nth-child(even){background:var(--bg-soft);}
+.post-body table tr:hover{background:var(--blue-soft);}
+.post-body .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2rem 0;}
+.post-body .table-wrap table{margin:0;}
+
+/* html-embed 嵌入框 */
+.html-embed-wrapper{border:1px solid var(--border);overflow:hidden;margin:1.4rem 0;box-shadow:0 8px 30px rgba(10,10,10,.06);}
+.html-embed-wrapper iframe{display:block;border:none;background:#fff;width:100%;}
+
+/* 纯嵌入模式（无 header，无 toc，iframe 全屏） */
+.embed-fullscreen .post-body{padding:0 !important;margin:0 !important;}
+.embed-fullscreen .post-body .html-embed-wrapper{margin:0 !important;border:none !important;box-shadow:none !important;}
+.embed-fullscreen .post-body iframe{display:block;width:100%;height:calc(100vh - var(--nav-h) - 40px);border:none !important;}
+.embed-fullscreen .post-header{display:none;}
+.embed-fullscreen .post-toc,
+.embed-fullscreen .toc-mobile,
+.embed-fullscreen .toc-float-btn{display:none !important;}
+
+/* 加载 / 错误 */
+.post-loading,
+.post-error{text-align:center;padding:5rem 0;color:var(--muted);font-size:14px;}
+.post-loading i,
+.post-error i{font-size:2.4rem;display:block;margin-bottom:1rem;color:var(--blue);}
+.post-error{color:#ef4444;}
+.post-error i{color:#ef4444;}
+
+/* ============================================================
+   桌面端目录
+   ============================================================ */
+.post-toc{position:sticky;top:calc(var(--nav-h) + 20px);width:var(--toc-width);flex-shrink:0;max-height:calc(100vh - var(--nav-h) - 60px);overflow-y:auto;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.post-toc::-webkit-scrollbar{width:3px;}
+.post-toc::-webkit-scrollbar-track{background:transparent;}
+.post-toc::-webkit-scrollbar-thumb{background:var(--border);}
+.post-toc .toc-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--border-soft);margin-bottom:10px;display:flex;align-items:center;gap:8px;font-family:var(--mono);}
+.post-toc .toc-title i{font-size:.8rem;}
+.post-toc .toc-list{list-style:none;padding:0;margin:0;}
+.post-toc .toc-list li{padding:0;margin:0;border-left:2px solid transparent;transition:border-color .3s,background .3s;}
+.post-toc .toc-list li.active{border-left-color:var(--blue);background:var(--blue-soft);}
+.post-toc .toc-list li a{display:block;padding:4px 12px 4px 14px;font-size:.8rem;color:var(--text-2);text-decoration:none;transition:color .3s;line-height:1.5;cursor:pointer;}
+.post-toc .toc-list li a:hover{color:var(--text);}
+.post-toc .toc-list li.active a{color:var(--blue);font-weight:600;}
+.post-toc .toc-list li.toc-h2{padding-left:6px;}
+.post-toc .toc-list li.toc-h3{padding-left:18px;}
+.post-toc .toc-list li.toc-h2 a{font-size:.78rem;}
+.post-toc .toc-list li.toc-h3 a{font-size:.72rem;opacity:.8;}
+.post-toc .toc-empty{font-size:.75rem;color:var(--muted);text-align:center;padding:12px 0;font-style:italic;}
+
+/* ============================================================
+   移动端目录
+   ============================================================ */
+.toc-mobile{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--bg);border-top:1px solid var(--border);box-shadow:0 -4px 20px rgba(10,10,10,.06);padding:8px 12px calc(8px + env(safe-area-inset-bottom, 0px));max-height:50vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s var(--ease-bounce);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+.toc-mobile.open{transform:translateY(0);}
+.toc-mobile .toc-toggle{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 8px 4px;border-bottom:1px solid var(--border-soft);cursor:pointer;font-size:.78rem;color:var(--text-2);font-weight:700;letter-spacing:.06em;font-family:var(--mono);text-transform:uppercase;}
+.toc-mobile .toc-toggle i{transition:transform .3s;}
+.toc-mobile.open .toc-toggle i{transform:rotate(180deg);}
+.toc-mobile .toc-list{list-style:none;padding:6px 0 4px;margin:0;}
+.toc-mobile .toc-list li{padding:0;margin:0;}
+.toc-mobile .toc-list li a{display:block;padding:6px 8px;font-size:.78rem;color:var(--text-2);text-decoration:none;cursor:pointer;border-left:2px solid transparent;transition:background .2s,border-color .2s;}
+.toc-mobile .toc-list li.active a{border-left-color:var(--blue);color:var(--blue);font-weight:600;background:var(--blue-soft);}
+.toc-mobile .toc-list li.toc-h2{padding-left:4px;}
+.toc-mobile .toc-list li.toc-h3{padding-left:16px;}
+.toc-mobile .toc-list li.toc-h3 a{font-size:.7rem;opacity:.8;}
+.toc-mobile .toc-close{text-align:center;padding:8px 0 2px;font-size:.65rem;color:var(--muted);cursor:pointer;font-family:var(--mono);letter-spacing:.1em;}
+.toc-float-btn{display:none;position:fixed;bottom:calc(20px + env(safe-area-inset-bottom, 0px));right:20px;z-index:89;width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;border:none;box-shadow:0 8px 24px rgba(55,120,229,.35);cursor:pointer;font-size:1.1rem;transition:transform .3s var(--ease-bounce),box-shadow .3s var(--ease);align-items:center;justify-content:center;}
+.toc-float-btn:hover{transform:scale(1.06);box-shadow:0 10px 32px rgba(55,120,229,.45);}
+.toc-float-btn:active{transform:scale(.94);}
+
+/* ============================================================
+   关联地图链接
+   ============================================================ */
+.post-map-link{margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--border);font-size:.88rem;color:var(--text-2);}
+.post-map-link a{color:var(--blue);font-weight:600;border-bottom:1px solid var(--blue-line);}
+.post-map-link a:hover{border-bottom-color:var(--blue);}
+
+/* ============================================================
+   页脚（同步星宸学社）
+   ============================================================ */
+.footer-dark{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding:clamp(28px,4vh,44px) 0 calc(24px + env(safe-area-inset-bottom, 0px));margin-top:60px;}
+.footer-inner{max-width:1240px;margin:0 auto;padding:0 clamp(24px,5vw,64px);display:flex;flex-direction:column;gap:20px;}
+.footer-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.footer-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.26em;color:#fff;}
+.footer-brand .dot{width:6px;height:6px;background:var(--blue-light);flex:none;transition:transform .4s var(--ease);}
+.footer-brand:hover .dot{transform:rotate(45deg) scale(1.2);}
+.footer-social{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.footer-social a{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.72);text-transform:uppercase;transition:color .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease),transform .3s var(--ease);}
+.footer-social a:hover{color:#fff;background:var(--blue);border-color:var(--blue);transform:translateY(-2px);}
+.footer-social a svg{width:14px;height:14px;flex:none;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.footer-copy{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.38);text-transform:uppercase;}
+.footer-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.55);text-transform:uppercase;transition:color .3s var(--ease),gap .3s var(--ease);}
+.footer-back:hover{color:var(--blue-light);gap:12px;}
+.footer-back svg{width:13px;height:13px;}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width:1024px){
+  .nav{padding:env(safe-area-inset-top, 0px) 24px 0;}
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  .nav-logo{padding:0 20px 0 24px;margin-left:-24px;}
+  .nav-logo img{height:42px;}
+  .post-toc{width:200px;}
+}
+@media (max-width:860px){
+  .post-wrapper{flex-direction:column;}
+  .post-toc{display:none !important;}
+  .toc-mobile{display:block;}
+  .toc-float-btn{display:flex;}
+  .embed-fullscreen .toc-float-btn{display:none !important;}
+}
+@media (max-width:680px){
+  :root{--nav-h:54px;}
+  .nav{padding:env(safe-area-inset-top, 0px) 14px 0;}
+  .nav-logo{padding:0 10px 0 14px;margin-left:-14px;gap:8px;}
+  .nav-logo-line{height:16px;}
+  .nav-logo img{height:30px;}
+  .nav-burger{width:36px;height:36px;}
+  .nav-burger span{width:16px;}
+  .post-detail{padding:calc(20px + env(safe-area-inset-top, 0px)) 0 30px;}
+  .container{padding:0 18px;}
+  .post-header{margin-bottom:1.4rem;padding-bottom:1.1rem;}
+  .post-title{font-size:1.55rem;}
+  .post-meta{flex-direction:column;gap:.35rem;font-size:.72rem;}
+  .post-body{font-size:.96rem;line-height:1.85;}
+  .post-body h1{font-size:1.5rem;}
+  .post-body h2{font-size:1.25rem;}
+  .post-body h3{font-size:1.05rem;}
+  .post-body table{font-size:.8rem;min-width:320px;}
+  .post-body table th,.post-body table td{padding:.35rem .55rem;}
+  .toc-float-btn{bottom:calc(16px + env(safe-area-inset-bottom, 0px));right:16px;width:44px;height:44px;font-size:1rem;}
+  .toc-mobile{padding:6px 10px calc(6px + env(safe-area-inset-bottom, 0px));max-height:45vh;}
+  .toc-mobile .toc-list li a{font-size:.72rem;padding:5px 6px;}
+  .embed-fullscreen .post-body iframe{height:calc(100vh - var(--nav-h) - 30px);}
+  .footer-top,.footer-bottom{flex-direction:column;align-items:center;text-align:center;gap:12px;}
+  .footer-social{gap:8px;justify-content:center;}
+  .footer-social a{padding:8px 14px;font-size:10px;}
+}
+@media (max-width:360px){
+  :root{--nav-h:50px;}
+  .nav-logo img{height:26px;}
+  .post-title{font-size:1.35rem;}
+  .post-body{font-size:.92rem;}
+  .post-body table{font-size:.7rem;min-width:240px;}
+  .post-body table th,.post-body table td{padding:.25rem .4rem;}
+  .toc-float-btn{bottom:calc(12px + env(safe-area-inset-bottom, 0px));right:12px;width:40px;height:40px;}
+  .embed-fullscreen .post-body iframe{height:calc(100vh - var(--nav-h) - 20px);}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="grid-bg"></div>
+<div class="grid-overlay"></div>
+<div class="tech-line"></div>
+
+<!-- ============================================================
+     导航栏（同步星宸学社）
+     ============================================================ -->
+<header class="nav">
+  <a class="nav-logo" href="./index.html">
+    <span class="nav-logo-line"></span>
+    <img src="https://user-assets.sxlcdn.com/images/1138507/Fl8euAZgWWS1PH92jqEcts2zgcns.png?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/png" alt="星宸学社">
+  </a>
+  <nav class="nav-links">
+    <a href="./index.html#0" data-index="0">主站<span class="nav-line"></span></a>
+    <a href="./index.html#1" data-index="1">学社作品<span class="nav-line"></span></a>
+    <a href="./index.html#2" data-index="2">学社信息<span class="nav-line"></span></a>
+    <a href="./index.html#3" data-index="3">加入我们<span class="nav-line"></span></a>
+    <a href="./news/index.html" data-index="4">学社动态<span class="nav-line"></span></a>
+  </nav>
+  <button class="nav-burger" id="burger" type="button" aria-label="菜单"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./index.html#0" data-index="0">主站 <span>HOME</span></a>
+  <a href="./index.html#1" data-index="1">学社作品 <span>WORKS</span></a>
+  <a href="./index.html#2" data-index="2">学社信息 <span>ABOUT</span></a>
+  <a href="./index.html#3" data-index="3">加入我们 <span>JOIN</span></a>
+  <a href="./news/index.html" data-index="4">学社动态 <span>NEWS</span></a>
+</div>
+
+<!-- ============================================================
+     文章容器
+     ============================================================ -->
+<section class="post-detail">
+  <div class="container">
+    <div id="postContainer">
+      <div class="post-loading"><i class="fas fa-spinner fa-pulse"></i>加载文章中...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     移动端目录
+     ============================================================ -->
+<div class="toc-mobile" id="tocMobile">
+  <div class="toc-toggle" id="tocMobileToggle">
+    <span><i class="fas fa-list-ul" style="margin-right:6px;"></i> 文章目录</span>
+    <i class="fas fa-chevron-up"></i>
+  </div>
+  <ul class="toc-list" id="tocMobileList"></ul>
+  <div class="toc-close" id="tocMobileClose">收起目录</div>
+</div>
+
+<button class="toc-float-btn" id="tocFloatBtn" aria-label="打开目录">
+  <i class="fas fa-list-ul"></i>
+</button>
+
+<!-- ============================================================
+     页脚（同步星宸学社）
+     ============================================================ -->
+<footer class="footer-dark">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <span class="footer-brand"><span class="dot"></span>STELLARSAGE</span>
+      <div class="footer-social">
+        <a href="https://space.bilibili.com/3493087561124092" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.659.373-.908l.106-.093c.338-.266.7-.373 1.08-.32.38.053.7.226.96.52L9.2 4.64h5.6l2.174-2.094c.26-.294.58-.467.96-.52.38-.053.742.054 1.08.32l.106.093c.25.25.374.552.374.908 0 .356-.124.659-.374.908l-1.306 1.398z"/></svg>
+          BILIBILI
+        </a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAALPgF8nI750s51crxkJ5Fpy1XaCi67Ti_FAz3LdKk0mv3cL-bUkEqbgV_4VBm2VW9" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.97a8.18 8.18 0 0 0 4.76 1.52V7a4.83 4.83 0 0 1-1-.31z"/></svg>
+          DOUYIN
+        </a>
+        <a href="mailto:stellarsage2023@hotmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg>
+          EMAIL
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 StellarSage · 星宸学社</span>
+      <a class="footer-back" href="https://stellarsage2026.github.io/st/">
+        返回主站
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   工具函数
+   ============================================================ */
+function getQueryParam(name){
+  var params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function parseMetadata(body){
+  body = typeof body === 'string' ? body : '';
+  var result = { author: null, categories: [], avatar: null, map: null, cleanBody: body };
+
+  var authorMatch = body.match(/^作者[：:]\s*(.+?)\s*[\n\r]/i) || body.match(/^author[：:]\s*(.+?)\s*[\n\r]/i);
+  if (authorMatch && authorMatch[1]){
+    result.author = authorMatch[1].trim();
+    result.cleanBody = result.cleanBody.replace(/^作者[：:]\s*.+?[\n\r]/, '');
+    result.cleanBody = result.cleanBody.replace(/^author[：:]\s*.+?[\n\r]/, '');
+  }
+
+  var catMatch = result.cleanBody.match(/^分类[：:]\s*(.+?)\s*[\n\r]/i);
+  if (catMatch && catMatch[1]){
+    result.categories = catMatch[1].split(/[,，、\s]+/).filter(function(c){ return c.trim().length > 0; });
+    result.cleanBody = result.cleanBody.replace(/^分类[：:]\s*.+?[\n\r]/, '');
+  }
+
+  var avatarMatch = result.cleanBody.match(/^头像[：:]\s*(.+?)\s*[\n\r]/i) || result.cleanBody.match(/^avatar[：:]\s*(.+?)\s*[\n\r]/i);
+  if (avatarMatch && avatarMatch[1]){
+    result.avatar = avatarMatch[1].trim();
+    result.cleanBody = result.cleanBody.replace(/^头像[：:]\s*.+?[\n\r]/, '');
+    result.cleanBody = result.cleanBody.replace(/^avatar[：:]\s*.+?[\n\r]/, '');
+  }
+
+  var mapMatch = result.cleanBody.match(/^地图[：:]\s*(.+?)\s*[\n\r]/i) || result.cleanBody.match(/^map[：:]\s*(.+?)\s*[\n\r]/i);
+  if (mapMatch && mapMatch[1]){
+    result.map = mapMatch[1].trim();
+    result.cleanBody = result.cleanBody.replace(/^地图[：:]\s*.+?[\n\r]/, '');
+    result.cleanBody = result.cleanBody.replace(/^map[：:]\s*.+?[\n\r]/, '');
+  }
+
+  return result;
+}
+
+function parseEmbedParams(str){
+  var params = { width: null, height: null };
+  if (!str) return params;
+  var widthMatch = str.match(/width\s*=\s*["']?([^"'\s]+)["']?/);
+  var heightMatch = str.match(/height\s*=\s*["']?([^"'\s]+)["']?/);
+  if (widthMatch) params.width = widthMatch[1];
+  if (heightMatch) params.height = heightMatch[1];
+  return params;
+}
+
+/* ============================================================
+   渲染正文（html-embed 支持 + 表格容器）
+   ============================================================ */
+function renderWithEmbeds(rawBody){
+  rawBody = typeof rawBody === 'string' ? rawBody : '';
+  var embedMap = {};
+
+  var processed = rawBody.replace(
+    /\[html-embed\s*([^\]]*)\]([\s\S]*?)\[\/html-embed\]/g,
+    function(match, paramsStr, content){
+      var uid = 'EMBED_' + Math.random().toString(36).substring(2, 10);
+      var params = parseEmbedParams(paramsStr);
+      var width = params.width || '100%';
+      var height = params.height || '500px';
+      content = content.replace(/```html\s*/g, '');
+      content = content.replace(/```\s*/g, '');
+      content = content.trim();
+      embedMap[uid] = { width: width, height: height, content: content };
+      return '<!--' + uid + '-->';
+    }
+  );
+
+  var htmlContent = '';
+  try {
+    htmlContent = marked.parse(processed, { gfm: true });
+  } catch(e){
+    console.warn('Markdown 解析失败', e);
+    htmlContent = '<pre>' + processed.replace(/</g, '&lt;') + '</pre>';
+  }
+
+  for (var uid in embedMap){
+    var embed = embedMap[uid];
+    var escaped = embed.content
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    var iframeHtml =
+      '<div class="html-embed-wrapper">' +
+      '<iframe srcdoc="' + escaped + '" width="' + embed.width + '" height="' + embed.height +
+      '" style="display:block;border:none;background:#fff;width:' + embed.width + ';height:' + embed.height +
+      ';" sandbox="allow-scripts allow-same-origin allow-modals"></iframe>' +
+      '</div>';
+    htmlContent = htmlContent.replace('<!--' + uid + '-->', iframeHtml);
+  }
+
+  htmlContent = htmlContent.replace(/<table([\s\S]*?)<\/table>/g, function(match){
+    return '<div class="table-wrap"><table' + match.substring(6) + '</table></div>';
+  });
+
+  return htmlContent;
+}
+
+/* ============================================================
+   目录生成
+   ============================================================ */
+function generateTOC(){
+  var postBody = document.querySelector('.post-body');
+  if (!postBody) return;
+
+  var headings = postBody.querySelectorAll('h1, h2, h3');
+  if (headings.length === 0){
+    var tl = document.querySelector('.post-toc .toc-list');
+    if (tl) tl.innerHTML = '<li class="toc-empty">无章节</li>';
+    return;
+  }
+
+  var tocHtml = '';
+  headings.forEach(function(h, index){
+    var tag = h.tagName.toLowerCase();
+    var text = h.textContent.trim();
+    var id = 'heading-' + index;
+    h.id = id;
+    tocHtml += '<li class="toc-' + tag + '">';
+    tocHtml += '<a href="#' + id + '" data-target="' + id + '">' + text + '</a>';
+    tocHtml += '</li>';
+  });
+
+  var tocList = document.querySelector('.post-toc .toc-list');
+  if (tocList) tocList.innerHTML = tocHtml;
+  var tocMobileList = document.getElementById('tocMobileList');
+  if (tocMobileList) tocMobileList.innerHTML = tocHtml;
+
+  var allTocLinks = document.querySelectorAll('.post-toc .toc-list a, .toc-mobile .toc-list a');
+  var allHeadings = document.querySelectorAll('.post-body h1, .post-body h2, .post-body h3');
+
+  allTocLinks.forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var targetId = this.getAttribute('data-target');
+      var target = document.getElementById(targetId);
+      if (target){
+        var offset = 100;
+        var top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        closeMobileTOC();
+      }
+    });
+  });
+
+  function updateActiveTOC(){
+    var scrollY = window.scrollY;
+    var activeIndex = -1;
+    for (var i = allHeadings.length - 1; i >= 0; i--){
+      var h = allHeadings[i];
+      var top = h.getBoundingClientRect().top + window.scrollY - 110;
+      if (scrollY >= top){ activeIndex = i; break; }
+    }
+    document.querySelectorAll('.post-toc .toc-list li').forEach(function(li, idx){
+      li.classList.toggle('active', idx === activeIndex);
+    });
+    document.querySelectorAll('.toc-mobile .toc-list li').forEach(function(li, idx){
+      li.classList.toggle('active', idx === activeIndex);
+    });
+  }
+
+  setTimeout(updateActiveTOC, 200);
+  window.addEventListener('scroll', updateActiveTOC);
+  window.addEventListener('resize', updateActiveTOC);
+}
+
+/* ============================================================
+   移动端目录控制
+   ============================================================ */
+var tocMobile = document.getElementById('tocMobile');
+var tocFloatBtn = document.getElementById('tocFloatBtn');
+var tocMobileToggle = document.getElementById('tocMobileToggle');
+var tocMobileClose = document.getElementById('tocMobileClose');
+
+function openMobileTOC(){
+  tocMobile.classList.add('open');
+}
+function closeMobileTOC(){
+  tocMobile.classList.remove('open');
+}
+function toggleMobileTOC(){
+  if (tocMobile.classList.contains('open')) closeMobileTOC();
+  else openMobileTOC();
+}
+if (tocFloatBtn) tocFloatBtn.addEventListener('click', toggleMobileTOC);
+if (tocMobileToggle) tocMobileToggle.addEventListener('click', toggleMobileTOC);
+if (tocMobileClose) tocMobileClose.addEventListener('click', closeMobileTOC);
+
+document.addEventListener('click', function(e){
+  if (tocMobile.classList.contains('open')){
+    if (!tocMobile.contains(e.target) && e.target !== tocFloatBtn && !tocFloatBtn.contains(e.target)){
+      closeMobileTOC();
+    }
+  }
+});
+
+/* ============================================================
+   加载文章
+   ============================================================ */
+var articleId = getQueryParam('uid') || getQueryParam('id');
+var container = document.getElementById('postContainer');
+
+if (!articleId){
+  container.innerHTML = '<div class="post-error"><i class="fas fa-exclamation-circle"></i>文章编号缺失</div>';
+} else {
+  var REPO_OWNER = 'stellarsage2026';
+  var REPO_NAME = 'st';
+  var apiUrl = 'https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/issues/' + articleId;
+
+  fetch(apiUrl, { cache: 'no-store' })
+    .then(function(res){
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(issue){
+      var titleMatch = issue.title.match(/^(\d{4}-\d{2}-\d{2})[- ]?(.*)/);
+      var dateStr = titleMatch ? titleMatch[1] : (issue.created_at || '').slice(0, 10);
+      var displayTitle = titleMatch ? (titleMatch[2] || issue.title) : issue.title;
+
+      var body = issue.body || '';
+      var meta = parseMetadata(body);
+      var cleanBody = meta.cleanBody || '';
+      var customAuthor = meta.author;
+      var categories = meta.categories;
+      var customAvatar = meta.avatar;
+      var mapLink = meta.map;
+
+      var authorName = customAuthor || ((issue.user && issue.user.login) || '星宸学社');
+      var authorAvatar = customAvatar || ((issue.user && issue.user.avatar_url) || '');
+
+      var isOnlyEmbed = false;
+      var trimmed = cleanBody.trim();
+      if (trimmed.match(/^\[html-embed\s*[^\]]*\][\s\S]*\[\/html-embed\]\s*$/)){
+        isOnlyEmbed = true;
+      }
+
+      var htmlContent = renderWithEmbeds(cleanBody);
+
+      var html = '';
+      html += '<div class="post-wrapper' + (isOnlyEmbed ? ' embed-fullscreen' : '') + '">';
+      html += '<div class="post-main">';
+      html += '<div class="post-header">';
+      html += '<h1 class="post-title">' + displayTitle + '</h1>';
+      html += '<div class="post-meta">';
+      html += '<span>' + dateStr + '</span>';
+      if (authorAvatar){
+        html += '<span class="author"><img src="' + authorAvatar + '" alt="' + authorName + '" onerror="this.style.display=\'none\'"> ' + authorName + '</span>';
+      } else {
+        html += '<span class="author">' + authorName + '</span>';
+      }
+      html += '</div>';
+      if (categories.length > 0){
+        html += '<div class="post-categories">';
+        categories.forEach(function(cat){ html += '<span class="cat">' + cat.trim() + '</span>'; });
+        html += '</div>';
+      }
+      html += '</div>';
+
+      html += '<div class="post-body">' + htmlContent + '</div>';
+
+      if (mapLink){
+        var mapUrl = 'https://github.com/' + REPO_OWNER + '/' + REPO_NAME + '/issues/' + mapLink;
+        html += '<div class="post-map-link">';
+        html += '<i class="fas fa-map-marked-alt" style="margin-right:6px;"></i> 关联地图：<a href="' + mapUrl + '" target="_blank">' + mapLink + '</a>';
+        html += '</div>';
+      }
+
+      html += '</div>';
+
+      if (!isOnlyEmbed){
+        html += '<aside class="post-toc" id="postTOC">';
+        html += '<div class="toc-title"><i class="fas fa-list-ul"></i> 目录</div>';
+        html += '<ul class="toc-list"></ul>';
+        html += '</aside>';
+      }
+
+      html += '</div>';
+
+      container.innerHTML = html;
+      document.title = displayTitle + ' · 星宸学社';
+
+      if (!isOnlyEmbed){
+        setTimeout(generateTOC, 100);
+      } else {
+        closeMobileTOC();
+      }
+    })
+    .catch(function(err){
+      console.warn('文章加载失败:', err);
+      container.innerHTML =
+        '<div class="post-error"><i class="fas fa-exclamation-circle"></i>加载失败，请稍后重试<br><span style="font-size:.8rem;opacity:.6;">' + err.message + '</span></div>';
+    });
+}
+
+/* ============================================================
+   汉堡菜单
+   ============================================================ */
+var burger = document.getElementById('burger');
+var mobileMenu = document.getElementById('mobileMenu');
+if (burger && mobileMenu){
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+}
+
+/* ============================================================
+   星空粒子
+   ============================================================ */
+(function initStarfield(){
+  var canvas = document.getElementById('starfield');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var w, h, stars = [], count = 50;
+
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function Star(){
+    this.reset = function(){
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.size = Math.random() * 1.6 + .3;
+      this.speed = .03 + Math.random() * .1;
+      this.opacity = Math.random() * .25 + .06;
+      this.twinkle = Math.random() * Math.PI * 2;
+    };
+    this.update = function(){
+      this.y += this.speed;
+      this.twinkle += .02;
+      if (this.y > h){ this.y = 0; this.x = Math.random() * w; }
+    };
+    this.draw = function(){
+      var alpha = this.opacity * (.5 + .5 * Math.sin(this.twinkle));
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(55, 120, 229, ' + alpha + ')';
+      ctx.shadowColor = 'rgba(55, 120, 229, .15)';
+      ctx.shadowBlur = 2;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    };
+    this.reset();
+  }
+  for (var i = 0; i < count; i++) stars.push(new Star());
+
+  function animate(){
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < stars.length; i++){
+      stars[i].update();
+      stars[i].draw();
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+console.log('>> 星宸学社 · 文章详情页');
+console.log('>> 若文章仅包含 [html-embed]，将自动全屏显示并隐藏目录');
+</script>
+</body>
+</html>
