@@ -144,50 +144,14 @@ body.is-home .nav-burger span{background:#fff;}
 .works-search.has-value .works-search-clear{display:flex;}
 
 /* ============ 搜索历史 ============ */
-.search-wrap{position:relative;display:flex;min-width:200px;max-width:320px;flex:0 1 auto;min-width:0;}
-.search-history{
-  position:absolute;
-  top:calc(100% + 4px);
-  left:0;right:0;
-  z-index:300;
-  background:var(--bg);
-  border:1px solid var(--border);
-  box-shadow:0 14px 40px rgba(10,10,10,.16);
-  max-height:min(260px,42vh);
-  overflow-y:auto;
-  display:none;
-  -webkit-overflow-scrolling:touch;
-}
+.search-wrap{position:relative;display:flex;min-width:200px;max-width:320px;flex:0 1 auto;}
+.search-history{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:300;background:var(--bg);border:1px solid var(--border);box-shadow:0 14px 40px rgba(10,10,10,.16);max-height:min(260px,42vh);overflow-y:auto;display:none;-webkit-overflow-scrolling:touch;}
 .search-history.show{display:block;animation:searchHistoryIn .26s var(--ease-silk);}
 @keyframes searchHistoryIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
-.search-history-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 12px;
-  border-bottom:1px solid var(--border-soft);
-  font-family:var(--mono);
-  font-size:10px;letter-spacing:.16em;
-  color:var(--muted);
-  text-transform:uppercase;
-  position:sticky;top:0;background:var(--bg);z-index:1;
-}
-.search-history-clear{
-  font-family:inherit;font-size:10px;letter-spacing:.12em;
-  color:var(--blue);cursor:pointer;padding:3px 7px;
-  transition:color .2s var(--ease),background .2s var(--ease);
-  background:none;border:0;
-}
+.search-history-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border-soft);font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;position:sticky;top:0;background:var(--bg);z-index:1;}
+.search-history-clear{font-family:inherit;font-size:10px;letter-spacing:.12em;color:var(--blue);cursor:pointer;padding:3px 7px;transition:color .2s var(--ease),background .2s var(--ease);background:none;border:0;}
 .search-history-clear:hover{color:var(--blue-deep);background:var(--blue-soft);}
-.search-history-item{
-  display:flex;align-items:center;gap:8px;
-  padding:9px 12px;
-  font-size:13px;
-  color:var(--text-2);
-  cursor:pointer;
-  border-bottom:1px solid var(--border-soft);
-  transition:background .25s var(--ease),color .25s var(--ease);
-  overflow-wrap:break-word;
-  word-break:break-all;
-}
+.search-history-item{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:13px;color:var(--text-2);cursor:pointer;border-bottom:1px solid var(--border-soft);transition:background .25s var(--ease),color .25s var(--ease);overflow-wrap:break-word;word-break:break-all;}
 .search-history-item:last-child{border-bottom:0;}
 .search-history-item:hover{background:var(--blue-soft);color:var(--blue);}
 .search-history-item svg{width:11px;height:11px;color:var(--muted);flex:none;}
@@ -353,15 +317,8 @@ body.is-home .nav-burger span{background:#fff;}
    ============================================================ */
 .slide-news{background:var(--dark);display:flex;flex-direction:column;position:relative;overflow:hidden;}
 .news-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.news-bg .bg-card{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center 32%;
-  opacity:0;
-  transition:opacity 1.4s cubic-bezier(.4,0,.2,1);
-  will-change:opacity;
-}
+.news-bg .bg-card{position:absolute;inset:0;background-size:cover;background-position:center 32%;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1);will-change:opacity;}
 .news-bg .bg-card.active{opacity:.45;}
-.news-bg .bg-card.prev{opacity:.45;transition:opacity 1.4s cubic-bezier(.4,0,.2,1);}
 .news-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(15,20,32,.55) 0%, rgba(15,20,32,.72) 32%, rgba(15,20,32,.92) 68%, rgba(15,20,32,.98) 100%);z-index:2;pointer-events:none;}
 .news-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 30% 40%, rgba(55,120,229,.18), transparent 70%),radial-gradient(ellipse 60% 50% at 80% 70%, rgba(91,158,255,.14), transparent 70%);z-index:3;pointer-events:none;}
 .news-body{position:relative;z-index:4;flex:1;min-height:0;display:flex;align-items:center;padding:calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 30px) 0 26px;}
@@ -380,7 +337,7 @@ body.is-home .nav-burger span{background:#fff;}
 .news-wipe{position:absolute;inset:0;background:var(--blue);transform:translateX(-100%);pointer-events:none;z-index:30;}
 .news-feature.anim .news-wipe{animation:cardWipe .85s cubic-bezier(.7,0,.3,1);}
 .feature-media{position:relative;flex:1 1 auto;min-height:140px;overflow:hidden;}
-.feature-img{position:absolute;inset:0;background-color:#1a1f2e;background-size:cover;background-position:center;transition:transform 1s var(--ease-silk);}
+.feature-img{position:absolute;inset:0;background-color:#1a1f2e;background-size:cover;background-position:center;background-repeat:no-repeat;transition:transform 1s var(--ease-silk);}
 .news-feature:hover .feature-img{transform:scale(1.05);}
 .feature-img.has-photo::before{display:none;}
 .feature-img::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:44px 44px;}
@@ -443,111 +400,27 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 /* ============================================================
    mj 彩蛋
    ============================================================ */
-.mj-layer{
-  position:fixed;
-  left:0;right:0;top:0;
-  z-index:9500;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  pointer-events:none;
-  transform:translateY(-100%);
-  will-change:transform;
-}
-.mj-layer.in{
-  transform:translateY(0);
-  transition:transform .85s cubic-bezier(.16,1,.3,1);
-}
-.mj-layer.out{
-  transform:translateY(-100%);
-  transition:transform .85s cubic-bezier(.7,0,.84,0);
-}
-.mj-layer img{
-  display:block;
-  width:min(56vw,360px);
-  height:auto;
-  max-height:none;
-}
+.mj-layer{position:fixed;left:0;right:0;top:0;z-index:9500;display:flex;justify-content:center;align-items:flex-start;pointer-events:none;transform:translateY(-100%);will-change:transform;}
+.mj-layer.in{transform:translateY(0);transition:transform .85s cubic-bezier(.16,1,.3,1);}
+.mj-layer.out{transform:translateY(-100%);transition:transform .85s cubic-bezier(.7,0,.84,0);}
+.mj-layer img{display:block;width:min(56vw,360px);height:auto;max-height:none;}
 
 /* ============================================================
-   搜索彩蛋弹窗（鸣人名言 / 2602）
+   搜索彩蛋弹窗
    ============================================================ */
-.easter-popup{
-  position:fixed;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(.84);
-  z-index:9600;
-  padding:28px 44px;
-  background:rgba(15,20,32,.96);
-  border:1px solid rgba(91,158,255,.4);
-  box-shadow:0 24px 70px rgba(0,0,0,.5), 0 0 40px rgba(55,120,229,.3);
-  color:#fff;
-  font-size:clamp(18px,3.4vw,32px);
-  font-weight:800;
-  letter-spacing:.04em;
-  text-align:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .35s var(--ease-silk), transform .55s var(--ease-bounce);
-  max-width:88vw;
-  line-height:1.4;
-  -webkit-backdrop-filter:blur(6px);
-  backdrop-filter:blur(6px);
-}
-.easter-popup.show{
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
-}
-.easter-popup.out{
-  opacity:0;
-  transform:translate(-50%,-50%) scale(.9);
-  transition:opacity .32s var(--ease), transform .32s var(--ease);
-}
-.easter-popup .easter-tag{
-  display:block;
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.3em;
-  color:var(--blue-light);
-  margin-bottom:12px;
-  text-transform:uppercase;
-  font-weight:700;
-}
-.easter-popup .easter-text{
-  display:block;
-  background:linear-gradient(180deg,#fff 0%,#8FBEFF 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  overflow-wrap:break-word;
-}
+.easter-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.84);z-index:9600;padding:28px 44px;background:rgba(15,20,32,.96);border:1px solid rgba(91,158,255,.4);box-shadow:0 24px 70px rgba(0,0,0,.5), 0 0 40px rgba(55,120,229,.3);color:#fff;font-size:clamp(18px,3.4vw,32px);font-weight:800;letter-spacing:.04em;text-align:center;opacity:0;pointer-events:none;transition:opacity .35s var(--ease-silk), transform .55s var(--ease-bounce);max-width:88vw;line-height:1.4;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.easter-popup.show{opacity:1;transform:translate(-50%,-50%) scale(1);}
+.easter-popup.out{opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .32s var(--ease), transform .32s var(--ease);}
+.easter-popup .easter-tag{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--blue-light);margin-bottom:12px;text-transform:uppercase;font-weight:700;}
+.easter-popup .easter-text{display:block;background:linear-gradient(180deg,#fff 0%,#8FBEFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent;overflow-wrap:break-word;}
 
 /* ============================================================
-   生日开屏（内联）
+   生日开屏
    ============================================================ */
-.bd-stage{
-  position:fixed;inset:0;z-index:9000;
-  background:#04060B;
-  display:block;
-  opacity:1;
-  transition:opacity .7s cubic-bezier(.16,1,.3,1);
-}
+.bd-stage{position:fixed;inset:0;z-index:9000;background:#04060B;display:block;opacity:1;transition:opacity .7s cubic-bezier(.16,1,.3,1);}
 .bd-stage.bd-out{opacity:0;pointer-events:none;}
 .bd-fx-host{position:absolute;inset:0;overflow:hidden;}
-.bd-enter{
-  position:absolute;
-  left:50%;bottom:calc(52px + env(safe-area-inset-bottom,0px));
-  z-index:50;
-  display:inline-flex;align-items:center;gap:10px;
-  padding:15px 34px;
-  background:var(--blue);color:#fff;
-  font-family:var(--sans);
-  font-size:14px;font-weight:700;letter-spacing:.08em;
-  border:0;cursor:pointer;
-  transform:translateX(-50%) translateY(24px);
-  opacity:0;
-  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1),background .3s ease;
-  -webkit-tap-highlight-color:transparent;
-  box-shadow:0 12px 36px rgba(55,120,229,.4);
-}
+.bd-enter{position:absolute;left:50%;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;align-items:center;gap:10px;padding:15px 34px;background:var(--blue);color:#fff;font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.08em;border:0;cursor:pointer;transform:translateX(-50%) translateY(24px);opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1),background .3s ease;-webkit-tap-highlight-color:transparent;box-shadow:0 12px 36px rgba(55,120,229,.4);}
 .bd-enter.on{opacity:1;transform:translateX(-50%) translateY(0);}
 .bd-enter:hover{background:var(--blue-deep);}
 .bd-enter svg{width:15px;height:15px;flex:none;transition:transform .35s cubic-bezier(.16,1,.3,1);}
@@ -616,7 +489,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 @keyframes gxTitle{0%{opacity:0;transform:scale(1.35);filter:blur(22px);}100%{opacity:1;transform:scale(1);filter:blur(0);}}
 .bd-fx .gx-name{margin-top:clamp(16px,2.6vh,30px);font-family:var(--mono);font-size:clamp(10px,1.4vw,13px);letter-spacing:.5em;color:rgba(232,200,122,.85);opacity:0;animation:gxFade 1s cubic-bezier(.16,1,.3,1) 1.5s both;}
 @keyframes gxFade{from{opacity:0;letter-spacing:.9em;}to{opacity:1;letter-spacing:.5em;}}
-.bd-fx .gx-badge{position:absolute;top:22px;right:22px;z-index:10;font-family:var(--mono);font-size:10px;letter-spacing:.24em;padding:5px 11px;border:1px solid rgba(232,200,122,.5);color:var(--gold);background:rgba(232,200,122,.08);}
+.bd-fx .gx-badge{position:absolute;top:22px;right:22px;z-index:10;font-family:var(--mono);font-size:10px;letter-spacing:.24em;padding:5px 11px;border:1px solid rgba(232,200,122,.5);color:#E8C87A;background:rgba(232,200,122,.08);}
 
 /* 07 时光胶片 */
 .bd-fx[data-fx="film"]{background:#0A0806;}
@@ -632,7 +505,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 @keyframes fmTitle{0%{opacity:0;transform:scale(1.2);filter:blur(18px);}100%{opacity:1;transform:none;filter:blur(0);}}
 .bd-fx .fm-name{margin-top:clamp(14px,2.2vh,24px);font-size:clamp(14px,2vw,20px);font-weight:700;letter-spacing:.34em;color:rgba(243,231,206,.9);animation:fmTitle 1.2s cubic-bezier(.16,1,.3,1) 1.7s both;}
 .bd-fx .fm-date{margin-top:clamp(10px,1.6vh,16px);font-family:var(--mono);font-size:clamp(10px,1.3vw,12px);letter-spacing:.4em;color:rgba(232,200,122,.7);animation:fmTitle 1.2s cubic-bezier(.16,1,.3,1) 2s both;}
-.bd-fx .fm-badge{position:absolute;top:44px;right:22px;z-index:10;font-family:var(--mono);font-size:10px;letter-spacing:.24em;padding:5px 11px;border:1px solid rgba(232,200,122,.5);color:var(--gold);background:rgba(232,200,122,.08);}
+.bd-fx .fm-badge{position:absolute;top:44px;right:22px;z-index:10;font-family:var(--mono);font-size:10px;letter-spacing:.24em;padding:5px 11px;border:1px solid rgba(232,200,122,.5);color:#E8C87A;background:rgba(232,200,122,.08);}
 
 /* ============ 大屏 / 平板 ============ */
 @media (min-width:1440px){
@@ -1187,8 +1060,8 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <p>往前追溯，源头是初中时一个松散的小组「<strong>超雄伪人</strong>」——几个人凑在一起做图、剪片、搭网页，没有名字、没有规矩。毕业后各奔东西，只保持着零零散散的联系。</p>
                     <p>升入高一，六位新同学因为学校的新媒体社团聚到一起，想把这种折腾接着做下去，也继承了「超雄伪人」那股想超越全世界的劲儿，把小组正式更名为「<strong>星宸学社</strong>」。</p>
                     <p>我们做的事很朴素：拍视频、做图、写网页、搭工具，偶尔也做点自己觉得好玩的小东西。这里没有 KPI，也没有甲方，只有一群愿意把想法真正做出来的人。</p>
-                    <a class="about-link" href="https://stellarcn2020.github.io/JCGZ/" target="_blank" rel="noopener" data-slide>
-                      <span>建宸高中艺术网站 二创项目</span>
+                    <a class="about-link" href="https://stellarsage2026.github.io/jc" target="_blank" rel="noopener" data-slide>
+                      <span>建宸全景网 二创项目</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </a>
                   </div>
@@ -1198,7 +1071,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                     <div class="tl-item"><div class="tl-year">初中</div><div class="tl-title">前身「超雄伪人」小组</div><div class="tl-desc">几名同学凑在一起做图、剪片、搭网页，没有名字、没有规矩，一个松散的小组。</div></div>
                     <div class="tl-item"><div class="tl-year">毕业后</div><div class="tl-title">各奔东西，只保持联系</div><div class="tl-desc">大家去了不同的地方，联系变得零零散散，但想动手做东西的劲儿一直没断。</div></div>
                     <div class="tl-item"><div class="tl-year">2026.09.09</div><div class="tl-title">星宸学社正式成立</div><div class="tl-desc">六名高一同学因学校新媒体社团聚到一起，继承了「超雄伪人」那股想超越全世界的劲儿，把小组正式更名为星宸学社。</div></div>
-                    <div class="tl-item"><div class="tl-year">2026.09.12</div><div class="tl-title">建宸高中艺术网站上线</div><div class="tl-desc">自发为建宸高级中学搭建的艺术网站，属二创项目，由学社成员与线上伙伴共同开发，过程中借助 AI 辅助，代码托管在 GitHub 上。</div></div>
+                    <div class="tl-item"><div class="tl-year">2026.09.12</div><div class="tl-title">建宸全景网上线</div><div class="tl-desc">自发为建宸高级中学搭建的全景艺术网站，属二创项目，由学社成员与线上伙伴共同开发，过程中借助 AI 辅助，代码托管在 GitHub 上。</div></div>
                     <div class="tl-item"><div class="tl-year">2026.09.19</div><div class="tl-title">学社官网上线</div><div class="tl-desc">由学社成员与线上伙伴共同设计、共同搭建，过程中借助 AI 辅助，成为学社对外展示与记录作品的地方。</div></div>
                   </div>
                 </div>
@@ -1677,7 +1550,6 @@ function renderWork(index){
   workEls.title.textContent = d.title;
   workEls.desc.textContent = d.desc || '（暂无描述）';
 
-  /* 先重置 media 区域 */
   workEls.video.style.display = 'none';
   workEls.video.pause && workEls.video.pause();
   workEls.iframe.style.display = 'none';
@@ -1715,7 +1587,6 @@ function renderWork(index){
   if (!d.badge) workEls.badge.style.display = 'none';
   else workEls.badge.style.display = '';
 
-  /* 优先级：B站嵌入 > 视频 > 全景 > 封面 > 渐变 */
   var biliSrc = d.biliEmbed || (d.bvid ? ('//player.bilibili.com/player.html?bvid=' + d.bvid + '&page=1&high_quality=1&danmaku=0&autoplay=0') : '');
   if (biliSrc){
     workEls.iframe.src = biliSrc;
@@ -1975,7 +1846,6 @@ function applyWorksSearch(q){
   }
 }
 
-/* 分段控件绑定 */
 bindSeg(document.querySelector('[data-seg="about"]'), function(btn){
   var idx = btn.getAttribute('data-tab');
   document.querySelectorAll('.about-panel').forEach(function(p){
@@ -2116,7 +1986,6 @@ function renderMemberGrid(members, keyword){
     });
   }
 
-  /* 排序：学社号 > 校园号 > 官职 > 正式 > 见习 > 其他 */
   list = list.slice().sort(function(a, b){
     function rank(m){
       var type = m.type || '';
@@ -2183,7 +2052,6 @@ function renderMemberGrid(members, keyword){
   });
 }
 
-/* 成员搜索 */
 var memberSearchInput = document.getElementById('memberSearchInput');
 var memberSearchClear = document.getElementById('memberSearchClear');
 var memberSearchWrap = document.getElementById('memberSearch');
@@ -2305,7 +2173,7 @@ function createSearchHistory(storageKey, inputEl, wrapEl, onPick){
 }
 
 /* ============================================================
-   6b. 搜索彩蛋（mj / 鸣人名言 / 2602）
+   6b. 搜索彩蛋
    ============================================================ */
 var MJ_IMG_URL = 'https://user-assets.sxlcdn.com/images/1138507/Fo80XP3mV1qLn8AiD-rmi0sh7aan.gif?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/gif';
 var MJ_AUDIO_CANDIDATES = [
@@ -2324,12 +2192,8 @@ function initMjAudio(){
     mjAudioEl.preload = 'auto';
     mjAudioEl.volume = 1;
     mjAudioEl.src = MJ_AUDIO_CANDIDATES[0];
-    mjAudioEl.addEventListener('error', function(){
-      console.warn('[mj audio] primary load error:', mjAudioEl && mjAudioEl.error);
-    });
     try { mjAudioEl.load(); } catch(e){}
   } catch(e){
-    console.warn('[mj audio] init error:', e);
     mjAudioEl = null;
   }
   return mjAudioEl;
@@ -2346,17 +2210,12 @@ initMjAudio();
       a.muted = true;
       var p = a.play();
       if (p && p.then){
-        p.then(function(){
-          try { a.pause(); a.currentTime = 0; a.muted = false; } catch(e){}
-        }).catch(function(){
-          try { a.muted = false; } catch(e){}
-        });
+        p.then(function(){ try { a.pause(); a.currentTime = 0; a.muted = false; } catch(e){} })
+         .catch(function(){ try { a.muted = false; } catch(e){} });
       } else {
         try { a.pause(); a.currentTime = 0; a.muted = false; } catch(e){}
       }
-    } catch(e){
-      try { a.muted = false; } catch(e){}
-    }
+    } catch(e){ try { a.muted = false; } catch(e){} }
     document.removeEventListener('pointerdown', unlock);
     document.removeEventListener('touchstart', unlock);
     document.removeEventListener('keydown', unlock);
@@ -2373,16 +2232,8 @@ function tryPlayMjUrl(url, onFail){
     a.volume = 1;
     a.src = url;
     var p = a.play();
-    if (p && p.catch){
-      p.catch(function(err){
-        console.warn('[mj audio] play failed:', url, err);
-        if (onFail) onFail();
-      });
-    }
-  } catch(e){
-    console.warn('[mj audio] exception:', url, e);
-    if (onFail) onFail();
-  }
+    if (p && p.catch) p.catch(function(){ if (onFail) onFail(); });
+  } catch(e){ if (onFail) onFail(); }
 }
 
 function playMjAudio(){
@@ -2394,8 +2245,7 @@ function playMjAudio(){
     try { a.volume = 1; } catch(e){}
     var p = a.play();
     if (p && p.catch){
-      p.catch(function(err){
-        console.warn('[mj audio] primary play failed:', err);
+      p.catch(function(){
         var i = 0;
         function next(){
           if (i >= MJ_AUDIO_CANDIDATES.length) return;
@@ -2432,7 +2282,6 @@ var NARUTO_QUOTES = [
 function triggerMj(){
   if (mjPlaying) return;
   mjPlaying = true;
-
   var layer = document.createElement('div');
   layer.className = 'mj-layer';
   var img = document.createElement('img');
@@ -2440,15 +2289,10 @@ function triggerMj(){
   img.alt = '';
   layer.appendChild(img);
   document.body.appendChild(layer);
-
   requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      layer.classList.add('in');
-    });
+    requestAnimationFrame(function(){ layer.classList.add('in'); });
   });
-
   playMjAudio();
-
   setTimeout(function(){
     layer.classList.remove('in');
     layer.classList.add('out');
@@ -2482,28 +2326,21 @@ function checkSearchEasters(value){
   if (!value) return false;
   var v = value.trim();
   if (!v) return false;
-
-  if (v.toLowerCase() === 'mj'){
-    triggerMj();
-    return true;
-  }
-
+  if (v.toLowerCase() === 'mj'){ triggerMj(); return true; }
   if (v === '鸣人名言'){
     var q = NARUTO_QUOTES[Math.floor(Math.random() * NARUTO_QUOTES.length)];
     showEasterPopup('NARUTO QUOTE', q, 3000);
     return true;
   }
-
   if (v === '2602'){
     showEasterPopup('CLASS 2602', '建宸2602班牛逼克拉斯', 3000);
     return true;
   }
-
   return false;
 }
 
 /* ============================================================
-   6c. 搜索事件绑定
+   6c. 搜索事件
    ============================================================ */
 var worksHistory = null;
 if (searchInput){
@@ -2746,7 +2583,7 @@ memberHistory = createSearchHistory(
       if (item.cover && item.cover.trim().startsWith('http')){
         mediaHtml = '<img class="work-cover-media" src="' + item.cover.trim() + '" alt="' + item.title + '" loading="lazy">';
       }
-      var link = 'https://stellarsage2026.github.io/st/post.html?id=' + item.id;
+      var link = 'https://stellarsage2026.github.io/st/post.html?uid=' + item.id;
       var meta = (item.category ? item.category + '  ' + item.date : item.date);
       return '<div class="work-card" data-id="' + item.id + '" data-href="' + link + '">' +
         '<div class="work-cover"' + coverStyle + '>' + mediaHtml + '</div>' +
@@ -2848,7 +2685,6 @@ memberHistory = createSearchHistory(
       if (!scrollEl || !prevBtn || !nextBtn) return;
 
       scrollEl.scrollLeft = 0;
-
       var STEP = 340;
 
       function updateArrows(){
@@ -2909,6 +2745,24 @@ memberHistory = createSearchHistory(
       modalOverlay.classList.remove('exiting');
       modalOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
+
+      function resetModalScroll(){
+        var els = [
+          document.getElementById('modalBody'),
+          document.getElementById('modalContent'),
+          document.getElementById('modalInner')
+        ];
+        var inner = document.getElementById('modalInner');
+        if (inner){
+          els.push(inner.querySelector('.column-left'));
+          els.push(inner.querySelector('.column-right'));
+        }
+        els.forEach(function(el){ if (el) el.scrollTop = 0; });
+      }
+      resetModalScroll();
+      requestAnimationFrame(resetModalScroll);
+      setTimeout(resetModalScroll, 60);
+      setTimeout(resetModalScroll, 300);
     });
   };
 
@@ -3041,13 +2895,42 @@ function fetchNewsFromIssues(){
       var labels = (issue.labels || []).map(function(l){ return l.name; });
       var nonNewsLabels = labels.filter(function(l){ return l !== GITHUB_NEWS_LABEL; });
       var body = issue.body || '';
-      var imgMatch = body.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
-      var cover = imgMatch ? imgMatch[1] : '';
+
+      var authorMatch = body.match(/^作者[：:]\s*(.+?)\s*[\n\r]/im)
+                     || body.match(/^author[：:]\s*(.+?)\s*[\n\r]/im);
+      var author = authorMatch
+        ? authorMatch[1].trim()
+        : ((issue.user && issue.user.login) || 'StellarSage');
+
+      var catMatch = body.match(/^分类[：:]\s*(.+?)\s*[\n\r]/im);
+      var category = catMatch
+        ? (catMatch[1].split(/[,，、\s]+/).filter(Boolean)[0] || '动态')
+        : (nonNewsLabels[0] || '动态');
+
+      /* 封面：优先"封面:"字段 → markdown 图片 → HTML img */
+      var cover = '';
+      var coverMatch = body.match(/^封面[：:]\s*(.+?)\s*(?:\r?\n|$)/im);
+      if (coverMatch){
+        cover = coverMatch[1].trim();
+      } else {
+        var mdImg = body.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
+        if (mdImg){
+          cover = mdImg[1];
+        } else {
+          var htmlImg = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if (htmlImg) cover = htmlImg[1];
+        }
+      }
+
       var plainDesc = body
+        .replace(/^(作者|分类|封面|头像|地图|author|category|cover|avatar|map)[：:]\s*.+$/gim, '')
+        .replace(/\[html-embed\s*[^\]]*\][\s\S]*?\[\/html-embed\]/g, '')
+        .replace(/```[\s\S]*?```/g, '')
         .replace(/!\[.*?\]\(.*?\)/g, '')
-        .replace(/#{1,6}\s/g, '')
         .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-        .replace(/\n+/g, ' ')
+        .replace(/#{1,6}\s/g, '')
+        .replace(/<[^>]+>/g, '')
+        .replace(/\s+/g, ' ')
         .trim();
       if (plainDesc.length > 120) plainDesc = plainDesc.slice(0, 120) + '…';
 
@@ -3055,9 +2938,11 @@ function fetchNewsFromIssues(){
         id: issue.number,
         title: issue.title,
         desc: plainDesc || '（暂无摘要）',
-        author: (issue.user && issue.user.login) || 'StellarSage',
-        category: nonNewsLabels.length ? nonNewsLabels[0] : '动态',
-        tag: (issue.state === 'closed' ? 'DONE' : (nonNewsLabels.length ? nonNewsLabels[0].toUpperCase() : 'NEW')),
+        author: author,
+        category: category,
+        tag: (issue.state === 'closed'
+          ? 'DONE'
+          : (nonNewsLabels.length ? nonNewsLabels[0].toUpperCase() : 'NEW')),
         date: (issue.created_at || '').slice(0, 10),
         cover: cover,
         _html_url: issue.html_url || '',
@@ -3065,6 +2950,40 @@ function fetchNewsFromIssues(){
       };
     });
   });
+}
+
+/* ============================================================
+   10a. 封面设置（修复：不再使用 background 简写）
+   ============================================================ */
+function setFeatureCover(coverUrl, index){
+  if (!newsFeatureImg) return;
+  var fallbackGrad = NEWS_GRADS[index % NEWS_GRADS.length];
+
+  /* 先重置：仅使用 backgroundImage / backgroundColor，避免与 background 简写冲突 */
+  newsFeatureImg.classList.remove('has-photo');
+  newsFeatureImg.style.background = '';
+  newsFeatureImg.style.backgroundColor = '#1a1f2e';
+  newsFeatureImg.style.backgroundImage = fallbackGrad;
+  newsFeatureImg.style.backgroundSize = 'cover';
+  newsFeatureImg.style.backgroundPosition = 'center';
+  newsFeatureImg.style.backgroundRepeat = 'no-repeat';
+
+  if (!coverUrl || typeof coverUrl !== 'string' || !coverUrl.trim()) return;
+
+  var url = coverUrl.trim();
+
+  /* 预加载，只有真正加载成功才替换背景图，避免空白 */
+  var probe = new Image();
+  probe.onload = function(){
+    if (!newsFeatureImg) return;
+    newsFeatureImg.style.backgroundImage = 'url("' + url.replace(/"/g, '\\"') + '")';
+    newsFeatureImg.classList.add('has-photo');
+  };
+  probe.onerror = function(){
+    /* 图片加载失败，保留渐变兜底 */
+    console.warn('封面加载失败：', url);
+  };
+  probe.src = url;
 }
 
 function renderNews(index){
@@ -3075,18 +2994,10 @@ function renderNews(index){
   newsFeatureTitle.textContent = n.title;
   newsFeatureDesc.textContent = n.desc || '（暂无摘要）';
 
-  if (n.cover){
-    newsFeatureImg.style.backgroundImage = 'url(' + n.cover + ')';
-    newsFeatureImg.style.background = '';
-    newsFeatureImg.classList.add('has-photo');
-  } else {
-    newsFeatureImg.style.backgroundImage = '';
-    newsFeatureImg.style.background = NEWS_GRADS[index % NEWS_GRADS.length];
-    newsFeatureImg.classList.remove('has-photo');
-  }
+  setFeatureCover(n.cover, index);
 
   if (newsFeatureLink){
-    newsFeatureLink.href = 'https://stellarsage2026.github.io/st/post.html?id=' + n.id;
+    newsFeatureLink.href = 'https://stellarsage2026.github.io/st/post.html?uid=' + n.id;
     newsFeatureLink.target = '_blank';
   }
   newsFeatureEl.setAttribute('data-id', n.id);
@@ -3105,7 +3016,7 @@ function renderNewsList(list){
     return '<div class="news-item" data-id="' + n.id + '">' +
       '<div class="meta"><span class="idx">' + idx + '</span><span>' + d + '</span></div>' +
       '<h4>' + n.title + '</h4>' +
-      '<a class="news-readmore" href="https://stellarsage2026.github.io/st/post.html?id=' + n.id + '" target="_blank">阅读全文' +
+      '<a class="news-readmore" href="https://stellarsage2026.github.io/st/post.html?uid=' + n.id + '" target="_blank">阅读全文' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
       '</a></div>';
   }).join('');
@@ -3114,7 +3025,7 @@ function renderNewsList(list){
     item.addEventListener('click', function(e){
       if (e.target.closest('.news-readmore')) return;
       var id = parseInt(item.getAttribute('data-id'), 10);
-      if (id) window.open('https://stellarsage2026.github.io/st/post.html?id=' + id, '_blank');
+      if (id) window.open('https://stellarsage2026.github.io/st/post.html?uid=' + id, '_blank');
     });
   });
 }
@@ -3171,9 +3082,7 @@ function renderNewsEmpty(){
   newsFeatureDate.textContent = '——';
   newsFeatureTitle.textContent = '动态加载中，稍后再来看看吧';
   newsFeatureDesc.textContent = '如果一直看到这句话，可能是网络波动或者数据源暂时不可用。';
-  newsFeatureImg.style.backgroundImage = '';
-  newsFeatureImg.style.background = NEWS_GRADS[0];
-  newsFeatureImg.classList.remove('has-photo');
+  setFeatureCover('', 0);
   if (newsFeatureLink){
     newsFeatureLink.href = 'https://stellarsage2026.github.io/st/news/';
     newsFeatureLink.target = '_blank';
@@ -3187,12 +3096,12 @@ if (newsFeatureEl){
   newsFeatureEl.addEventListener('click', function(e){
     if (e.target.closest('.feature-link')) return;
     var id = newsFeatureEl.getAttribute('data-id');
-    if (id) window.open('https://stellarsage2026.github.io/st/news/post.html?id=' + id, '_blank');
+    if (id) window.open('https://stellarsage2026.github.io/st/post.html?uid=' + id, '_blank');
   });
 }
 
 /* ============================================================
-   10b. 学社动态背景轮播（卡片式 crossfade）
+   10b. 学社动态背景轮播
    ============================================================ */
 var NEWS_BG_IMAGES = [
   'https://user-assets.sxlcdn.com/images/1138507/FvPU8YcuTwFaUIqOhgGyfdKx5Pm2.png?imageMogr2/strip/auto-orient/thumbnail/1200x9000%3E/quality/90!/format/png',
@@ -3214,13 +3123,11 @@ function initNewsBg(){
   var container = document.getElementById('newsBg');
   if (!container) return;
 
-  /* 预加载所有背景图，避免切换时闪白 */
   NEWS_BG_IMAGES.forEach(function(src){
     var im = new Image();
     im.src = src;
   });
 
-  /* 创建全部卡片 */
   newsBgCards = NEWS_BG_IMAGES.map(function(src, i){
     var card = document.createElement('div');
     card.className = 'bg-card' + (i === 0 ? ' active' : '');
@@ -3250,9 +3157,8 @@ function initNewsBg(){
 }
 
 /* ============================================================
-   11. 生日开屏（内联）
+   11. 生日开屏
    ============================================================ */
-/* 农历表 2000-2100 */
 var LUNAR_INFO = [
   0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
   0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
@@ -3345,7 +3251,6 @@ function checkBirthday(members){
   return hits;
 }
 
-/* 7 款生日动画 */
 var BD_FX = [
   {
     id: 'starburst',
