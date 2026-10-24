@@ -1,0 +1,6 @@
+{
+  "version": "1.0.1",
+  "htmlUrl": "https://raw.githubusercontent.com/stellarsage2026/st/main/app/index.html",
+  "changelog": "1. 修复了收藏夹不能新建并收藏的问题\n2. 所有跳转改为内嵌打开",
+  "forceUpdate": false
+}
