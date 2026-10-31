@@ -81,8 +81,8 @@ body.is-home .nav-burger span{background:#fff;}
 .slide-home{display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;position:relative;}
 .slide-home::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,18,.58) 0%,rgba(6,10,18,.68) 45%,rgba(6,10,18,.88) 100%);z-index:1;}
 .slide-home::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 75% 25%,rgba(55,120,229,.18),transparent 60%),radial-gradient(500px 400px at 15% 80%,rgba(55,120,229,.12),transparent 60%);z-index:1;}
-.home-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
-.home-video iframe{position:absolute;left:50%;top:50%;width:100%;height:100%;border:0;opacity:0;transform:translate(-50%,-50%) scale(1.7);transition:opacity 1.2s var(--ease);}
+.home-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#070A12;}
+.home-video iframe{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(82vw, calc(82vh * 1.7778));height:min(calc(82vw / 1.7778), 82vh);border:0;opacity:0;transition:opacity 1.2s var(--ease);}
 .home-video iframe.is-ready{opacity:1;}
 .home-content{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:100%;}
 .home-title{font-size:clamp(18px,2.4vw,36px);font-weight:700;letter-spacing:.05em;line-height:1.5;text-transform:uppercase;overflow-wrap:break-word;text-shadow:0 2px 26px rgba(0,0,0,.45);}
@@ -531,7 +531,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
   .nav-burger span{width:16px;}
   .home-title{font-size:clamp(16px,4.8vw,22px);letter-spacing:.05em;line-height:1.6;}
   .home-content{padding:0 22px;}
-  .home-video{display:none;}
+  .home-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#070A12;}
   .home-index-action{right:16px;bottom:calc(22px + env(safe-area-inset-bottom, 0px));}
   .home-index-btn{width:46px;height:46px;}
   .home-index-btn::before{inset:4px;}
@@ -948,6 +948,9 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
 .about-panel[data-panel="3"] .app-card{background:#fff;border-color:rgba(47,107,255,.12);
   box-shadow:0 10px 28px rgba(24,49,102,.08);transition:transform .25s ease,box-shadow .25s ease;}
 .about-panel[data-panel="3"] .app-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(24,49,102,.14);}
+/* 首页背景视频：容器裁切 B 站播放器界面，只留画面 */
+.hv-box{position:absolute;inset:0;width:100vw;height:100vh;overflow:hidden;background:#070A12;z-index:0;}
+.hv-box iframe{position:absolute;left:50%;top:50%;width:100%!important;height:100%!important;border:0;transform:translate(-50%,-50%) scale(1.18)!important;transform-origin:center center;display:block;}
 </style>
 </head>
 <body class="is-home">
@@ -981,7 +984,7 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
     <div class="swiper-slide">
       <div class="slide slide-home" style="background-image:url('https://user-assets.sxlcdn.com/images/1138507/Fhl9mvaDZsiI_ZqNnZ4nvZafIrbg.jpg?imageMogr2/strip/auto-orient/thumbnail/1920x/quality/90!/interlace/1/format/jpg')">
         <div class="home-video" aria-hidden="true">
-          <iframe id="homeVideoFrame" title="来看看我们的10月的校园生活" src="about:blank" scrolling="no" frameborder="no" allow="autoplay; fullscreen" allowfullscreen></iframe>
+          <div class="hv-box" id="homeVideoBox"><iframe id="homeVideoFrame" title="来看看我们的10月的校园生活" src="about:blank" scrolling="no" frameborder="no" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
         </div>
         <div class="home-content">
           <h1 class="home-title" data-anim="up">
@@ -1140,11 +1143,11 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                   <span class="app-meta">Windows · Android</span>
                 </div>
                 <div class="app-actions">
-                  <a class="btn-slide-x" href="https://cdn.jsdelivr.net/gh/stellarsage2026/st@main/app/dt/星学.exe" download>
+                  <a class="btn-slide-x" href="https://stellarsage2026.github.io/st/app/dt/星学.exe" download>
                     <span>下载电脑版 .exe</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
                   </a>
-                  <a class="btn-slide-x ghost" href="https://cdn.jsdelivr.net/gh/stellarsage2026/st@main/app/dt/星学.apk" download>
+                  <a class="btn-slide-x ghost" href="https://stellarsage2026.github.io/st/app/dt/星学.apk" download>
                     <span>下载安卓版 .apk</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
                   </a>
@@ -1158,11 +1161,11 @@ body.is-home .page-indicator{opacity:0;pointer-events:none;}
                   <span class="app-meta">Windows · Android</span>
                 </div>
                 <div class="app-actions">
-                  <a class="btn-slide-x" href="https://cdn.jsdelivr.net/gh/stellarsage2026/zhxy@main/app/dt/智慧学园.exe" download>
+                  <a class="btn-slide-x" href="https://stellarsage2026.github.io/st/app/dt/智慧学园.exe" download>
                     <span>下载电脑版 .exe</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
                   </a>
-                  <a class="btn-slide-x ghost" href="https://cdn.jsdelivr.net/gh/stellarsage2026/zhxy@main/app/dt/智慧学园.apk" download>
+                  <a class="btn-slide-x ghost" href="https://stellarsage2026.github.io/st/app/dt/智慧学园.apk" download>
                     <span>下载安卓版 .apk</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
                   </a>
@@ -1459,7 +1462,7 @@ var mainSwiper = new Swiper('#mainSwiper', {
   }
 });
 
-var HOME_VIDEO_SRC = 'https://player.bilibili.com/player.html?bvid=BV1Qqxk6MEp3&page=1&autoplay=1&muted=1&danmaku=0&high_quality=1&as_wide=1';
+var HOME_VIDEO_SRC = 'https://player.bilibili.com/player.html?bvid=BV1Qqxk6MEp3&page=1&autoplay=1&muted=1&danmaku=0&high_quality=1&as_wide=1&loop=1';
 var HOME_VIDEO_RESTART = 160000;
 var homeVideoFrame = document.getElementById('homeVideoFrame');
 var homeVideoTimer = null;
@@ -1473,13 +1476,16 @@ function canPlayHomeVideo(){
 
 function layoutHomeVideo(){
   if (!homeVideoFrame) return;
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var fitW = Math.min(vw, vh * 16 / 9);
-  var videoW = Math.min(900, fitW * 0.64);
-  var videoH = videoW * 9 / 16;
-  var scale = Math.max(vw / videoW, vh / videoH) * 1.04;
-  homeVideoFrame.style.transform = 'translate(-50%,-50%) scale(' + scale.toFixed(3) + ')';
+  /* 视频铺满整屏做背景，仅轻微放大裁掉 B 站播放器界面 */
+  var box = document.getElementById('homeVideoBox');
+  if (box) {
+    box.style.width = window.innerWidth + 'px';
+    box.style.height = window.innerHeight + 'px';
+    box.style.transform = 'none';
+  }
+  homeVideoFrame.style.width = '100%';
+  homeVideoFrame.style.height = '100%';
+  homeVideoFrame.style.transform = 'translate(-50%,-50%) scale(1.18)';
 }
 
 function loadHomeVideo(){
@@ -3996,5 +4002,29 @@ function initMemberSearch(){
 
 }
 </script>
-</body>
+<script>
+/* __dlFallback: 下载兜底（同源直接用 download，异步 fetch 转 blob 也会触发保存） */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[download]');
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  if (!href) return;
+  if (href.indexOf(location.origin) === 0) return;      /* 同源交给浏览器 */
+  if (!/\.(exe|apk)$/i.test(href)) return;
+  e.preventDefault();
+  var name = decodeURIComponent(href.split('/').pop());
+  fetch(href, { mode: 'cors' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.blob();
+    })
+    .then(function (b) {
+      var u = URL.createObjectURL(b);
+      var t = document.createElement('a');
+      t.href = u; t.download = name; document.body.appendChild(t); t.click();
+      setTimeout(function () { URL.revokeObjectURL(u); t.remove(); }, 4000);
+    })
+    .catch(function (err) { alert('下载失败：' + err.message + '\n请在新窗口打开：' + href); window.open(href, '_blank'); });
+});
+</script></body>
 </html>
