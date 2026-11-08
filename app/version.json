@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.4.1",
   "htmlUrl": "https://raw.githubusercontent.com/stellarsage2026/st/main/app/index.html",
   "changelog": "1. 修复了一些已知问题\n2. 优化显示",
   "forceUpdate": false
